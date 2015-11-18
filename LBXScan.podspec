@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  s.resouce = 'LBXScan/LBXScan+UIkit/CodeScan.bundle'
+
 
   s.subspec 'LBXScan' do |ss|
   ss.source_files = 'LBXScan/LBXScan/**/*.{h,m}'
@@ -24,6 +24,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'LBXScan+UIKit' do |ss|
   ss.source_files = 'LBXScan/LBXScan+UIKit/**/*.{h,m}'
+  s.resouce = 'LBXScan/LBXScan+UIkit/CodeScan.bundle'
   end
 
 

@@ -244,7 +244,7 @@
 		48AB55171BD78048000AA3C5 /* LBXScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AB531D1BD78048000AA3C5 /* LBXScanView.m */; };
 		48AB56161BD78453000AA3C5 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AB56141BD78453000AA3C5 /* FirstViewController.m */; };
 		48AB56171BD78453000AA3C5 /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48AB56151BD78453000AA3C5 /* FirstViewController.xib */; };
-		48AE45591BFC147A00E87F28 /* LBXScan.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 48AE45581BFC147A00E87F28 /* LBXScan.podspec */; };
+		48AE455B1BFC186C00E87F28 /* LBXScan.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 48AE455A1BFC186C00E87F28 /* LBXScan.podspec */; };
 		48BD039D1BE36278005779B2 /* logo.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 48BD039C1BE36278005779B2 /* logo.JPG */; };
 		48C772E31BF84B0F0078790A /* LBXScanViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C772E21BF84B0F0078790A /* LBXScanViewStyle.m */; };
 		48DAEB301BFAB19B00F91B11 /* ScanResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DAEB2E1BFAB19A00F91B11 /* ScanResultViewController.m */; };
@@ -745,7 +745,7 @@
 		48AB56141BD78453000AA3C5 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		48AB56151BD78453000AA3C5 /* FirstViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstViewController.xib; sourceTree = "<group>"; };
 		48AB56181BD78559000AA3C5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		48AE45581BFC147A00E87F28 /* LBXScan.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LBXScan.podspec; sourceTree = "<group>"; };
+		48AE455A1BFC186C00E87F28 /* LBXScan.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LBXScan.podspec; path = ../LBXScan.podspec; sourceTree = "<group>"; };
 		48BD039C1BE36278005779B2 /* logo.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.JPG; sourceTree = "<group>"; };
 		48C772E11BF84B0F0078790A /* LBXScanViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanViewStyle.h; sourceTree = "<group>"; };
 		48C772E21BF84B0F0078790A /* LBXScanViewStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanViewStyle.m; sourceTree = "<group>"; };
@@ -1549,7 +1549,7 @@
 		48AB501D1BD7752B000AA3C5 = {
 			isa = PBXGroup;
 			children = (
-				48AE45581BFC147A00E87F28 /* LBXScan.podspec */,
+				48AE455A1BFC186C00E87F28 /* LBXScan.podspec */,
 				48AB50401BD77648000AA3C5 /* LBXScan */,
 				48AB50281BD7752B000AA3C5 /* LBXScanDemo */,
 				48AB50271BD7752B000AA3C5 /* Products */,
@@ -1683,10 +1683,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				48AB55161BD78048000AA3C5 /* CodeScan.bundle in Resources */,
-				48AE45591BFC147A00E87F28 /* LBXScan.podspec in Resources */,
 				48DAEB311BFAB19B00F91B11 /* ScanResultViewController.xib in Resources */,
 				48AB50391BD7752B000AA3C5 /* LaunchScreen.storyboard in Resources */,
 				48BD039D1BE36278005779B2 /* logo.JPG in Resources */,
+				48AE455B1BFC186C00E87F28 /* LBXScan.podspec in Resources */,
 				48AB50361BD7752B000AA3C5 /* Assets.xcassets in Resources */,
 				48AB56171BD78453000AA3C5 /* FirstViewController.xib in Resources */,
 			);
