@@ -8,6 +8,7 @@ iOS扫码封装：ZXing和ios系统自带封装，扫码界面效果封装
 
 模仿QQ扫码界面
 支付宝扫码框效果
+微信扫码框效果
 其他自定义效果
 
 cocoapods 安装
@@ -16,6 +17,8 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 
 手动安装 将LBXScan文件夹copy到工程中即可
 
+
+screenshots:
 
 
 ![image](https://github.com/MxABC/LBXScan/blob/master/ScreenShots/page1.png)
