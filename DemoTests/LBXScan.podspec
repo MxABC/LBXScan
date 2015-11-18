@@ -19,11 +19,11 @@ Pod::Spec.new do |s|
   s.resouce = 'LBXScan/LBXScan+UIkit/CodeScan.bundle'
 
   s.subspec 'LBXScan' do |ss|
-  ss.source_files = 'LBXScan/**/*.{h,m}'
+  ss.source_files = 'LBXScan/LBXScan/**/*.{h,m}'
   end
 
   s.subspec 'LBXScan+UIKit' do |ss|
-  ss.source_files = 'LBXScan/LBXScan+UIKit/*.{h,m}'
+  ss.source_files = 'LBXScan/LBXScan+UIKit/**/*.{h,m}'
   end
 
 
