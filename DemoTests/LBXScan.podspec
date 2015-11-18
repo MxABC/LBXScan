@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author       = { "lbxia" => "lbxia20091227@foxmail.com" }
 
-  s.source       = { :git => "https://git.oschina.net/lbxia/CSCCommon.git",:tag => s.version }
+  s.source       = { :git => "https://github.com/MxABC/LBXScan.git",:tag => s.version }
 
   s.ios.deployment_target = '7.0'
 
