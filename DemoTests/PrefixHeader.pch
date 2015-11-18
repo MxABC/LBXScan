@@ -1,0 +1,20 @@
+//
+//  PrefixHeader.pch
+//  LBXScanDemo
+//
+
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+
+
+#ifdef DEBUG
+//#define NSLog(...) {};
+#else
+#define NSLog(...) {};
+#endif
+
+
+#endif
