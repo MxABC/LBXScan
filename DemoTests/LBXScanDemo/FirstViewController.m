@@ -32,7 +32,8 @@
     
     self.arrayItems = @[
                         @[@"模拟qq扫码界面",@"qqStyle"],
-                        @[@"支付宝扫码区域",@"ZhiFuBaoStyle"],
+                        @[@"模仿支付宝扫码区域",@"ZhiFuBaoStyle"],
+                        @[@"模仿微信扫码区域",@"weixinStyle"],
                         @[@"无边框，内嵌4个角",@"InnerStyle"],
                         @[@"4个角在矩形框线上,网格动画",@"OnStyle"],
                         @[@"自定义颜色",@"changeColor"],
@@ -181,6 +182,39 @@
     
    [self openScanVCWithStyle:style];
 }
+
+#pragma mark -无边框，内嵌4个角
+- (void)weixinStyle
+{
+    //设置扫码区域参数
+    LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];
+    style.centerUpOffset = 44;
+    style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Inner;
+    style.photoframeLineW = 2;
+    style.photoframeAngleW = 18;
+    style.photoframeAngleH = 18;
+    style.isNeedShowRetangle = YES;
+    
+    style.anmiationStyle = LBXScanViewAnimationStyle_LineMove;
+    
+    style.colorAngle = [UIColor colorWithRed:0./255 green:200./255. blue:20./255. alpha:1.0];
+  
+    
+    //qq里面的线条图片
+    UIImage *imgLine = [UIImage imageNamed:@"CodeScan.bundle/qrcode_Scan_weixin_Line"];
+    
+   // imgLine = [self createImageWithColor:[UIColor colorWithRed:120/255. green:221/255. blue:71/255. alpha:1.0]];
+    
+    style.animationImage = imgLine;
+  
+    
+    
+    
+    [self openScanVCWithStyle:style];
+}
+
+
+
 
 #pragma mark -4个角在矩形框线上,网格动画
 - (void)OnStyle

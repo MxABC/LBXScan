@@ -55,19 +55,18 @@
      {
          
      }];
-
     
     [UIView animateWithDuration:3 animations:^{
-        
         CGFloat leftx = _animationRect.origin.x + 5;
         CGFloat width = _animationRect.size.width - 10;
+        
+        
         
         weakSelf.frame = CGRectMake(leftx, _animationRect.origin.y + _animationRect.size.height - 8, width, 4);
         
     } completion:^(BOOL finished)
      {
          self.hidden = YES;
-         
          [weakSelf performSelector:@selector(stepAnimation) withObject:nil afterDelay:0.3];
      }];
 }
