@@ -246,6 +246,7 @@
 		48AE48351BFC1DD600E87F28 /* ZXMultiFormatReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AE47511BFC1DD600E87F28 /* ZXMultiFormatReader.m */; };
 		48AE48361BFC1DD600E87F28 /* ZXMultiFormatWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AE47531BFC1DD600E87F28 /* ZXMultiFormatWriter.m */; };
 		48AE48371BFC1DD600E87F28 /* ZXingWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AE47561BFC1DD600E87F28 /* ZXingWrapper.m */; };
+		48AE483C1BFC387C00E87F28 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 48AE483B1BFC387C00E87F28 /* README.md */; };
 		48BD039D1BE36278005779B2 /* logo.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 48BD039C1BE36278005779B2 /* logo.JPG */; };
 		48C772E31BF84B0F0078790A /* LBXScanViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C772E21BF84B0F0078790A /* LBXScanViewStyle.m */; };
 		48DAEB301BFAB19B00F91B11 /* ScanResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DAEB2E1BFAB19A00F91B11 /* ScanResultViewController.m */; };
@@ -748,6 +749,7 @@
 		48AE47531BFC1DD600E87F28 /* ZXMultiFormatWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXMultiFormatWriter.m; sourceTree = "<group>"; };
 		48AE47551BFC1DD600E87F28 /* ZXingWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXingWrapper.h; sourceTree = "<group>"; };
 		48AE47561BFC1DD600E87F28 /* ZXingWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXingWrapper.m; sourceTree = "<group>"; };
+		48AE483B1BFC387C00E87F28 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		48BD039C1BE36278005779B2 /* logo.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.JPG; sourceTree = "<group>"; };
 		48C772E11BF84B0F0078790A /* LBXScanViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanViewStyle.h; sourceTree = "<group>"; };
 		48C772E21BF84B0F0078790A /* LBXScanViewStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanViewStyle.m; sourceTree = "<group>"; };
@@ -796,6 +798,7 @@
 			isa = PBXGroup;
 			children = (
 				48AE455E1BFC1C5200E87F28 /* LBXScan.podspec */,
+				48AE483B1BFC387C00E87F28 /* README.md */,
 				48AB50401BD77648000AA3C5 /* LBXScan */,
 				48AB50281BD7752B000AA3C5 /* LBXScanDemo */,
 				48AB50271BD7752B000AA3C5 /* Products */,
@@ -1805,6 +1808,7 @@
 				48AE480A1BFC1DD600E87F28 /* ZXPDF417DecodedBitStreamParser.m in Sources */,
 				48AE47821BFC1DD600E87F28 /* ZXURIParsedResult.m in Sources */,
 				48AE47A41BFC1DD600E87F28 /* ZXBinarizer.m in Sources */,
+				48AE483C1BFC387C00E87F28 /* README.md in Sources */,
 				48AE477E1BFC1DD600E87F28 /* ZXSMTPResultParser.m in Sources */,
 				48AE481E1BFC1DD600E87F28 /* ZXQRCodeDecodedBitStreamParser.m in Sources */,
 				48AE476D1BFC1DD600E87F28 /* ZXCalendarParsedResult.m in Sources */,
