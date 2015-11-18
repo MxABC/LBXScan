@@ -9,20 +9,11 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/MxABC/LBXScan.git",:tag => s.version }
 
-  s.ios.deployment_target = '7.0'
+  s.ios.deployment_target = '6.0'
 
-  s.source_files = 'LBXScan/*.{m,h}'
+  s.source_files = 'LBXScan/**/*.{m,h}'
   s.public_header_files = 'LBXScan/**/*.h'
-
+  s.resouce = 'LBXScan/LBXScan+UIKit/CodeScan.bundle'
   s.requires_arc = true
-
-  s.subspec 'LBXScan' do |ss|
-  ss.source_files = 'LBXScan/LBXScan/*.{h,m}'
-  end
-
-  s.subspec 'LBXScan+UIKit' do |ss|
-  ss.source_files = 'LBXScan/LBXScan+UIKit/*.{h,m}'
-  end
-
 
 end
