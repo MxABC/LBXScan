@@ -45,7 +45,7 @@
 
 /**
  @brief  设置识别区域，不调用默认全屏识别
- @param scanRect 识别区域
+ @param scanRect 识别区域,参数为与视频显示区域的比例，暂没有测试
  */
 - (void)setScanRect:(CGRect)scanRect;
 
@@ -85,7 +85,7 @@
 
 
 /*!
- *  生成二维码（使用ZXing库生成二维码）
+ *  生成二维码（根据系统版本，选择对应生成方法）
  *
  *  @param str  二维码字符串
  *  @param size 二维码图片大小
@@ -94,6 +94,15 @@
  */
 + (UIImage*)createQRWithString:(NSString*)str size:(CGSize)size;
 
+/**
+ @brief  给二维码图像上色
+ @param image 二维码图像
+ @param red   红色
+ @param green 绿色
+ @param blue  蓝色
+ @return 上色后的图像
+ */
++ (UIImage*)imageBlackToTransparent:(UIImage*)image withRed:(CGFloat)red andGreen:(CGFloat)green andBlue:(CGFloat)blue;
 
 /**
  @brief  图像中间加logo图片
@@ -103,6 +112,20 @@
  @return 加Logo的图像
  */
 + (UIImage*)addImageLogo:(UIImage*)srcImg centerLogoImage:(UIImage*)LogoImage logoSize:(CGSize)logoSize;
+
+
+
+#pragma mark - 生成二维码，背景色及二维码颜色设置
+/**
+ @brief  生成颜色二维码,引用http://www.jianshu.com/p/e8f7a257b612
+ @param text    二维码字符串
+ @param size    大小
+ @param qrColor 二维码颜色
+ @param bkColor 背景色
+ @return 二维码图像
+ */
++ (UIImage*)createQRWithString:(NSString*)text QRSize:(CGSize)size QRColor:(UIColor*)qrColor bkColor:(UIColor*)bkColor;
+
 
 
 //识别图片上的二维码

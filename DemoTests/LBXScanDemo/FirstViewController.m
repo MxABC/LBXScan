@@ -7,8 +7,8 @@
 //
 
 #import "FirstViewController.h"
-//#import "QRScanViewController.h"
 #import "LBXScanViewController.h"
+#import "MyQRViewController.h"
 #import <objc/message.h>
 
 @interface FirstViewController ()
@@ -38,7 +38,8 @@
                         @[@"4个角在矩形框线上,网格动画",@"OnStyle"],
                         @[@"自定义颜色",@"changeColor"],
                         @[@"改变尺寸",@"changeSize"],
-                        @[@"条形码效果",@"notSquare"]
+                        @[@"条形码效果",@"notSquare"],
+                        @[@"二维码生成",@"myQR"]
                         
                         ];
     
@@ -342,6 +343,12 @@
     
     
     [self openScanVCWithStyle:style];
+}
+
+- (void)myQR
+{
+    MyQRViewController *vc = [[MyQRViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)openScanVCWithStyle:(LBXScanViewStyle*)style
