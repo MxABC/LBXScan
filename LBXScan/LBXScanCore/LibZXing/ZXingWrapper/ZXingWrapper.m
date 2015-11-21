@@ -111,11 +111,11 @@ typedef void(^blockScan)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *sc
 }
 
 
-+ (UIImage*)createUIImageWithString:(NSString*)str size:(CGSize)size
++ (UIImage*)createCodeWithString:(NSString*)str size:(CGSize)size CodeFomart:(ZXBarcodeFormat)format
 {
     ZXMultiFormatWriter *writer = [[ZXMultiFormatWriter alloc] init];
     ZXBitMatrix *result = [writer encode:str
-                                  format:kBarcodeFormatQRCode
+                                  format:format
                                    width:size.width
                                   height:size.width
                                    error:nil];

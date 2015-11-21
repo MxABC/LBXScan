@@ -8,6 +8,7 @@
 
 #import "MyQRViewController.h"
 #import "LBXScanWrapper.h"
+#import "LBXAlertAction.h"
 
 @interface MyQRViewController ()
 @property (nonatomic, strong) UIImageView* imgView;
@@ -32,32 +33,14 @@
 {
     [super viewDidAppear:animated];
     
-    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(20, 20, 80, 40)];
-    [btn1 setTitle:@"logo" forState:UIControlStateNormal];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(80, 20, 100, 40)];
+    [btn1 setTitle:@"创建新码" forState:UIControlStateNormal];
     [btn1 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [btn1 addTarget:self action:@selector(createQR1) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(110, 20, 80, 40)];
-    [btn2 setTitle:@"上色" forState:UIControlStateNormal];
-    [btn2 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [btn2 addTarget:self action:@selector(createQR2) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    UIButton *btn3 = [[UIButton alloc]initWithFrame:CGRectMake(210, 20, 110, 40)];
-    
-    [btn3 setTitle:@"背景前景颜色" forState:UIControlStateNormal];
-    [btn3 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [btn3 addTarget:self action:@selector(createQR3) forControlEvents:UIControlEventTouchUpInside];
+    [btn1 addTarget:self action:@selector(newCodeChooose) forControlEvents:UIControlEventTouchUpInside];
     
     btn1.backgroundColor = [UIColor lightGrayColor];
-    btn2.backgroundColor = [UIColor lightGrayColor];
-    btn3.backgroundColor = [UIColor lightGrayColor];
-    
-    btn1.titleLabel.font = [UIFont systemFontOfSize:12.];
     
     [self.view addSubview:btn1];
-    [self.view addSubview:btn2];
-    [self.view addSubview:btn3];
    
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake( (CGRectGetWidth(self.view.frame)-CGRectGetWidth(self.view.frame)*5/6)/2, 100, CGRectGetWidth(self.view.frame)*5/6, CGRectGetWidth(self.view.frame)*5/6)];
@@ -78,6 +61,35 @@
     [self createQR1];
     
 }
+
+- (void)newCodeChooose
+{
+    __weak __typeof(self) weakSelf = self;
+    [LBXAlertAction showActionSheetWithTitle:@"选择" message:@"选择" chooseBlock:^(NSInteger buttonIdx) {
+        
+        if (buttonIdx==0) {
+            [weakSelf createQR1];
+        }
+        else if (buttonIdx == 1)
+        {
+            [weakSelf createQR2];
+        }
+        else if (buttonIdx == 2)
+        {
+            [weakSelf createQR3];
+        }
+        else if (buttonIdx == 3)
+        {
+            [weakSelf createCodeEAN13];
+        }
+        else if (buttonIdx == 4)
+        {
+            [weakSelf createCode93];
+        }
+        
+    } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitle:@"二维码+logo",@"二维码上色",@"二维码前景颜色+背景颜色",@"商品条形码",@"code93(支付宝付款条形码)",nil];
+}
+
 
 - (void)createQR1
 {
@@ -102,6 +114,18 @@
                                                  QRSize:_imgView.bounds.size
                                                 QRColor:[UIColor colorWithRed:120./255. green:84./255. blue:40./255 alpha:1.0]
                                                 bkColor:[UIColor colorWithRed:41./255. green:130./255. blue:45./255. alpha:1.0]];
+}
+
+//商品条形码
+- (void)createCodeEAN13
+{
+    _imgView.image = [LBXScanWrapper createCodeWithString:@"6944551723107" size:_imgView.bounds.size CodeFomart:AVMetadataObjectTypeEAN13Code];
+}
+
+- (void)createCode93
+{
+    //支付宝付款码-条款码
+    _imgView.image = [LBXScanWrapper createCodeWithString:@"283657461695996598" size:_imgView.bounds.size CodeFomart:AVMetadataObjectTypeCode128Code];
 }
 
 

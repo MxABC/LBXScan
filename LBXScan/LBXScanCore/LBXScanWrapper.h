@@ -128,6 +128,17 @@
 
 
 
+
+/**
+ @brief  各种码生成，如条形码等
+ @param str    字符串
+ @param size   大小
+ @param format 格式 AVMetadataObjectTypeEAN13Code、AVMetadataObjectTypeCode39Code等
+ @return 码的图像
+ */
++ (UIImage*)createCodeWithString:(NSString*)str size:(CGSize)size CodeFomart:(NSString*)format;
+
+
 //识别图片上的二维码
 
 /*!

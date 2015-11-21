@@ -25,14 +25,7 @@
 - (void)setScanRect:(CGRect)scanRect;
 
 
-///*!
-// *  显示
-// *
-// *  @param parentLayer 视频显示CALayer
-// *  @param frame       显示大小
-// *  @param block       结果返回block
-// */
-//- (void)showInParentCALayer:(CALayer*)parentLayer frame:(CGRect)frame block:(void(^)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage* scanImg))block;
+
 
 /*!
  *  开始扫码
@@ -63,10 +56,10 @@
  *
  *  @param str  二维码字符串
  *  @param size 二维码图片大小
- *
+ *  @param format 码的类型
  *  @return 返回生成的图像
  */
-+ (UIImage*)createUIImageWithString:(NSString*)str size:(CGSize)size;
++ (UIImage*)createCodeWithString:(NSString*)str size:(CGSize)size CodeFomart:(ZXBarcodeFormat)format;
 
 
 //识别图片上的二维码

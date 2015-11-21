@@ -338,6 +338,65 @@
     return strAVMetadataObjectType;
 }
 
++ (ZXBarcodeFormat)convertCodeFomratToZXBarcodeFormat:(NSString*)strCodeType
+{
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeQRCode])
+    {
+        return kBarcodeFormatQRCode;
+    }
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeEAN13Code])
+    {
+        return kBarcodeFormatEan13;
+    }
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeEAN8Code])
+    {
+        return kBarcodeFormatEan8;
+    }
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypePDF417Code])
+    {
+        return kBarcodeFormatPDF417;
+    }
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeAztecCode])
+    {
+        return kBarcodeFormatAztec;
+    }
+    
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeCode39Code])
+    {
+        return kBarcodeFormatCode39;
+    }
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeCode93Code])
+    {
+        return kBarcodeFormatCode93;
+    }
+
+    //支付宝付款码条形码格式
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeCode128Code])
+    {
+        return kBarcodeFormatCode128;
+    }
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeDataMatrixCode])
+    {
+        return kBarcodeFormatDataMatrix;
+    }
+    
+    if ([strCodeType isEqualToString:AVMetadataObjectTypeUPCECode])
+    {
+        return kBarcodeFormatUPCE;
+    }
+    
+    return kBarcodeFormatQRCode;
+}
+
+
 
 
 #pragma mark -生成二维码
@@ -357,7 +416,15 @@
         return [LBXScanWrapper createNonInterpolatedUIImageFormCIImage:[LBXScanWrapper createQRForString:str] withSize:size.width];
     }
     else
-      return  [ZXingWrapper createUIImageWithString:str size:size];
+        return  [ZXingWrapper createCodeWithString:str size:size CodeFomart:kBarcodeFormatQRCode];
+}
+
+
++ (UIImage*)createCodeWithString:(NSString*)str size:(CGSize)size CodeFomart:(NSString*)format
+{
+    ZXBarcodeFormat zxformat = [LBXScanWrapper convertCodeFomratToZXBarcodeFormat:format];
+    
+    return  [ZXingWrapper createCodeWithString:str size:size CodeFomart:zxformat];
 }
 
 
@@ -463,7 +530,7 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
 }
 
 #pragma mark - 生成二维码，背景色及二维码颜色设置
-//ref:http://www.jianshu.com/p/e8f7a257b612
+//引用自:http://www.jianshu.com/p/e8f7a257b612
 + (UIImage*)createQRWithString:(NSString*)text QRSize:(CGSize)size QRColor:(UIColor*)qrColor bkColor:(UIColor*)bkColor
 {
     
