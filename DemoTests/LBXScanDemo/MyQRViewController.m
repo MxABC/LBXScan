@@ -11,7 +11,16 @@
 #import "LBXAlertAction.h"
 
 @interface MyQRViewController ()
-@property (nonatomic, strong) UIImageView* imgView;
+
+//二维码
+@property (nonatomic, strong) UIView *qrView;
+@property (nonatomic, strong) UIImageView* qrImgView;
+
+//条形码
+@property (nonatomic, strong) UIView *tView;
+@property (nonatomic, strong) UIImageView *tImgView;
+
+
 @end
 
 @implementation MyQRViewController
@@ -33,8 +42,8 @@
 {
     [super viewDidAppear:animated];
     
-    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(80, 20, 100, 40)];
-    [btn1 setTitle:@"创建新码" forState:UIControlStateNormal];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(50, self.view.frame.size.height - 60, self.view.frame.size.width-100, 40)];
+    [btn1 setTitle:@"切换码的样式及类型" forState:UIControlStateNormal];
     [btn1 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(newCodeChooose) forControlEvents:UIControlEventTouchUpInside];
     
@@ -43,6 +52,7 @@
     [self.view addSubview:btn1];
    
     
+    //二维码
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake( (CGRectGetWidth(self.view.frame)-CGRectGetWidth(self.view.frame)*5/6)/2, 100, CGRectGetWidth(self.view.frame)*5/6, CGRectGetWidth(self.view.frame)*5/6)];
     [self.view addSubview:view];
     view.backgroundColor = [UIColor whiteColor];
@@ -52,10 +62,26 @@
     view.layer.shadowOpacity = 0.5;
     
     
-    self.imgView = [[UIImageView alloc]init];
-    _imgView.bounds = CGRectMake(0, 0, CGRectGetWidth(view.frame)-12, CGRectGetWidth(view.frame)-12);
-    _imgView.center = CGPointMake(CGRectGetWidth(view.frame)/2, CGRectGetHeight(view.frame)/2);
-    [view addSubview:_imgView];
+    self.qrImgView = [[UIImageView alloc]init];
+    _qrImgView.bounds = CGRectMake(0, 0, CGRectGetWidth(view.frame)-12, CGRectGetWidth(view.frame)-12);
+    _qrImgView.center = CGPointMake(CGRectGetWidth(view.frame)/2, CGRectGetHeight(view.frame)/2);
+    [view addSubview:_qrImgView];
+    self.qrView = view;
+    
+    
+    //条形码
+    self.tView = [[UIView alloc]initWithFrame:CGRectMake( (CGRectGetWidth(self.view.frame)-CGRectGetWidth(self.view.frame)*5/6)/2,
+                                                         100,
+                                                         CGRectGetWidth(self.view.frame)*5/6,
+                                                         CGRectGetWidth(self.view.frame)*5/6*0.5)];
+    [self.view addSubview:_tView];
+  
+    
+    self.tImgView = [[UIImageView alloc]init];
+    _tImgView.bounds = CGRectMake(0, 0, CGRectGetWidth(_tView.frame)-12, CGRectGetHeight(_tView.frame)-12);
+    _tImgView.center = CGPointMake(CGRectGetWidth(_tView.frame)/2, CGRectGetHeight(_tView.frame)/2);
+    [_tView addSubview:_tImgView];
+    
   
     
     [self createQR1];
@@ -93,39 +119,55 @@
 
 - (void)createQR1
 {
-     UIImage *qrImg = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com" size:_imgView.bounds.size];
+    _qrView.hidden = NO;
+    _tView.hidden = YES;
+    
+     UIImage *qrImg = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com" size:_qrImgView.bounds.size];
     
     UIImage *logoImg = [UIImage imageNamed:@"logo.JPG"];
-    _imgView.image = [LBXScanWrapper addImageLogo:qrImg centerLogoImage:logoImg logoSize:CGSizeMake(30, 30)];
+    _qrImgView.image = [LBXScanWrapper addImageLogo:qrImg centerLogoImage:logoImg logoSize:CGSizeMake(30, 30)];
     
 }
 
 - (void)createQR2
 {
-    UIImage *image = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com" size:_imgView.bounds.size];
+    _qrView.hidden = NO;
+    _tView.hidden = YES;
+    
+    UIImage *image = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com" size:_qrImgView.bounds.size];
     //二维码上色
-    _imgView.image = [LBXScanWrapper imageBlackToTransparent:image withRed:255.0f andGreen:74.0f andBlue:89.0f];
+    _qrImgView.image = [LBXScanWrapper imageBlackToTransparent:image withRed:255.0f andGreen:74.0f andBlue:89.0f];
     
 }
 
 - (void)createQR3
 {
-    _imgView.image = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com"
-                                                 QRSize:_imgView.bounds.size
-                                                QRColor:[UIColor colorWithRed:120./255. green:84./255. blue:40./255 alpha:1.0]
+    _qrView.hidden = NO;
+    _tView.hidden = YES;
+    
+    //生成的不好识别，自己去调好颜色应该就可以识别了
+    _qrImgView.image = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com"
+                                                 QRSize:_qrImgView.bounds.size
+                                                QRColor:[UIColor colorWithRed:200./255. green:84./255. blue:40./255 alpha:1.0]
                                                 bkColor:[UIColor colorWithRed:41./255. green:130./255. blue:45./255. alpha:1.0]];
 }
 
 //商品条形码
 - (void)createCodeEAN13
 {
-    _imgView.image = [LBXScanWrapper createCodeWithString:@"6944551723107" size:_imgView.bounds.size CodeFomart:AVMetadataObjectTypeEAN13Code];
+    _qrView.hidden = YES;
+    _tView.hidden = NO;
+    
+    _tImgView.image = [LBXScanWrapper createCodeWithString:@"6944551723107" size:_qrImgView.bounds.size CodeFomart:AVMetadataObjectTypeEAN13Code];
 }
 
 - (void)createCode93
 {
+    _qrView.hidden = YES;
+    _tView.hidden = NO;
+    
     //支付宝付款码-条款码
-    _imgView.image = [LBXScanWrapper createCodeWithString:@"283657461695996598" size:_imgView.bounds.size CodeFomart:AVMetadataObjectTypeCode128Code];
+    _tImgView.image = [LBXScanWrapper createCodeWithString:@"283657461695996598" size:_qrImgView.bounds.size CodeFomart:AVMetadataObjectTypeCode128Code];
 }
 
 

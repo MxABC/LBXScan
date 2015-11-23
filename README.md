@@ -31,5 +31,6 @@ screenshots:
 ![image](https://github.com/MxABC/LBXScan/blob/master/ScreenShots/page7.png)
 ![image](https://github.com/MxABC/LBXScan/blob/master/ScreenShots/page8.png)
 ![image](https://github.com/MxABC/LBXScan/blob/master/ScreenShots/page9.png)
+![image](https://github.com/MxABC/LBXScan/blob/master/ScreenShots/page12.png)
 ![image](https://github.com/MxABC/LBXScan/blob/master/ScreenShots/page10.png)
 
