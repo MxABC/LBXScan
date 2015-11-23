@@ -17,6 +17,9 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 
 手动安装 将LBXScan文件夹copy到工程中即可
 
+有问题请到
+http://blog.csdn.net/abcmx/article/details/8011904
+提出，有空继续修改。
 
 screenshots:
 
