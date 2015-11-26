@@ -23,7 +23,7 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 将工程下载下来后，打开DemoTests中 LBXScanDemo.xcodeproj，查看测试demo
 
 
-# 界面效果
+# 界面效果(加载速度慢，可刷新网页)
 
 
 ![image](https://github.com/MxABC/LBXScan/blob/master/ScreenShots/page1.png)
