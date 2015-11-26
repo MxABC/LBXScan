@@ -19,6 +19,9 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 
 手动安装 将LBXScan文件夹copy到工程中即可
 
+# 测试
+将工程下载下来后，打开DemoTests中 LBXScanDemo.xcodeproj，查看测试demo
+
 
 # 界面效果
 
