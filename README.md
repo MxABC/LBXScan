@@ -1,3 +1,6 @@
+
+
+
 # LBXScan
 iOS扫码封装：ZXing和ios系统自带封装，扫码界面效果封装
 识别各种码
@@ -13,13 +16,20 @@ iOS扫码封装：ZXing和ios系统自带封装，扫码界面效果封装
 其他自定义效果
 
 # 安装
-cocoapods 安装
 
+### Installation with CocoaPods
+
+#### Podfile
+
+```ruby
+platform :ios, '6.0'
 pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
+```
 
-手动安装 将LBXScan文件夹copy到工程中即可
+### 手动安装 
+下载后将LBXScan文件夹copy到工程中即可
 
-# 测试
+# Demo测试
 将工程下载下来后，打开DemoTests中 LBXScanDemo.xcodeproj，查看测试demo
 
 
