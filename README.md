@@ -3,6 +3,7 @@ iOS扫码封装：ZXing和ios系统自带封装，扫码界面效果封装
 识别各种码
 二维码生成等
 
+# 
 扫码背景色、扫码框颜色、扫码框4个角的颜色均可通过参数修改
 动画效果：线条上下移动、网格形式移动、中间线条不移动(一般扫码条形码的效果)
 
@@ -11,17 +12,15 @@ iOS扫码封装：ZXing和ios系统自带封装，扫码界面效果封装
 微信扫码框效果
 其他自定义效果
 
+# 安装
 cocoapods 安装
 
 pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 
 手动安装 将LBXScan文件夹copy到工程中即可
 
-有问题请到
-http://blog.csdn.net/abcmx/article/details/8011904
-提出，有空继续修改。
 
-screenshots:
+# 界面效果
 
 
 ![image](https://github.com/MxABC/LBXScan/blob/master/ScreenShots/page1.png)
