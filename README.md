@@ -29,7 +29,13 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 ```
 
 ### 手动安装 
-下载后将LBXScan文件夹copy到工程中即可
+下载后将LBXScan文件夹copy到工程中
+添加预编译 pch文件 （如何添加请百度）
+并在其中添加
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+否则编译会报许多错误
+
 
 # Demo测试
 将工程下载下来后，打开DemoTests中 LBXScanDemo.xcodeproj，查看测试demo
