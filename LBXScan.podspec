@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'LBXScan'
-    s.version      = '1.0.6'
+    s.version      = '1.0.7'
     s.summary      = 'ios scan wrapper'
     s.homepage     = 'https://github.com/MxABC/LBXScan'
     s.license      = 'MIT'
