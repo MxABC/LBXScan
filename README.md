@@ -32,8 +32,10 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 下载后将LBXScan文件夹copy到工程中
 添加预编译 pch文件 （如何添加请百度）
 并在其中添加
+```objective-c
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+```
 否则编译会报许多错误
 
 
