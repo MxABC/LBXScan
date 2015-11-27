@@ -33,7 +33,6 @@
 @property(nonatomic,assign)BOOL isUseZXingLib;
 
 
-
 @end
 
 
@@ -58,7 +57,7 @@
     return NO;
 }
 
-- (instancetype)initWithPreView:(UIView*)preView ArrayObjectType:(NSArray*)arrayBarCodeType
+- (instancetype)initWithPreView:(UIView*)preView ArrayObjectType:(NSArray*)arrayBarCodeType cropRect:(CGRect)cropRect
               success:(void(^)(NSArray<LBXScanResult*> *array))blockScanResult
 {
     if (self = [super init])
@@ -73,7 +72,7 @@
        
         if ( [LBXScanWrapper isSysIos7Later] )
         {
-            _scanNativeObj = [[LBXScanNative alloc]initWithPreView:preView ObjectType:arrayBarCodeType success:^(NSArray<LBXScanResult*> *array) {
+            _scanNativeObj = [[LBXScanNative alloc]initWithPreView:preView ObjectType:arrayBarCodeType cropRect:cropRect success:^(NSArray<LBXScanResult*> *array) {
                 
                 if (blockScanResult)
                 {
@@ -104,18 +103,7 @@
     return self;
 }
 
-- (void)setScanRect:(CGRect)scanRect
-{
-    if ([LBXScanWrapper isSysIos7Later]) {
-        
-        [_scanNativeObj setScanRect:scanRect];
-    }
-    else
-    {
-        [_scanZXingObj setScanRect:scanRect];
-    }
-    
-}
+
 
 /**
  @brief  初始化相机，并指定使用ZXing库识别各种码

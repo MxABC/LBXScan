@@ -23,17 +23,13 @@
  @brief  初始化采集相机
  @param preView 视频显示区域
  @param objType 识别码类型：如果为nil，默认支持很多类型。
+ @param cropRect 识别区域，值CGRectZero 全屏识别
  @param block   识别结果
  @return LBXScanNative的实例
  */
-- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType
+- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect
               success:(void(^)(NSArray<LBXScanResult*> *array))block;
 
-/**
- @brief  设置识别区域，不调用默认全屏识别
- @param scanRect 识别区域
- */
-- (void)setScanRect:(CGRect)scanRect;
 
 /*!
  *  设置扫码成功后是否拍照

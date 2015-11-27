@@ -49,18 +49,18 @@
     _isNeedCaputureImage = isNeedCaputureImg;
 }
 
-- (id)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType success:(void(^)(NSArray<LBXScanResult*> *array))block
+- (id)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block
 {
     if (self = [super init]) {
      
-        [self initParaWithPreView:preView ObjectType:objType success:block];
+        [self initParaWithPreView:preView ObjectType:objType cropRect:cropRect success:block];
     }
     
     return self;
 }
 
 
-- (void)initParaWithPreView:(UIView*)videoPreView ObjectType:(NSArray*)objType success:(void(^)(NSArray<LBXScanResult*> *array))block
+- (void)initParaWithPreView:(UIView*)videoPreView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block
 {
     self.arrayBarCodeType = objType;
     self.blockScanResult = block;
@@ -84,6 +84,11 @@
     _output = [[AVCaptureMetadataOutput alloc]init];
     [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
     
+    
+    if ( !CGRectEqualToRect(cropRect,CGRectZero) )
+    {
+        _output.rectOfInterest = cropRect;
+    }
     
     /*
     // Setup the still image file output
@@ -277,6 +282,31 @@
 
 
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
+- (void)captureOutput2:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
+{
+   
+    
+    //识别扫码类型
+    for(AVMetadataObject *current in metadataObjects)
+    {
+        if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]] )
+        {
+            
+            NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
+            NSLog(@"type:%@",current.type);
+            NSLog(@"result:%@",scannedResult);
+            
+            
+            
+         
+            
+            //测试可以同时识别多个二维码
+        }
+    }
+    
+   
+    
+}
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
     if (!bNeedScanResult) {

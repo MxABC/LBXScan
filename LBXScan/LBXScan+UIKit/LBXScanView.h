@@ -48,7 +48,15 @@
  */
 - (void)stopScanAnimation;
 
+//
 
+/**
+ @brief  根据矩形区域，获取识别兴趣区域
+ @param view  视频流显示UIView
+ @param style 效果界面参数
+ @return 识别区域
+ */
++ (CGRect)getScanRectWithPreView:(UIView*)view style:(LBXScanViewStyle*)style;
 
 
 @end

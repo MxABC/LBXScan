@@ -26,10 +26,11 @@
  @brief  初始化相机，根据系统自动选择ZXing或ios自带识别功能
  @param preView          视屏预览View
  @param arrayBarCodeType 扫码类型,传值nil,默认很多种类型...
+ @param cropRect         识别区域
  @param blockScanResult  返回扫码结果
  @return LBXScanVendor
  */
-- (instancetype)initWithPreView:(UIView*)preView ArrayObjectType:(NSArray*)arrayBarCodeType
+- (instancetype)initWithPreView:(UIView*)preView ArrayObjectType:(NSArray*)arrayBarCodeType cropRect:(CGRect)cropRect
               success:(void(^)(NSArray<LBXScanResult*> *array))blockScanResult;
 
 
@@ -42,12 +43,6 @@
  */
 - (instancetype)initZXingWithPreView:(UIView *)preView success:(void(^)(NSArray<LBXScanResult*> *array))blockScanResult;
 
-
-/**
- @brief  设置识别区域，不调用默认全屏识别
- @param scanRect 识别区域,参数为与视频显示区域的比例，暂没有测试
- */
-- (void)setScanRect:(CGRect)scanRect;
 
 
 /*!

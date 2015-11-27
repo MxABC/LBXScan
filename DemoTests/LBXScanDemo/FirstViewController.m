@@ -37,6 +37,7 @@
                         @[@"无边框，内嵌4个角",@"InnerStyle"],
                         @[@"4个角在矩形框线上,网格动画",@"OnStyle"],
                         @[@"自定义颜色",@"changeColor"],
+                        @[@"只识别框内",@"recoCropRect"],
                         @[@"改变尺寸",@"changeSize"],
                         @[@"条形码效果",@"notSquare"],
                         @[@"二维码/条形码生成",@"myQR"]
@@ -214,6 +215,37 @@
     [self openScanVCWithStyle:style];
 }
 
+#pragma mark -框内区域识别
+- (void)recoCropRect
+{
+    //设置扫码区域参数
+    LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];
+    style.centerUpOffset = 44;
+    style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_On;
+    style.photoframeLineW = 6;
+    style.photoframeAngleW = 24;
+    style.photoframeAngleH = 24;
+    style.isNeedShowRetangle = YES;
+    
+    style.anmiationStyle = LBXScanViewAnimationStyle_NetGrid;
+    
+    
+    //矩形框离左边缘及右边缘的距离
+    style.xScanRetangleOffset = 80;
+    
+    //使用的支付宝里面网格图片
+    UIImage *imgPartNet = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_part_net"];
+    
+    style.animationImage = imgPartNet;
+    
+    
+    LBXScanViewController *vc = [LBXScanViewController new];
+    vc.style = style;
+    //开启只识别框内
+    vc.isOpenInterestRect = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 
 
@@ -355,6 +387,7 @@
 {
      LBXScanViewController *vc = [LBXScanViewController new];
      vc.style = style;
+    //vc.isOpenInterestRect = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

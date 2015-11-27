@@ -151,16 +151,21 @@
     {
         __weak __typeof(self) weakSelf = self;
          // AVMetadataObjectTypeQRCode   AVMetadataObjectTypeEAN13Code
-//        self.scanObj = [[LBXScanWrapper alloc]initWithPreView:self.view
-//                                              ArrayObjectType:@[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code]
-//                                                      success:^(NSArray<LBXScanResult *> *array){
-//                            [weakSelf scanResultWithArray:array];
-//        }];
+        
+        CGRect cropRect = CGRectZero;
+        
+        if (_isOpenInterestRect) {
+            
+            cropRect = [LBXScanView getScanRectWithPreView:self.view style:_style];
+        }
+
         self.scanObj = [[LBXScanWrapper alloc]initWithPreView:self.view
                                               ArrayObjectType:nil
+                                                     cropRect:cropRect
                                                       success:^(NSArray<LBXScanResult *> *array){
                                                           [weakSelf scanResultWithArray:array];
                                                       }];
+      
     }
     [_scanObj startScan];
 
@@ -171,6 +176,8 @@
     
     self.view.backgroundColor = [UIColor clearColor];
 }
+
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {

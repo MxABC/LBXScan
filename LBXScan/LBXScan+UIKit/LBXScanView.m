@@ -355,7 +355,59 @@
 
 
 
-
+//根据矩形区域，获取识别区域
++ (CGRect)getScanRectWithPreView:(UIView*)view style:(LBXScanViewStyle*)style
+{
+    int XRetangleLeft = style.xScanRetangleOffset;
+    CGSize sizeRetangle = CGSizeMake(view.frame.size.width - XRetangleLeft*2, view.frame.size.width - XRetangleLeft*2);
+    
+    if (style.whRatio != 1)
+    {
+        CGFloat w = sizeRetangle.width;
+        CGFloat h = w / style.whRatio;
+        
+        NSInteger hInt = (NSInteger)h;
+        h  = hInt;
+        
+        sizeRetangle = CGSizeMake(w, h);
+    }
+    
+    //扫码区域Y轴最小坐标
+    CGFloat YMinRetangle = view.frame.size.height / 2.0 - sizeRetangle.height/2.0 - style.centerUpOffset;
+    //扫码区域坐标
+    CGRect cropRect =  CGRectMake(XRetangleLeft, YMinRetangle, sizeRetangle.width, sizeRetangle.height);
+    
+    
+    //计算兴趣区域
+    CGRect rectOfInterest;
+    
+    //ref:http://www.cocoachina.com/ios/20141225/10763.html
+    CGSize size = view.bounds.size;
+    CGFloat p1 = size.height/size.width;
+    CGFloat p2 = 1920./1080.;  //使用了1080p的图像输出
+    if (p1 < p2) {
+        CGFloat fixHeight = size.width * 1920. / 1080.;
+        CGFloat fixPadding = (fixHeight - size.height)/2;
+        rectOfInterest = CGRectMake((cropRect.origin.y + fixPadding)/fixHeight,
+                                           cropRect.origin.x/size.width,
+                                           cropRect.size.height/fixHeight,
+                                           cropRect.size.width/size.width);
+       
+        
+    } else {
+        CGFloat fixWidth = size.height * 1080. / 1920.;
+        CGFloat fixPadding = (fixWidth - size.width)/2;
+        rectOfInterest = CGRectMake(cropRect.origin.y/size.height,
+                                           (cropRect.origin.x + fixPadding)/fixWidth,
+                                           cropRect.size.height/size.height,
+                                           cropRect.size.width/fixWidth);
+        
+        
+    }
+    
+    
+    return rectOfInterest;
+}
 
 
 @end

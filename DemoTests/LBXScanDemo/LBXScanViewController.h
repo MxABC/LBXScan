@@ -43,6 +43,11 @@
  */
 @property (nonatomic, strong) LBXScanViewStyle *style;
 
+/**
+ @brief  启动区域识别功能
+ */
+@property(nonatomic,assign)BOOL isOpenInterestRect;
+
 
 
 #pragma mark -模仿qq界面
@@ -61,6 +66,7 @@
  @brief  闪关灯开启状态
  */
 @property(nonatomic,assign)BOOL isOpenFlash;
+
 
 
 
