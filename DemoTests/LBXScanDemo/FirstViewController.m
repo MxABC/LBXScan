@@ -9,7 +9,9 @@
 #import "FirstViewController.h"
 #import "LBXScanViewController.h"
 #import "MyQRViewController.h"
+#import "LBXScanView.h"
 #import <objc/message.h>
+#import "ScanResultViewController.h"
 
 @interface FirstViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -40,8 +42,8 @@
                         @[@"只识别框内",@"recoCropRect"],
                         @[@"改变尺寸",@"changeSize"],
                         @[@"条形码效果",@"notSquare"],
-                        @[@"二维码/条形码生成",@"myQR"]
-                        
+                        @[@"二维码/条形码生成",@"myQR"],
+                        @[@"相册",@"openLocalPhotoAlbum"]
                         ];
     
     
@@ -391,4 +393,109 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - 相册
+- (void)openLocalPhotoAlbum
+{
+    if ([LBXScanWrapper isGetPhotoPermission])
+    {
+        [self openLocalPhoto];
+    }
+    else
+        [self showError:@"      请到设置->隐私中开启本程序相册权限     "];
+}
+
+/*!
+ *  打开本地照片，选择图片识别
+ */
+- (void)openLocalPhoto
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    picker.delegate = self;
+    
+    
+    picker.allowsEditing = YES;
+    
+    
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+
+
+//当选择一张图片后进入这里
+
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    __block UIImage* image = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    if (!image){
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    
+    __weak __typeof(self) weakSelf = self;
+    [LBXScanWrapper recognizeImage:image success:^(NSArray<LBXScanResult *> *array) {
+        
+        [weakSelf scanResultWithArray:array];
+    }];
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    NSLog(@"cancel");
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
+{
+    
+    if (array.count < 1)
+    {
+        [self showError:@"识别失败了"];
+        
+        return;
+    }
+    
+    //经测试，可以同时识别2个二维码，不能同时识别二维码和条形码
+    for (LBXScanResult *result in array) {
+        
+        NSLog(@"scanResult:%@",result.strScanned);
+    }
+    
+    LBXScanResult *scanResult = array[0];
+    
+    //震动提醒
+    [LBXScanWrapper systemVibrate];
+    //声音提醒
+    [LBXScanWrapper systemSound];
+    
+    [self showNextVCWithScanResult:scanResult];
+}
+
+
+- (void)showError:(NSString*)str
+{
+    [LBXAlertAction showAlertWithTitle:@"提示" msg:str chooseBlock:nil buttonsStatement:@"知道了",nil];
+}
+
+- (void)showNextVCWithScanResult:(LBXScanResult*)strResult
+{
+    ScanResultViewController *vc = [ScanResultViewController new];
+    vc.imgScan = strResult.imgScanned;
+    
+    vc.strScan = strResult.strScanned;
+    
+    vc.strCodeType = strResult.strBarCodeType;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 @end
+
+
