@@ -26,6 +26,8 @@ iOS扫码封装：ZXing和ios系统自带封装
 ##### 从相册选择图片后识别
 ##### 扫码成功后，获取当前图片
 
+#####  如果好用请帮忙右上角 star 支持一下
+
 # 安装
 
 ### Installation with CocoaPods
