@@ -105,6 +105,10 @@
     _session = [[AVCaptureSession alloc]init];
     [_session setSessionPreset:AVCaptureSessionPresetHigh];
     
+   // _session.
+    
+   // videoScaleAndCropFactor
+    
     if ([_session canAddInput:_input])
     {
         [_session addInput:_input];
@@ -119,6 +123,9 @@
     {
         [_session addOutput:_stillImageOutput];
     }
+    
+ 
+ 
     
     // 条码类型 AVMetadataObjectTypeQRCode
    // _output.metadataObjectTypes =@[AVMetadataObjectTypeQRCode];
@@ -141,7 +148,18 @@
     
     [videoPreView.layer insertSublayer:self.preview atIndex:0];
     
-
+ 
+    
+//    AVCaptureConnection *videoConnection = [AVCamUtilities connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+//    CGFloat maxScale = videoConnection.videoMaxScaleAndCropFactor;
+//    CGFloat zoom = maxScale / 50;
+//    if (zoom < 1.0f || zoom > maxScale)
+//    {
+//        return;
+//    }
+//    videoConnection.videoScaleAndCropFactor += zoom;
+//    CGAffineTransform transform = videoPreView.transform;
+//    videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
 
     
     
