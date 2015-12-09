@@ -2,6 +2,9 @@
 
 
 # LBXScan
+
+ [swift版本开发中](https://github.com/MxABC/swiftScan)
+
 iOS扫码封装：ZXing和ios系统自带封装
 ###### 扫码界面效果封装
 ###### 识别各种码
