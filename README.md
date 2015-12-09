@@ -3,7 +3,7 @@
 
 # LBXScan
 
- [swift版本开发中](https://github.com/MxABC/swiftScan)
+ (swift版本链接 [swift版本开发中](https://github.com/MxABC/swiftScan))
 
 iOS扫码封装：ZXing和ios系统自带封装
 ###### 扫码界面效果封装
