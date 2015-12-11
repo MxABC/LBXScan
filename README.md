@@ -3,10 +3,7 @@
 
 # ios 二维码、条形码 objective-c 版本
 
-
-
 ### Swift Version <img src="https://github.com/MxABC/LBXScan/blob/master/DemoTests/swiftIcon.png" height="25" width="25">
-=====
 对应的swift版本请看 : **[swiftScan](https://github.com/MxABC/swiftScan)**
 
 
