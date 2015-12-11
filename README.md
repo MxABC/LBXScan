@@ -1,7 +1,7 @@
 
 
 
-# ios 二维码、条形码
+# ios 二维码、条形码 objective-c 版本
 
 
 
