@@ -29,9 +29,7 @@ If you are looking for Swift version check it out here: **[swiftScan](https://gi
 - 可设置只识别扫码框内的图像区域
 - 可设置扫码成功后，获取当前图片
 - 动画效果选择:  线条上下移动、网格形式移动、中间线条不移动(一般扫码条形码的效果)
-
-###
-##  如果好用请帮忙右上角 star 支持一下
+- 如果好用请帮忙右上角 star 支持一下
 
 # 安装
 
