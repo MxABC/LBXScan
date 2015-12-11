@@ -48,9 +48,10 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 否则编译会报许多错误
 
 
-# Demo测试
-将工程下载下来后，打开DemoTests中 LBXScanDemo.xcodeproj
-xcode版本:xcode7.1
+### Demo测试
+- xcode版本:xcode7.1
+- 将工程下载下来，打开DemoTests中 LBXScanDemo.xcodeproj
+
 
 
 # 界面效果
