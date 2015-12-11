@@ -3,7 +3,13 @@
 
 # LBXScan
 
-  [swift版本链接](https://github.com/MxABC/swiftScan)
+  
+
+---
+
+Swift Version <img src="http://github.fabriziobrancati.com/bfkit/resources/swift-icon.png" height="25" width="25">
+=====
+If you are looking for Swift version check it out here: **[swiftScan](https://github.com/MxABC/swiftScan)**
 
 
 ## 介绍
