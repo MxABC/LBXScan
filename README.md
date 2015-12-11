@@ -1,11 +1,9 @@
 
 
 
-# LBXScan
+# ios 二维码、条形码
 
-  
 
----
 
 Swift Version <img src="http://github.fabriziobrancati.com/bfkit/resources/swift-icon.png" height="25" width="25">
 =====
