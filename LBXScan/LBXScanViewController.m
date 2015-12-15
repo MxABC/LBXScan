@@ -11,6 +11,7 @@
 
 @interface LBXScanViewController ()
 
+
 @end
 
 @implementation LBXScanViewController
@@ -57,7 +58,10 @@
     
 }
 
-
+- (void)reStartDevice
+{
+    [_scanObj startScan];
+}
 
 //启动设备
 - (void)startScan

@@ -9,6 +9,9 @@
 #import "SubLBXScanViewController.h"
 #import "MyQRViewController.h"
 #import "ScanResultViewController.h"
+#import "LBXScanResult.h"
+#import "LBXScanWrapper.h"
+
 
 @interface SubLBXScanViewController ()
 
@@ -182,7 +185,7 @@
     [LBXAlertAction showAlertWithTitle:@"扫码内容" msg:strResult chooseBlock:^(NSInteger buttonIdx) {
         
         //点击完，继续扫码
-        [weakSelf.scanObj startScan];
+        [weakSelf reStartDevice];
     } buttonsStatement:@"知道了",nil];
 }
 

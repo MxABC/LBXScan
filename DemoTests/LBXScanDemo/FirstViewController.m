@@ -12,6 +12,8 @@
 #import "LBXScanView.h"
 #import <objc/message.h>
 #import "ScanResultViewController.h"
+#import "LBXScanResult.h"
+#import "LBXScanWrapper.h"
 
 @interface FirstViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

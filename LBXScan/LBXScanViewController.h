@@ -8,22 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-
 #import "LBXScanView.h"
 #import "LBXScanWrapper.h"
+
 
 
 
 @interface LBXScanViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 
-
 /**
  @brief  扫码功能封装对象
  */
 @property (nonatomic,strong) LBXScanWrapper* scanObj;
-
-
 
 #pragma mark - 扫码界面效果及提示等
 /**
@@ -32,16 +29,22 @@
 @property (nonatomic,strong) LBXScanView* qRScanView;
 
 
-/**
- @brief  扫码当前图片
- */
-@property(nonatomic,strong)UIImage* scanImage;
 
 
 /**
  *  界面效果参数
  */
 @property (nonatomic, strong) LBXScanViewStyle *style;
+
+
+#pragma mark - 扫码界面效果及提示等
+
+
+/**
+ @brief  扫码当前图片
+ */
+@property(nonatomic,strong)UIImage* scanImage;
+
 
 /**
  @brief  启动区域识别功能
@@ -69,6 +72,8 @@
  */
 - (void)showError:(NSString*)str;
 
+
+- (void)reStartDevice;
 
 
 @end
