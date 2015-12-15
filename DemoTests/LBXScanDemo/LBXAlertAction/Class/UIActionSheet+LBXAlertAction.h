@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface UIActionSheet (Block)<UIActionSheetDelegate>
+@interface UIActionSheet (LBXAlertAction)<UIActionSheetDelegate>
 
 
 - (void)showInView:(UIView *)view block:(void(^)(NSInteger idx))block;

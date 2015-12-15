@@ -1,20 +1,20 @@
 //
 //
-//  LBXScanDemo
+//
 //
 //  Created by lbxia on 15/10/21.
 //  Copyright © 2015年 lbxia. All rights reserved.
 //
 
-#import "LBXScanViewController.h"
+#import "SubLBXScanViewController.h"
 #import "MyQRViewController.h"
 #import "ScanResultViewController.h"
 
-@interface LBXScanViewController ()
+@interface SubLBXScanViewController ()
 
 @end
 
-@implementation LBXScanViewController
+@implementation SubLBXScanViewController
 
 
 - (void)viewDidLoad {
@@ -34,39 +34,25 @@
 {
     [super viewDidAppear:animated];
     
-    [self drawScanView];
     
     if (_isQQSimulator) {
         
          [self drawBottomItems];
+        [self drawTitle];
          [self.view bringSubviewToFront:_topTitle];
     }
     else
         _topTitle.hidden = YES;
     
    
-    
-    
-   
-    
-    [self performSelector:@selector(startScan) withObject:nil afterDelay:0.2];
 }
 
 //绘制扫描区域
-- (void)drawScanView
+- (void)drawTitle
 {
-    if (!_qRScanView)
+    if (!_topTitle)
     {
-        CGRect rect = self.view.frame;
-        rect.origin = CGPointMake(0, 0);
         
-        
-        
-        
-        self.qRScanView = [[LBXScanView alloc]initWithFrame:rect style:_style];
-        [self.view addSubview:_qRScanView];
-        
-    
         
         self.topTitle = [[UILabel alloc]init];
         _topTitle.bounds = CGRectMake(0, 0, 145, 60);
@@ -85,10 +71,7 @@
         _topTitle.text = @"将取景框对准二维码即可自动扫描";
         _topTitle.textColor = [UIColor whiteColor];
         [self.view addSubview:_topTitle];
-    }    
-    
-    
-      [_qRScanView startDeviceReadyingWithText:@"相机启动中"];
+    }
     
     
 }
@@ -134,60 +117,10 @@
     
 }
 
-//启动设备
-- (void)startScan
-{
-    if ( ![LBXScanWrapper isGetCameraPermission] )
-    {
-        [_qRScanView stopDeviceReadying];
-        
-        [self showError:@"   请到设置隐私中开启本程序相机权限   "];
-        return;
-    }
-    
-  
-    
-    if (!_scanObj )
-    {
-        __weak __typeof(self) weakSelf = self;
-         // AVMetadataObjectTypeQRCode   AVMetadataObjectTypeEAN13Code
-        
-        CGRect cropRect = CGRectZero;
-        
-        if (_isOpenInterestRect) {
-            
-            cropRect = [LBXScanView getScanRectWithPreView:self.view style:_style];
-        }
-
-        self.scanObj = [[LBXScanWrapper alloc]initWithPreView:self.view
-                                              ArrayObjectType:nil
-                                                     cropRect:cropRect
-                                                      success:^(NSArray<LBXScanResult *> *array){
-                                                          [weakSelf scanResultWithArray:array];
-                                                      }];
-      
-    }
-    [_scanObj startScan];
-
-
-    [_qRScanView stopDeviceReadying];
-    
-    [_qRScanView startScanAnimation];
-    
-    self.view.backgroundColor = [UIColor clearColor];
-}
 
 
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    
-    [_scanObj stopScan];
-    [_qRScanView stopScanAnimation];
-}
+
 
 
 - (void)showError:(NSString*)str
@@ -195,15 +128,6 @@
     [LBXAlertAction showAlertWithTitle:@"提示" msg:str chooseBlock:nil buttonsStatement:@"知道了",nil];
 }
 
-- (void)openLocalPhotoAlbum
-{
-    if ([LBXScanWrapper isGetPhotoPermission])
-    {
-        [self openLocalPhoto];
-    }
-    else
-        [self showError:@"      请到设置->隐私中开启本程序相册权限     "];
-}
 
 
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
@@ -279,121 +203,37 @@
 //打开相册
 - (void)openPhoto
 {
-    [self openLocalPhoto];
+    if ([LBXScanWrapper isGetPhotoPermission])
+        [self openLocalPhoto];
+    else
+    {
+        [self showError:@"      请到设置->隐私中开启本程序相册权限     "];
+    }
 }
 
 //开关闪光灯
 - (void)openOrCloseFlash
 {
-    [_scanObj openOrCloseFlash];
     
-    self.isOpenFlash =!self.isOpenFlash;
+    [super openOrCloseFlash];
+   
     
     if (self.isOpenFlash)
     {
         [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_down"] forState:UIControlStateNormal];
     }
     else
-    [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
+        [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
 }
+
+
+#pragma mark -底部功能项
+
 
 - (void)myQRCode
 {
     MyQRViewController *vc = [MyQRViewController new];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark --打开相册并识别图片
-+ (UIViewController*)getWindowTopViewController
-{
-    UIViewController *result = nil;
-    
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    if (window.windowLevel != UIWindowLevelNormal)
-    {
-        NSArray *windows = [[UIApplication sharedApplication] windows];
-        for(UIWindow * tmpWin in windows)
-        {
-            if (tmpWin.windowLevel == UIWindowLevelNormal)
-            {
-                window = tmpWin;
-                break;
-            }
-        }
-    }
-    
-    UIView *frontView = [[window subviews] objectAtIndex:0];
-    id nextResponder = [frontView nextResponder];
-    
-    
-    if ([nextResponder isKindOfClass:[UIViewController class]])
-        result = nextResponder;
-    else
-        result = window.rootViewController;
-    
-    return result;
-}
-
-/*!
- *  打开本地照片，选择图片识别
- */
-- (void)openLocalPhoto
-{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    picker.delegate = self;
-   
-    
-    picker.allowsEditing = YES;
-    
-    
-    [self presentViewController:picker animated:YES completion:nil];
-}
-
-
-
-//当选择一张图片后进入这里
-
--(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [picker dismissViewControllerAnimated:YES completion:nil];    
-    
-    __block UIImage* image = [info objectForKey:UIImagePickerControllerEditedImage];
-    
-    if (!image){
-        image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    }
-    
-    __weak __typeof(self) weakSelf = self;
-    [LBXScanWrapper recognizeImage:image success:^(NSArray<LBXScanResult *> *array) {
-        
-        [weakSelf scanResultWithArray:array];
-    }];
-    
-   
-    
-    //系统自带识别方法
-    /*
-     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
-     NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
-     if (features.count >=1)
-     {
-     CIQRCodeFeature *feature = [features objectAtIndex:0];
-     NSString *scanResult = feature.messageString;
-     
-     NSLog(@"%@",scanResult);
-     }
-     */
-    
-    
-}
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    NSLog(@"cancel");
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 

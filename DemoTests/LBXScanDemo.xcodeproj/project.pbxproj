@@ -7,16 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		482EA7401BF9B950004AC1F5 /* LBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 482EA73D1BF9B950004AC1F5 /* LBXScanViewController.m */; };
 		482EA7411BF9B950004AC1F5 /* MyQRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 482EA73F1BF9B950004AC1F5 /* MyQRViewController.m */; };
-		482EA74A1BF9CE6D004AC1F5 /* UIActionSheet+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 482EA7451BF9CE6D004AC1F5 /* UIActionSheet+Block.m */; };
-		482EA74B1BF9CE6D004AC1F5 /* UIAlertView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 482EA7471BF9CE6D004AC1F5 /* UIAlertView+Block.m */; };
-		482EA74C1BF9CE6D004AC1F5 /* LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 482EA7491BF9CE6D004AC1F5 /* LBXAlertAction.m */; };
 		48AB502B1BD7752B000AA3C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AB502A1BD7752B000AA3C5 /* main.m */; };
 		48AB502E1BD7752B000AA3C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AB502D1BD7752B000AA3C5 /* AppDelegate.m */; };
 		48AB50361BD7752B000AA3C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48AB50351BD7752B000AA3C5 /* Assets.xcassets */; };
 		48AB50391BD7752B000AA3C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48AB50371BD7752B000AA3C5 /* LaunchScreen.storyboard */; };
-		48AB55161BD78048000AA3C5 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 48AB531B1BD78048000AA3C5 /* CodeScan.bundle */; };
 		48AB55171BD78048000AA3C5 /* LBXScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AB531D1BD78048000AA3C5 /* LBXScanView.m */; };
 		48AB56161BD78453000AA3C5 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AB56141BD78453000AA3C5 /* FirstViewController.m */; };
 		48AB56171BD78453000AA3C5 /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48AB56151BD78453000AA3C5 /* FirstViewController.xib */; };
@@ -253,19 +248,17 @@
 		48DAEB311BFAB19B00F91B11 /* ScanResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48DAEB2F1BFAB19B00F91B11 /* ScanResultViewController.xib */; };
 		7D0A86FD1BE8F755001C2234 /* LBXScanLineAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0A86FC1BE8F755001C2234 /* LBXScanLineAnimation.m */; };
 		7D7492461BF4C8C8007BDC3D /* LBXScanNetAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7492451BF4C8C8007BDC3D /* LBXScanNetAnimation.m */; };
+		7DD97AB61C204AB7006188B8 /* SubLBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97AB51C204AB7006188B8 /* SubLBXScanViewController.m */; };
+		7DD97AC41C2052C7006188B8 /* LBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97AC31C2052C7006188B8 /* LBXScanViewController.m */; };
+		7DD97AC61C205345006188B8 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7DD97AC51C205345006188B8 /* CodeScan.bundle */; };
+		7DD97ACF1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97ACA1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m */; };
+		7DD97AD01C2054C6006188B8 /* UIAlertView+LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97ACC1C2054C6006188B8 /* UIAlertView+LBXAlertAction.m */; };
+		7DD97AD11C2054C6006188B8 /* LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97ACE1C2054C6006188B8 /* LBXAlertAction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		482EA73C1BF9B950004AC1F5 /* LBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanViewController.h; sourceTree = "<group>"; };
-		482EA73D1BF9B950004AC1F5 /* LBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanViewController.m; sourceTree = "<group>"; };
 		482EA73E1BF9B950004AC1F5 /* MyQRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyQRViewController.h; sourceTree = "<group>"; };
 		482EA73F1BF9B950004AC1F5 /* MyQRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyQRViewController.m; sourceTree = "<group>"; };
-		482EA7441BF9CE6D004AC1F5 /* UIActionSheet+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Block.h"; sourceTree = "<group>"; };
-		482EA7451BF9CE6D004AC1F5 /* UIActionSheet+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Block.m"; sourceTree = "<group>"; };
-		482EA7461BF9CE6D004AC1F5 /* UIAlertView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Block.h"; sourceTree = "<group>"; };
-		482EA7471BF9CE6D004AC1F5 /* UIAlertView+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Block.m"; sourceTree = "<group>"; };
-		482EA7481BF9CE6D004AC1F5 /* LBXAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXAlertAction.h; sourceTree = "<group>"; };
-		482EA7491BF9CE6D004AC1F5 /* LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXAlertAction.m; sourceTree = "<group>"; };
 		48AB50261BD7752B000AA3C5 /* LBXScanDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBXScanDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48AB502A1BD7752B000AA3C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		48AB502C1BD7752B000AA3C5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -274,7 +267,6 @@
 		48AB50381BD7752B000AA3C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48AB503A1BD7752B000AA3C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48AB53151BD77868000AA3C5 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = SOURCE_ROOT; };
-		48AB531B1BD78048000AA3C5 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
 		48AB531C1BD78048000AA3C5 /* LBXScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanView.h; sourceTree = "<group>"; };
 		48AB531D1BD78048000AA3C5 /* LBXScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanView.m; sourceTree = "<group>"; };
 		48AB56131BD78453000AA3C5 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
@@ -760,6 +752,17 @@
 		7D0A86FC1BE8F755001C2234 /* LBXScanLineAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanLineAnimation.m; sourceTree = "<group>"; };
 		7D7492441BF4C8C8007BDC3D /* LBXScanNetAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanNetAnimation.h; sourceTree = "<group>"; };
 		7D7492451BF4C8C8007BDC3D /* LBXScanNetAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanNetAnimation.m; sourceTree = "<group>"; };
+		7DD97AB41C204AB7006188B8 /* SubLBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubLBXScanViewController.h; path = LBXScanDemo/SubLBXScanViewController.h; sourceTree = SOURCE_ROOT; };
+		7DD97AB51C204AB7006188B8 /* SubLBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubLBXScanViewController.m; path = LBXScanDemo/SubLBXScanViewController.m; sourceTree = SOURCE_ROOT; };
+		7DD97AC21C2052C7006188B8 /* LBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanViewController.h; sourceTree = "<group>"; };
+		7DD97AC31C2052C7006188B8 /* LBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanViewController.m; sourceTree = "<group>"; };
+		7DD97AC51C205345006188B8 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
+		7DD97AC91C2054C6006188B8 /* UIActionSheet+LBXAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+LBXAlertAction.h"; sourceTree = "<group>"; };
+		7DD97ACA1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+LBXAlertAction.m"; sourceTree = "<group>"; };
+		7DD97ACB1C2054C6006188B8 /* UIAlertView+LBXAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+LBXAlertAction.h"; sourceTree = "<group>"; };
+		7DD97ACC1C2054C6006188B8 /* UIAlertView+LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+LBXAlertAction.m"; sourceTree = "<group>"; };
+		7DD97ACD1C2054C6006188B8 /* LBXAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXAlertAction.h; sourceTree = "<group>"; };
+		7DD97ACE1C2054C6006188B8 /* LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXAlertAction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -773,27 +776,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		482EA7421BF9CE6D004AC1F5 /* LBXAlertAction */ = {
-			isa = PBXGroup;
-			children = (
-				482EA7431BF9CE6D004AC1F5 /* Class */,
-				482EA7481BF9CE6D004AC1F5 /* LBXAlertAction.h */,
-				482EA7491BF9CE6D004AC1F5 /* LBXAlertAction.m */,
-			);
-			path = LBXAlertAction;
-			sourceTree = "<group>";
-		};
-		482EA7431BF9CE6D004AC1F5 /* Class */ = {
-			isa = PBXGroup;
-			children = (
-				482EA7441BF9CE6D004AC1F5 /* UIActionSheet+Block.h */,
-				482EA7451BF9CE6D004AC1F5 /* UIActionSheet+Block.m */,
-				482EA7461BF9CE6D004AC1F5 /* UIAlertView+Block.h */,
-				482EA7471BF9CE6D004AC1F5 /* UIAlertView+Block.m */,
-			);
-			path = Class;
-			sourceTree = "<group>";
-		};
 		48AB501D1BD7752B000AA3C5 = {
 			isa = PBXGroup;
 			children = (
@@ -816,9 +798,10 @@
 		48AB50281BD7752B000AA3C5 /* LBXScanDemo */ = {
 			isa = PBXGroup;
 			children = (
-				482EA7421BF9CE6D004AC1F5 /* LBXAlertAction */,
-				482EA73C1BF9B950004AC1F5 /* LBXScanViewController.h */,
-				482EA73D1BF9B950004AC1F5 /* LBXScanViewController.m */,
+				7DD97AC71C2054C6006188B8 /* LBXAlertAction */,
+				7DD97AC51C205345006188B8 /* CodeScan.bundle */,
+				7DD97AB41C204AB7006188B8 /* SubLBXScanViewController.h */,
+				7DD97AB51C204AB7006188B8 /* SubLBXScanViewController.m */,
 				482EA73E1BF9B950004AC1F5 /* MyQRViewController.h */,
 				482EA73F1BF9B950004AC1F5 /* MyQRViewController.m */,
 				48BD039C1BE36278005779B2 /* logo.JPG */,
@@ -860,7 +843,6 @@
 		48AB53181BD78048000AA3C5 /* LBXScan+UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				48AB531B1BD78048000AA3C5 /* CodeScan.bundle */,
 				48C772E11BF84B0F0078790A /* LBXScanViewStyle.h */,
 				48C772E21BF84B0F0078790A /* LBXScanViewStyle.m */,
 				48AB531C1BD78048000AA3C5 /* LBXScanView.h */,
@@ -869,6 +851,8 @@
 				7D0A86FC1BE8F755001C2234 /* LBXScanLineAnimation.m */,
 				7D7492441BF4C8C8007BDC3D /* LBXScanNetAnimation.h */,
 				7D7492451BF4C8C8007BDC3D /* LBXScanNetAnimation.m */,
+				7DD97AC21C2052C7006188B8 /* LBXScanViewController.h */,
+				7DD97AC31C2052C7006188B8 /* LBXScanViewController.m */,
 			);
 			path = "LBXScan+UIKit";
 			sourceTree = "<group>";
@@ -1627,6 +1611,27 @@
 			path = ZXingWrapper;
 			sourceTree = "<group>";
 		};
+		7DD97AC71C2054C6006188B8 /* LBXAlertAction */ = {
+			isa = PBXGroup;
+			children = (
+				7DD97AC81C2054C6006188B8 /* Class */,
+				7DD97ACD1C2054C6006188B8 /* LBXAlertAction.h */,
+				7DD97ACE1C2054C6006188B8 /* LBXAlertAction.m */,
+			);
+			path = LBXAlertAction;
+			sourceTree = "<group>";
+		};
+		7DD97AC81C2054C6006188B8 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				7DD97AC91C2054C6006188B8 /* UIActionSheet+LBXAlertAction.h */,
+				7DD97ACA1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m */,
+				7DD97ACB1C2054C6006188B8 /* UIAlertView+LBXAlertAction.h */,
+				7DD97ACC1C2054C6006188B8 /* UIAlertView+LBXAlertAction.m */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1658,6 +1663,7 @@
 				TargetAttributes = {
 					48AB50251BD7752B000AA3C5 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 8LQ7CL73D8;
 					};
 				};
 			};
@@ -1684,13 +1690,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48AB55161BD78048000AA3C5 /* CodeScan.bundle in Resources */,
 				48DAEB311BFAB19B00F91B11 /* ScanResultViewController.xib in Resources */,
 				48AB50391BD7752B000AA3C5 /* LaunchScreen.storyboard in Resources */,
 				48BD039D1BE36278005779B2 /* logo.JPG in Resources */,
 				48AE455F1BFC1C5200E87F28 /* LBXScan.podspec in Resources */,
 				48AB50361BD7752B000AA3C5 /* Assets.xcassets in Resources */,
 				48AB56171BD78453000AA3C5 /* FirstViewController.xib in Resources */,
+				7DD97AC61C205345006188B8 /* CodeScan.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1703,7 +1709,6 @@
 			files = (
 				48AE47CF1BFC1DD600E87F28 /* ZXAI01393xDecoder.m in Sources */,
 				48AE47D51BFC1DD600E87F28 /* ZXAnyAIDecoder.m in Sources */,
-				482EA74A1BF9CE6D004AC1F5 /* UIActionSheet+Block.m in Sources */,
 				48AE482B1BFC1DD600E87F28 /* ZXQRCode.m in Sources */,
 				48AE47701BFC1DD600E87F28 /* ZXEmailDoCoMoResultParser.m in Sources */,
 				48AE47F91BFC1DD600E87F28 /* ZXOneDReader.m in Sources */,
@@ -1790,10 +1795,13 @@
 				48AE48091BFC1DD600E87F28 /* ZXPDF417CodewordDecoder.m in Sources */,
 				48AE47E51BFC1DD600E87F28 /* ZXRSSFinderPattern.m in Sources */,
 				48AE47D81BFC1DD600E87F28 /* ZXRSSExpandedDecodedChar.m in Sources */,
+				7DD97AB61C204AB7006188B8 /* SubLBXScanViewController.m in Sources */,
 				48AE480C1BFC1DD600E87F28 /* ZXPDF417DetectionResultColumn.m in Sources */,
 				48AE47FD1BFC1DD600E87F28 /* ZXUPCEANExtension5Support.m in Sources */,
 				48AE48161BFC1DD600E87F28 /* ZXPDF417HighLevelEncoder.m in Sources */,
+				7DD97AD01C2054C6006188B8 /* UIAlertView+LBXAlertAction.m in Sources */,
 				48AE47951BFC1DD600E87F28 /* ZXBitArray.m in Sources */,
+				7DD97AC41C2052C7006188B8 /* LBXScanViewController.m in Sources */,
 				48AE47C91BFC1DD600E87F28 /* ZXByQuadrantReader.m in Sources */,
 				48AE47F61BFC1DD600E87F28 /* ZXMultiFormatOneDReader.m in Sources */,
 				48AE48101BFC1DD600E87F28 /* ZXPDF417DetectorResult.m in Sources */,
@@ -1820,7 +1828,6 @@
 				48AE477F1BFC1DD600E87F28 /* ZXTelParsedResult.m in Sources */,
 				48AE47651BFC1DD600E87F28 /* ZXAztecReader.m in Sources */,
 				48AE48201BFC1DD600E87F28 /* ZXQRCodeDecoderMetaData.m in Sources */,
-				482EA74B1BF9CE6D004AC1F5 /* UIAlertView+Block.m in Sources */,
 				48AE47BC1BFC1DD600E87F28 /* ZXDataMatrixEncoderContext.m in Sources */,
 				48AE481C1BFC1DD600E87F28 /* ZXQRCodeDataBlock.m in Sources */,
 				48AE48221BFC1DD600E87F28 /* ZXQRCodeFormatInformation.m in Sources */,
@@ -1880,7 +1887,6 @@
 				48AE48251BFC1DD600E87F28 /* ZXQRCodeAlignmentPattern.m in Sources */,
 				48AE47981BFC1DD600E87F28 /* ZXBoolArray.m in Sources */,
 				48AE47D01BFC1DD600E87F28 /* ZXAI013x0x1xDecoder.m in Sources */,
-				482EA74C1BF9CE6D004AC1F5 /* LBXAlertAction.m in Sources */,
 				48AE47791BFC1DD600E87F28 /* ZXProductResultParser.m in Sources */,
 				48AE47761BFC1DD600E87F28 /* ZXISBNResultParser.m in Sources */,
 				48AE47B11BFC1DD600E87F28 /* ZXDataMatrixBitMatrixParser.m in Sources */,
@@ -1889,6 +1895,7 @@
 				48AE48371BFC1DD600E87F28 /* ZXingWrapper.m in Sources */,
 				48AE47871BFC1DD600E87F28 /* ZXVINParsedResult.m in Sources */,
 				48AE47C01BFC1DD600E87F28 /* ZXDataMatrixSymbolInfo144.m in Sources */,
+				7DD97ACF1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m in Sources */,
 				48AE47A81BFC1DD600E87F28 /* ZXDimension.m in Sources */,
 				48AE48001BFC1DD600E87F28 /* ZXUPCEANWriter.m in Sources */,
 				48AE47581BFC1DD600E87F28 /* LBXScanNative.m in Sources */,
@@ -1900,6 +1907,7 @@
 				48AE47F31BFC1DD600E87F28 /* ZXEANManufacturerOrgSupport.m in Sources */,
 				48AE47631BFC1DD600E87F28 /* ZXAztecToken.m in Sources */,
 				48AE47B21BFC1DD600E87F28 /* ZXDataMatrixDataBlock.m in Sources */,
+				7DD97AD11C2054C6006188B8 /* LBXAlertAction.m in Sources */,
 				48AE47AD1BFC1DD600E87F28 /* ZXPlanarYUVLuminanceSource.m in Sources */,
 				48AE482A1BFC1DD600E87F28 /* ZXQRCodeFinderPatternInfo.m in Sources */,
 				48AE47FA1BFC1DD600E87F28 /* ZXUPCAReader.m in Sources */,
@@ -1928,7 +1936,6 @@
 				48AE475B1BFC1DD600E87F28 /* ZXAztecDecoder.m in Sources */,
 				48AE48301BFC1DD600E87F28 /* ZXMultiDetector.m in Sources */,
 				48AE47741BFC1DD600E87F28 /* ZXGeoResultParser.m in Sources */,
-				482EA7401BF9B950004AC1F5 /* LBXScanViewController.m in Sources */,
 				48AE47C61BFC1DD600E87F28 /* ZXMaxiCodeDecodedBitStreamParser.m in Sources */,
 				48AE47721BFC1DD600E87F28 /* ZXExpandedProductResultParser.m in Sources */,
 				48AE476B1BFC1DD600E87F28 /* ZXBizcardResultParser.m in Sources */,
@@ -1975,6 +1982,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2018,6 +2026,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2048,7 +2057,7 @@
 				INFOPLIST_FILE = LBXScanDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.LBXScanDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.LBXScanDemo1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2063,7 +2072,7 @@
 				INFOPLIST_FILE = LBXScanDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.LBXScanDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.LBXScanDemo1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

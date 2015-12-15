@@ -157,18 +157,32 @@
 
 - (void)openFlash:(BOOL)bOpen
 {
-    if ([LBXScanWrapper isSysIos7Later] && !_isUseZXingLib )
-        [_scanNativeObj setTorch:bOpen];
-    else
-        [_scanZXingObj openTorch:bOpen];
+    
+   AVCaptureDevice *device =  [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+     if ([device hasTorch] && [device hasFlash])
+     {
+         if ([LBXScanWrapper isSysIos7Later] && !_isUseZXingLib )
+             [_scanNativeObj setTorch:bOpen];
+         else
+             [_scanZXingObj openTorch:bOpen];
+     }
+   
 }
 
 - (void)openOrCloseFlash
 {
-    if ([LBXScanWrapper isSysIos7Later] && !_isUseZXingLib )
-        [_scanNativeObj changeTorch];
-    else
-        [_scanZXingObj openOrCloseTorch];
+    AVCaptureDevice *device =  [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    if ([device hasTorch] && [device hasFlash])
+    {
+        if ([LBXScanWrapper isSysIos7Later] && !_isUseZXingLib )
+            [_scanNativeObj changeTorch];
+        else
+            [_scanZXingObj openOrCloseTorch];
+    }
+
+  
 }
 
 /*!

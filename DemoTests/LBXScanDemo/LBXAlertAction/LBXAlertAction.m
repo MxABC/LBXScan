@@ -8,11 +8,19 @@
 
 #import "LBXAlertAction.h"
 #import <UIKit/UIKit.h>
-#import "UIAlertView+Block.h"
-#import "UIActionSheet+Block.h"
+#import "UIAlertView+LBXAlertAction.h"
+#import "UIActionSheet+LBXAlertAction.h"
 
 @implementation LBXAlertAction
 
+
++ (BOOL)isIosVersion8AndAfter
+{
+   // return NO;
+    
+    
+    return [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ;
+}
 
 + (void)showAlertWithTitle:(NSString*)title msg:(NSString*)message chooseBlock:(void (^)(NSInteger buttonIdx))block  buttonsStatement:(NSString*)cancelString, ...
 {
@@ -31,7 +39,7 @@
         va_end(argList);
     }
     
-    if ( [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    if ( [LBXAlertAction isIosVersion8AndAfter])
     {
         //UIAlertController style
         
@@ -113,9 +121,11 @@
             break;
     }
 
+   
     
     [alertView showWithBlock:^(NSInteger buttonIdx)
     {
+        
         block(buttonIdx);
     }];
     
@@ -190,7 +200,7 @@
         return;
     }
     
-    if (! [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    if ( [LBXAlertAction isIosVersion8AndAfter] )
     {
         UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
         for (int i = 0; i < [argsArray count]; i++)
@@ -264,12 +274,24 @@
             break;
     }
     
-    [sheet showInView:view block:^(NSInteger idx)
-    {
-        if (block) {
-            block(idx);
-        }
-    }];
+//    
+    __block NSInteger maxIndex = otherButtonCount + (destructiveButtonTitle != nil ? 1:0)  ;
+    
+    [sheet showInView:view block:^(NSInteger buttonIdx)
+     {
+         NSInteger idx = buttonIdx;
+         if (maxIndex == buttonIdx) {
+             idx = 0;
+         }
+         else
+         {
+             idx = buttonIdx+1;
+         }
+         
+         if (block) {
+             block(idx);
+         }
+     }];
 }
 
 

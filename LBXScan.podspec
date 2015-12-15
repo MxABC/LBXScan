@@ -8,7 +8,6 @@ Pod::Spec.new do |s|
     s.platform     = :ios, '6.0'
     s.source       = {:git => 'https://github.com/MxABC/LBXScan.git', :tag => s.version}
     s.source_files = 'LBXScan/*.{h,m}'
-    s.resource     = 'LBXScan/LBXScan+UIKit/CodeScan.bundle'
     s.requires_arc = true
     s.prefix_header_contents = '#import <Foundation/Foundation.h>'
     s.subspec 'LBXScanCore' do |ss|

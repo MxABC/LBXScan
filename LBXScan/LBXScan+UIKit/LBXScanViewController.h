@@ -11,7 +11,7 @@
 
 #import "LBXScanView.h"
 #import "LBXScanWrapper.h"
-#import "LBXAlertAction.h"
+
 
 
 @interface LBXScanViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -49,39 +49,25 @@
 @property(nonatomic,assign)BOOL isOpenInterestRect;
 
 
-
-#pragma mark -模仿qq界面
-
-@property (nonatomic, assign) BOOL isQQSimulator;
-
-/**
- @brief  扫码区域上方提示文字
- */
-@property (nonatomic, strong) UILabel *topTitle;
-
-
-
-
 /**
  @brief  闪关灯开启状态
  */
 @property(nonatomic,assign)BOOL isOpenFlash;
 
 
+//打开相册
+- (void)openLocalPhoto;
+//开关闪光灯
+- (void)openOrCloseFlash;
 
 
-#pragma mark - 底部几个功能：开启闪光灯、相册、我的二维码
-//底部显示的功能项
-@property (nonatomic, strong) UIView *bottomItemsView;
-//相册
-@property (nonatomic, strong) UIButton *btnPhoto;
-//闪光灯
-@property (nonatomic, strong) UIButton *btnFlash;
-//我的二维码
-@property (nonatomic, strong) UIButton *btnMyQR;
-
-
-
+//子类继承必须实现的提示
+/**
+ *  继承者实现的alert提示功能：如没有权限时会调用
+ *
+ *  @param str 提示语
+ */
+- (void)showError:(NSString*)str;
 
 
 

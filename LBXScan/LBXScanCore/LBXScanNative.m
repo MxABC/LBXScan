@@ -172,6 +172,7 @@
     }
 }
 
+
 - (void)setScanRect:(CGRect)scanRect
 {
     //识别区域设置

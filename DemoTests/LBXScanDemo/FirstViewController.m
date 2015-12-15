@@ -7,7 +7,7 @@
 //
 
 #import "FirstViewController.h"
-#import "LBXScanViewController.h"
+#import "SubLBXScanViewController.h"
 #import "MyQRViewController.h"
 #import "LBXScanView.h"
 #import <objc/message.h>
@@ -116,7 +116,7 @@
     UIImage *imgLine = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
     style.animationImage = imgLine;
     
-    LBXScanViewController *vc = [LBXScanViewController new];
+    SubLBXScanViewController *vc = [SubLBXScanViewController new];
     vc.style = style;
     vc.isQQSimulator = YES;
     [self.navigationController pushViewController:vc animated:YES];
@@ -241,7 +241,7 @@
     style.animationImage = imgPartNet;
     
     
-    LBXScanViewController *vc = [LBXScanViewController new];
+    SubLBXScanViewController *vc = [SubLBXScanViewController new];
     vc.style = style;
     //开启只识别框内
     vc.isOpenInterestRect = YES;
@@ -387,7 +387,7 @@
 
 - (void)openScanVCWithStyle:(LBXScanViewStyle*)style
 {
-     LBXScanViewController *vc = [LBXScanViewController new];
+     SubLBXScanViewController *vc = [SubLBXScanViewController new];
      vc.style = style;
     //vc.isOpenInterestRect = YES;
     [self.navigationController pushViewController:vc animated:YES];

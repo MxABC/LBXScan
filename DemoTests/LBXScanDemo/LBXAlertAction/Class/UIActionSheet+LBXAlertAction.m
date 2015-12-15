@@ -6,12 +6,12 @@
 //  Copyright © 2015年 lbxia. All rights reserved.
 //
 
-#import "UIActionSheet+Block.h"
+#import "UIActionSheet+LBXAlertAction.h"
 #import <objc/runtime.h>
 
 static char key;
 
-@implementation UIActionSheet (Block)
+@implementation UIActionSheet (LBXAlertAction)
 
 
 - (void)showInView:(UIView *)view block:(void(^)(NSInteger idx))block

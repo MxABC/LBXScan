@@ -6,10 +6,10 @@
 //  Copyright © 2015年 lbxia. All rights reserved.
 //
 
-#import "UIAlertView+Block.h"
+#import "UIAlertView+LBXAlertAction.h"
 #import <objc/runtime.h>
 
-@implementation UIAlertView (Block)
+@implementation UIAlertView (LBXAlertAction)
 
 
 static char key;
