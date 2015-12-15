@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'LBXScan'
-    s.version      = '1.0.10'
+    s.version      = '1.0.11'
     s.summary      = 'ios scan wrapper'
     s.homepage     = 'https://github.com/MxABC'
     s.license      = 'MIT'
@@ -12,12 +12,7 @@ Pod::Spec.new do |s|
     s.subspec 'LBXScanCore' do |ss|
       ss.source_files = 'LBXScan/LBXScanCore/*.{h,m}'
       ss.subspec 'LibZXing' do |sss|
-         sss.subspec 'ZXingWrapper' do |ssss|
-         ssss.source_files = 'LBXScan/LBXScanCore/LibZXing/ZXingWrapper/*.{h,m}'
-         end
-         sss.subspec 'ZXingObjC' do |ssss|
-         ssss.source_files = 'LBXScan/LBXScanCore/LibZXing/ZXingObjC/**/*.{h,m}'
-         end
+         sss.source_files = 'LBXScan/LBXScanCore/LibZXing/**/*.{h,m}'
       end
     end
     s.subspec 'LBXScan+UIKit' do |ss|
