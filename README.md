@@ -97,7 +97,7 @@ vc.isQQSimulator = YES;
 }
 ```
 
-####自定义部分参数介绍
+####自定义参数部分介绍
 ```obj-c
 - (void)custom
 {
