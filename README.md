@@ -54,8 +54,8 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 
 ### 使用
 
-LBXScanViewStyle:设置界面参数,具体各个参数请参看代码头文件
-LBXScanViewController:扫码界面基类控制器，实现基本的扫码功能及扫码框效果，其他提示及效果请继承后添加对应控件即可
+- LBXScanViewStyle:设置界面参数,具体各个参数请参看代码头文件
+- LBXScanViewController:扫码界面基类控制器，实现基本的扫码功能及扫码框效果，其他提示及效果请继承后添加对应控件即可
 
 ####模仿qq界面效果
 
