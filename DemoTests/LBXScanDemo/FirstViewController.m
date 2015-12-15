@@ -102,22 +102,37 @@
 #pragma mark -模仿qq界面
 - (void)qqStyle
 {
-    //设置扫码区域参数
+    //设置扫码区域参数设置
+    
+    //创建参数对象
     LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];
+    
+    //矩形区域中心上移，默认中心点为屏幕中心点
     style.centerUpOffset = 44;
+    
+    //扫码框周围4个角的类型,设置为外挂式
     style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Outer;
+    
+    //扫码框周围4个角绘制的线条宽度
     style.photoframeLineW = 6;
+    
+    //扫码框周围4个角的宽度
     style.photoframeAngleW = 24;
+    
+    //扫码框周围4个角的高度
     style.photoframeAngleH = 24;
     
+    //扫码框内 动画类型 --线条上下移动
     style.anmiationStyle = LBXScanViewAnimationStyle_LineMove;
     
-    //qq里面的线条图片
-    UIImage *imgLine = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
-    style.animationImage = imgLine;
+    //线条上下移动图片
+    style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
     
+    //SubLBXScanViewController继承自LBXScanViewController
+    //添加一些扫码或相册结果处理
     SubLBXScanViewController *vc = [SubLBXScanViewController new];
-    vc.style = style;
+    vc.style = style;   
+    
     vc.isQQSimulator = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -284,19 +299,28 @@
     //设置扫码区域参数
     LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];
     style.centerUpOffset = 44;
+    
+    //扫码框周围4个角的类型设置为在框的上面
     style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_On;
+    //扫码框周围4个角绘制线宽度
     style.photoframeLineW = 6;
+    
+    //扫码框周围4个角的宽度
     style.photoframeAngleW = 24;
+    
+    //扫码框周围4个角的高度
     style.photoframeAngleH = 24;
+    
+    //显示矩形框
     style.isNeedShowRetangle = YES;
+    
+    //动画类型：网格形式，模仿支付宝
     style.anmiationStyle = LBXScanViewAnimationStyle_NetGrid;
     
-    //使用的支付宝里面网格图片
-    UIImage *imgPartNet = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_part_net"];
     
-    style.animationImage = imgPartNet;
+    style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_part_net"];;
     
-    //4个角的颜色
+    //码框周围4个角的颜色
     style.colorAngle = [UIColor colorWithRed:65./255. green:174./255. blue:57./255. alpha:1.0];
     
     //矩形框颜色
@@ -308,8 +332,13 @@
     style.blue_notRecoginitonArea = 15./255;
     style.alpa_notRecoginitonArea = 0.2;
     
+    SubLBXScanViewController *vc = [SubLBXScanViewController new];
+    vc.style = style;
     
-    [self openScanVCWithStyle:style];
+    //开启只识别矩形框内图像功能
+    vc.isOpenInterestRect = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+   
 }
 
 #pragma mark -改变扫码区域位置
@@ -374,6 +403,7 @@
 
     //离左边和右边距离
     style.xScanRetangleOffset = 30;    
+    
     
     
     [self openScanVCWithStyle:style];
