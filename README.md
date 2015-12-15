@@ -58,7 +58,6 @@ pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
 - LBXScanViewController:扫码界面基类控制器，实现基本的扫码功能及扫码框效果，其他提示及效果请继承后添加对应控件即可
 
 ####模仿qq界面效果
-
 ```obj-c
 - (void)qqStyle
 {
@@ -96,6 +95,7 @@ vc.style = style;
 vc.isQQSimulator = YES;
 [self.navigationController pushViewController:vc animated:YES];
 }
+```
 
 ####自定义参数部分介绍
 ```obj-c
@@ -145,7 +145,6 @@ vc.isOpenInterestRect = YES;
 [self.navigationController pushViewController:vc animated:YES];
 
 }
-
 ```
 
 
