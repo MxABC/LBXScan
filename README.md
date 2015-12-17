@@ -122,7 +122,7 @@ style.isNeedShowRetangle = YES;
 //动画类型：网格形式，模仿支付宝
 style.anmiationStyle = LBXScanViewAnimationStyle_NetGrid;
 
-
+//网格图片
 style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_part_net"];;
 
 //码框周围4个角的颜色
