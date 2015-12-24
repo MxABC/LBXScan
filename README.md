@@ -48,6 +48,7 @@ pod 'LBXScan'
 ```
 否则编译会报许多错误
 
+另外需要将ZXing代码copy到工程中:[ZXing代码下载地址](https://github.com/TheLevelUp/ZXingObjC)
 
 ### Demo测试
 - xcode版本:xcode7.1
