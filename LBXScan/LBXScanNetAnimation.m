@@ -43,73 +43,11 @@
         return;
     }
     
-    CGRect frame = _animationRect;
-    frame.origin.y -= frame.size.height;
-    self.frame = frame;
-    
-    self.alpha = 0.0;
-    
-    __weak __typeof(self) weakSelf = self;
-    
-    [UIView animateWithDuration:1.2 animations:^{
-        weakSelf.alpha = 1.0;
-        weakSelf.frame = weakSelf.animationRect;
-        
-    } completion:^(BOOL finished)
-     {
-         
-         [weakSelf performSelector:@selector(stepAnimation) withObject:nil afterDelay:0.3];
-     }];
-}
-
-
-- (void)stepAnimation2
-{
-    if (!isAnimationing) {
-        return;
-    }
-    
-    CGRect frame = _animationRect;
-    frame.origin.y -= frame.size.height/2;
-    frame.size.height = _animationRect.size.height/2;
-    self.frame = frame;
-    
-    self.alpha = 0.0;
-    
-    __weak __typeof(self) weakSelf = self;
-    
-    [UIView animateWithDuration:1.2 animations:^{
-        weakSelf.alpha = 1.0;
-        
-        CGRect frame = weakSelf.animationRect;
-        frame.origin.y += frame.size.height/2;
-        frame.size.height = weakSelf.animationRect.size.height/2;
-        weakSelf.frame = frame;
-        
-        // weakSelf.frame = weakSelf.animationRect;
-        
-    } completion:^(BOOL finished)
-     {
-         
-         [weakSelf performSelector:@selector(stepAnimation2) withObject:nil afterDelay:0.3];
-     }];
-}
-
-- (void)stepAnimation3
-{
-    if (!isAnimationing) {
-        return;
-    }
-    
-    CGRect frame = _animationRect;
-    
-    CGFloat hImg = _scanImageView.image.size.height * _animationRect.size.width / _scanImageView.image.size.width;
-    
-    frame.size.height = hImg;
-    self.frame = frame;
+    self.frame = _animationRect;
     
     CGFloat scanNetImageViewW = self.frame.size.width;
-    CGFloat scanNetImageH = 241;
+    CGFloat scanNetImageH = self.frame.size.height;
+ 
     __weak __typeof(self) weakSelf = self;
     self.alpha = 0.5;
     _scanImageView.frame = CGRectMake(0, -scanNetImageH, scanNetImageViewW, scanNetImageH);
@@ -120,12 +58,12 @@
         
     } completion:^(BOOL finished)
      {
-         [weakSelf performSelector:@selector(stepAnimation3) withObject:nil afterDelay:0.3];
+         [weakSelf performSelector:@selector(stepAnimation) withObject:nil afterDelay:0.3];
      }];
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
-    [self performSelector:@selector(stepAnimation3) withObject:nil afterDelay:0.3];
+    [self performSelector:@selector(stepAnimation) withObject:nil afterDelay:0.3];
 }
 
 
@@ -141,7 +79,7 @@
     
     isAnimationing = YES;
     
-    [self stepAnimation3];
+    [self stepAnimation];
 }
 
 
