@@ -15,13 +15,27 @@
 }
 
 @property (nonatomic,assign) CGRect animationRect;
-
+@property (nonatomic,strong) UIImageView *scanImageView;
 
 @end
 
-
-
 @implementation LBXScanNetAnimation
+
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        self.clipsToBounds = YES;
+        [self addSubview:self.scanImageView];
+    }
+    return self;
+}
+
+- (UIImageView *)scanImageView{
+    if (!_scanImageView) {
+        _scanImageView = [[UIImageView alloc] init];
+    }
+    return _scanImageView;
+}
 
 - (void)stepAnimation
 {
@@ -42,10 +56,10 @@
         weakSelf.frame = weakSelf.animationRect;
         
     } completion:^(BOOL finished)
-    {
-       
-        [weakSelf performSelector:@selector(stepAnimation) withObject:nil afterDelay:0.3];
-    }];
+     {
+         
+         [weakSelf performSelector:@selector(stepAnimation) withObject:nil afterDelay:0.3];
+     }];
 }
 
 
@@ -72,7 +86,7 @@
         frame.size.height = weakSelf.animationRect.size.height/2;
         weakSelf.frame = frame;
         
-       // weakSelf.frame = weakSelf.animationRect;
+        // weakSelf.frame = weakSelf.animationRect;
         
     } completion:^(BOOL finished)
      {
@@ -89,40 +103,35 @@
     
     CGRect frame = _animationRect;
     
-    CGFloat hImg = self.image.size.height * _animationRect.size.width / self.image.size.width;
+    CGFloat hImg = _scanImageView.image.size.height * _animationRect.size.width / _scanImageView.image.size.width;
     
-    frame.origin.y -= hImg;
     frame.size.height = hImg;
     self.frame = frame;
     
-    self.alpha = 0.0;
-    
+    CGFloat scanNetImageViewW = self.frame.size.width;
+    CGFloat scanNetImageH = 241;
     __weak __typeof(self) weakSelf = self;
-    
-    [UIView animateWithDuration:1.2 animations:^{
+    self.alpha = 0.5;
+    _scanImageView.frame = CGRectMake(0, -scanNetImageH, scanNetImageViewW, scanNetImageH);
+    [UIView animateWithDuration:1.4 animations:^{
         weakSelf.alpha = 1.0;
         
-        CGRect frame = weakSelf.animationRect;
-        CGFloat hImg = self.image.size.height * _animationRect.size.width / self.image.size.width;
-        
-        frame.origin.y += (frame.size.height -  hImg);
-        frame.size.height = hImg;
-        
-        weakSelf.frame = frame;
+        _scanImageView.frame = CGRectMake(0, scanNetImageViewW-scanNetImageH, scanNetImageViewW, scanNetImageH);
         
     } completion:^(BOOL finished)
      {
-         
          [weakSelf performSelector:@selector(stepAnimation3) withObject:nil afterDelay:0.3];
      }];
 }
 
-
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+    [self performSelector:@selector(stepAnimation3) withObject:nil afterDelay:0.3];
+}
 
 
 - (void)startAnimatingWithRect:(CGRect)animationRect InView:(UIView *)parentView Image:(UIImage*)image
 {
-    self.image = image;
+    [self.scanImageView setImage:image];
     
     self.animationRect = animationRect;
     
