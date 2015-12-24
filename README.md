@@ -33,8 +33,9 @@
 ### Installation with CocoaPods
 
 ```ruby
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '6.0'
-pod 'LBXScan',:git=>'https://github.com/MxABC/LBXScan.git'
+pod 'LBXScan'
 ```
 
 ### 手动安装 
