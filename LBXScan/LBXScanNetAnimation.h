@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LBXScanNetAnimation : UIImageView
+@interface LBXScanNetAnimation :UIView
 
 
 
