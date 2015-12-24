@@ -1,0 +1,5 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/ZXingObjC" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ZXingObjC"
+OTHER_LDFLAGS = -ObjC -framework "AVFoundation" -framework "CoreGraphics" -framework "CoreMedia" -framework "CoreVideo" -framework "ImageIO" -framework "QuartzCore"
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

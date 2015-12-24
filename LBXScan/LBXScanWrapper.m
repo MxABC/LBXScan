@@ -41,7 +41,7 @@
 
 + (BOOL)isSysIos7Later
 {
-    //return NO;
+   // return NO;
     
      if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
          return YES;

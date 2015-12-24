@@ -2,7 +2,6 @@
 
 
 #import "LBXScanNative.h"
-#import "AVCamUtilities.h"
 
 
 @interface LBXScanNative()<AVCaptureMetadataOutputObjectsDelegate>
@@ -261,9 +260,21 @@
     return image;
 }
 
+- (AVCaptureConnection *)connectionWithMediaType:(NSString *)mediaType fromConnections:(NSArray *)connections
+{
+    for ( AVCaptureConnection *connection in connections ) {
+        for ( AVCaptureInputPort *port in [connection inputPorts] ) {
+            if ( [[port mediaType] isEqual:mediaType] ) {
+                return connection;
+            }
+        }
+    }
+    return nil;
+}
+
 - (void)captureImage
 {
-    AVCaptureConnection *stillImageConnection = [AVCamUtilities connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+    AVCaptureConnection *stillImageConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
     
     
     [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:stillImageConnection
