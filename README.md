@@ -52,7 +52,7 @@ pod 'LBXScan'
 
 ### Demo测试
 - xcode版本:xcode7.1
-- 将工程下载下来，打开DemoTests中 LBXScanDemo.xcodeproj
+- 将工程下载下来，打开DemoTests中 LBXScanDemo.xcworkspace
 
 ### 使用
 
