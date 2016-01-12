@@ -274,7 +274,7 @@
     CGFloat linewidthAngle = _viewStyle.photoframeLineW;// 经验参数：6和4
     
     //画扫码矩形以及周边半透明黑色坐标参数
-    CGFloat diffAngle = linewidthAngle/3;
+    CGFloat diffAngle = 0.0f;
     //diffAngle = linewidthAngle / 2; //框外面4个角，与框有缝隙
     //diffAngle = linewidthAngle/2;  //框4个角 在线上加4个角效果
     //diffAngle = 0;//与矩形框重合
@@ -299,6 +299,9 @@
             break;
             
         default:
+        {
+            diffAngle = linewidthAngle/3;
+        }
             break;
     }
     
