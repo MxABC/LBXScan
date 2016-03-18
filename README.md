@@ -36,6 +36,8 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '6.0'
 pod 'LBXScan','~> 1.1.1'
+# 获取最新版本,采用下面的方式
+#pod 'LBXScan',git:'https://github.com/MxABC/LBXScan.git'
 ```
 
 ### 手动安装 
