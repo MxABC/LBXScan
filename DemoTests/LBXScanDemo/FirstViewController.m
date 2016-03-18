@@ -86,7 +86,14 @@
 {
     NSArray* array = _arrayItems[indexPath.row];
     
-    
+    if (indexPath.row < (_arrayItems.count - 2) )
+    {
+        if (![self cameraPemission])
+        {
+            [self showError:@"没有摄像机权限"];
+            return;
+        }
+    }
     
     NSString *methodName = [array lastObject];
     
@@ -98,7 +105,30 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-
+- (BOOL)cameraPemission
+{
+    
+    BOOL isHavePemission = NO;
+    if ([AVCaptureDevice respondsToSelector:@selector(authorizationStatusForMediaType:)])
+    {
+        AVAuthorizationStatus permission =
+        [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        
+        switch (permission) {
+            case AVAuthorizationStatusAuthorized:
+                isHavePemission = YES;
+                break;
+            case AVAuthorizationStatusDenied:
+            case AVAuthorizationStatusRestricted:
+                break;
+            case AVAuthorizationStatusNotDetermined:
+                isHavePemission = YES;
+                break;
+        }
+    }
+    
+    return isHavePemission;
+}
 
 
 #pragma mark -模仿qq界面

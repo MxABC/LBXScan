@@ -94,6 +94,8 @@
                                                       success:^(NSArray<LBXScanResult *> *array){
                                                           [weakSelf scanResultWithArray:array];
                                                       }];
+            
+        [_scanObj setNeedCaptureImage:_isNeedScanImage];       
       
     }
     [_scanObj startScan];

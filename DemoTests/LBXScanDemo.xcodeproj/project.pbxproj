@@ -24,9 +24,6 @@
 		7D55B9531C2C34B6006C5C28 /* ZXingWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D55B9511C2C34B6006C5C28 /* ZXingWrapper.m */; };
 		7DD97AB61C204AB7006188B8 /* SubLBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97AB51C204AB7006188B8 /* SubLBXScanViewController.m */; };
 		7DD97AC61C205345006188B8 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7DD97AC51C205345006188B8 /* CodeScan.bundle */; };
-		7DD97ACF1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97ACA1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m */; };
-		7DD97AD01C2054C6006188B8 /* UIAlertView+LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97ACC1C2054C6006188B8 /* UIAlertView+LBXAlertAction.m */; };
-		7DD97AD11C2054C6006188B8 /* LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97ACE1C2054C6006188B8 /* LBXAlertAction.m */; };
 		7DD97CF51C206F7B006188B8 /* LBXScanLineAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97AF71C206F7B006188B8 /* LBXScanLineAnimation.m */; };
 		7DD97CF61C206F7B006188B8 /* LBXScanNative.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97AF91C206F7B006188B8 /* LBXScanNative.m */; };
 		7DD97CF71C206F7B006188B8 /* LBXScanNetAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD97AFB1C206F7B006188B8 /* LBXScanNetAnimation.m */; };
@@ -68,12 +65,6 @@
 		7DD97AB41C204AB7006188B8 /* SubLBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubLBXScanViewController.h; path = LBXScanDemo/SubLBXScanViewController.h; sourceTree = SOURCE_ROOT; };
 		7DD97AB51C204AB7006188B8 /* SubLBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubLBXScanViewController.m; path = LBXScanDemo/SubLBXScanViewController.m; sourceTree = SOURCE_ROOT; };
 		7DD97AC51C205345006188B8 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
-		7DD97AC91C2054C6006188B8 /* UIActionSheet+LBXAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+LBXAlertAction.h"; sourceTree = "<group>"; };
-		7DD97ACA1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+LBXAlertAction.m"; sourceTree = "<group>"; };
-		7DD97ACB1C2054C6006188B8 /* UIAlertView+LBXAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+LBXAlertAction.h"; sourceTree = "<group>"; };
-		7DD97ACC1C2054C6006188B8 /* UIAlertView+LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+LBXAlertAction.m"; sourceTree = "<group>"; };
-		7DD97ACD1C2054C6006188B8 /* LBXAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXAlertAction.h; sourceTree = "<group>"; };
-		7DD97ACE1C2054C6006188B8 /* LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXAlertAction.m; sourceTree = "<group>"; };
 		7DD97AF61C206F7B006188B8 /* LBXScanLineAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanLineAnimation.h; sourceTree = "<group>"; };
 		7DD97AF71C206F7B006188B8 /* LBXScanLineAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanLineAnimation.m; sourceTree = "<group>"; };
 		7DD97AF81C206F7B006188B8 /* LBXScanNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanNative.h; sourceTree = "<group>"; };
@@ -129,7 +120,6 @@
 		48AB50281BD7752B000AA3C5 /* LBXScanDemo */ = {
 			isa = PBXGroup;
 			children = (
-				7DD97AC71C2054C6006188B8 /* LBXAlertAction */,
 				7DD97AC51C205345006188B8 /* CodeScan.bundle */,
 				7DD97AB41C204AB7006188B8 /* SubLBXScanViewController.h */,
 				7DD97AB51C204AB7006188B8 /* SubLBXScanViewController.m */,
@@ -190,27 +180,6 @@
 			path = ../LBXScan;
 			sourceTree = "<group>";
 		};
-		7DD97AC71C2054C6006188B8 /* LBXAlertAction */ = {
-			isa = PBXGroup;
-			children = (
-				7DD97AC81C2054C6006188B8 /* Class */,
-				7DD97ACD1C2054C6006188B8 /* LBXAlertAction.h */,
-				7DD97ACE1C2054C6006188B8 /* LBXAlertAction.m */,
-			);
-			path = LBXAlertAction;
-			sourceTree = "<group>";
-		};
-		7DD97AC81C2054C6006188B8 /* Class */ = {
-			isa = PBXGroup;
-			children = (
-				7DD97AC91C2054C6006188B8 /* UIActionSheet+LBXAlertAction.h */,
-				7DD97ACA1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m */,
-				7DD97ACB1C2054C6006188B8 /* UIAlertView+LBXAlertAction.h */,
-				7DD97ACC1C2054C6006188B8 /* UIAlertView+LBXAlertAction.m */,
-			);
-			path = Class;
-			sourceTree = "<group>";
-		};
 		C10A50598337D772C413D396 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,7 +232,6 @@
 				TargetAttributes = {
 					48AB50251BD7752B000AA3C5 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 8LQ7CL73D8;
 					};
 				};
 			};
@@ -358,16 +326,13 @@
 				7DD97AB61C204AB7006188B8 /* SubLBXScanViewController.m in Sources */,
 				7D55B9521C2C34B6006C5C28 /* LBXZXCapture.m in Sources */,
 				7DD97CFC1C206F7B006188B8 /* LBXScanWrapper.m in Sources */,
-				7DD97AD01C2054C6006188B8 /* UIAlertView+LBXAlertAction.m in Sources */,
 				48AE483C1BFC387C00E87F28 /* README.md in Sources */,
 				48AB502E1BD7752B000AA3C5 /* AppDelegate.m in Sources */,
 				482EA7411BF9B950004AC1F5 /* MyQRViewController.m in Sources */,
 				48AB56161BD78453000AA3C5 /* FirstViewController.m in Sources */,
 				7DD97CF61C206F7B006188B8 /* LBXScanNative.m in Sources */,
-				7DD97ACF1C2054C6006188B8 /* UIActionSheet+LBXAlertAction.m in Sources */,
 				7DD97CF81C206F7B006188B8 /* LBXScanResult.m in Sources */,
 				7DD97CF51C206F7B006188B8 /* LBXScanLineAnimation.m in Sources */,
-				7DD97AD11C2054C6006188B8 /* LBXAlertAction.m in Sources */,
 				7DD97CFB1C206F7B006188B8 /* LBXScanViewStyle.m in Sources */,
 				48AB502B1BD7752B000AA3C5 /* main.m in Sources */,
 				7D55B9531C2C34B6006C5C28 /* ZXingWrapper.m in Sources */,
@@ -487,7 +452,7 @@
 				INFOPLIST_FILE = LBXScanDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.LBXScanDemo1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.LBXScanDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -505,7 +470,7 @@
 				INFOPLIST_FILE = LBXScanDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.LBXScanDemo1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.LBXScanDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

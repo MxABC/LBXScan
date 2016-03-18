@@ -31,7 +31,7 @@ static char key;
 {
     void(^block)(NSInteger buttonIndex);
     block = objc_getAssociatedObject(self, &key);
-    
+    objc_removeAssociatedObjects(self);
     if (block)
         block(buttonIndex);
 }

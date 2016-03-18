@@ -30,6 +30,9 @@
     }
     
     self.view.backgroundColor = [UIColor blackColor];
+    
+    //设置扫码后需要扫码图像
+    self.isNeedScanImage = YES;
 }
 
 
@@ -47,7 +50,7 @@
     else
         _topTitle.hidden = YES;
     
-   
+    
 }
 
 //绘制扫描区域
@@ -166,9 +169,6 @@
     [LBXScanWrapper systemVibrate];
     //声音提醒
     [LBXScanWrapper systemSound];
-    
-    
-    //[self popAlertMsgWithScanResult:strResult];
     
     [self showNextVCWithScanResult:scanResult];
    

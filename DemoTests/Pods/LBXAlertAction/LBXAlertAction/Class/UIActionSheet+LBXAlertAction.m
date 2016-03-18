@@ -14,7 +14,7 @@ static char key;
 @implementation UIActionSheet (LBXAlertAction)
 
 
-- (void)showInView:(UIView *)view block:(void(^)(NSInteger idx))block
+- (void)showInView:(UIView *)view block:(void(^)(NSInteger idx,NSString* buttonTitle))block
 {
     if (block) {
         objc_removeAssociatedObjects(self);
@@ -28,10 +28,11 @@ static char key;
 // Called when a button is clicked. The view will be automatically dismissed after this call returns
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    void(^block)(NSInteger idx);
+    void(^block)(NSInteger idx,NSString* buttonTitle);
     block = objc_getAssociatedObject(self, &key);
+    objc_removeAssociatedObjects(self);
     if (block) {
-        block(buttonIndex);
+        block(buttonIndex,[self buttonTitleAtIndex:buttonIndex]);
     }
 }
 

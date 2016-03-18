@@ -30,6 +30,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+
+    if (!_imgScan) {
+        
+        _scanImg.backgroundColor = [UIColor grayColor];
+    }
 
     _scanImg.image = _imgScan;
     _labelScanText.text = _strScan;

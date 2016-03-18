@@ -57,6 +57,13 @@
     return NO;
 }
 
+- (void)setNeedCaptureImage:(BOOL)isNeedCaputureImg
+{
+    if (_scanNativeObj) {
+        [_scanNativeObj setNeedCaptureImage:isNeedCaputureImg];
+    }
+}
+
 - (instancetype)initWithPreView:(UIView*)preView ArrayObjectType:(NSArray*)arrayBarCodeType cropRect:(CGRect)cropRect
               success:(void(^)(NSArray<LBXScanResult*> *array))blockScanResult
 {
@@ -79,7 +86,7 @@
                     blockScanResult(array);
                 }
             }];
-            [_scanNativeObj setNeedCaptureImage:YES];
+            
         }
         else
         {
@@ -441,6 +448,7 @@
 + (UIImage*)addImageLogo:(UIImage*)srcImg centerLogoImage:(UIImage*)LogoImage logoSize:(CGSize)logoSize
 {
     UIGraphicsBeginImageContext(srcImg.size);
+    
     [srcImg drawInRect:CGRectMake(0, 0, srcImg.size.width, srcImg.size.height)];
     
     CGRect rect = CGRectMake(srcImg.size.width/2 - logoSize.width/2, srcImg.size.height/2-logoSize.height/2, logoSize.width, logoSize.height);
@@ -450,6 +458,30 @@
     return resultingImage;
 }
 
+
+#pragma mark --UIImage 圆角
+
++ (UIImage *)roundedCornerImageWithCornerRadius:(CGFloat)cornerRadius  srcImg:(UIImage*)srcImg
+{
+    CGFloat w = srcImg.size.width;
+    CGFloat h = srcImg.size.height;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    // 防止圆角半径小于0，或者大于宽/高中较小值的一半。
+    if (cornerRadius < 0)
+        cornerRadius = 0;
+    else if (cornerRadius > MIN(w, h))
+        cornerRadius = MIN(w, h) / 2.;
+    
+    UIImage *image = nil;
+    CGRect imageFrame = CGRectMake(0., 0., w, h);
+    UIGraphicsBeginImageContextWithOptions(srcImg.size, NO, scale);
+    [[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:cornerRadius] addClip];
+    [srcImg drawInRect:imageFrame];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 
 
 //下面引用自 https://github.com/yourtion/Demo_CustomQRCode

@@ -248,11 +248,9 @@
 }
 
 
--(UIImage *)getImageFromLayer:(CALayer *)layer{
-    
-    //CGSize size = layer.frame.size;
-    
-    UIGraphicsBeginImageContext(layer.frame.size);
+-(UIImage *)getImageFromLayer:(CALayer *)layer size:(CGSize)size
+{
+    UIGraphicsBeginImageContextWithOptions(size, YES, [[UIScreen mainScreen]scale]);
     [layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -287,26 +285,18 @@
              NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
              
              UIImage *img = [UIImage imageWithData:imageData];
-            
-             if (_blockScanResult)
-             {
-                 for (LBXScanResult* result in _arrayResult) {
-                     
-                     result.imgScanned = img;
-                 }
+             
+             for (LBXScanResult* result in _arrayResult) {
                  
-                 _blockScanResult(_arrayResult);
+                 result.imgScanned = img;
              }
-             
-             
          }
-         else
+         
+         if (_blockScanResult)
          {
-             if (_blockScanResult)
-             {
-                 _blockScanResult(_arrayResult);
-             }
+             _blockScanResult(_arrayResult);
          }
+         
      }];
 }
 
@@ -384,7 +374,6 @@
             _blockScanResult(_arrayResult);
         }
     }
-    
 }
 
 

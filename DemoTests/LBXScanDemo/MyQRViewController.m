@@ -91,24 +91,24 @@
 - (void)newCodeChooose
 {
     __weak __typeof(self) weakSelf = self;
-    [LBXAlertAction showActionSheetWithTitle:@"选择" message:@"选择" chooseBlock:^(NSInteger buttonIdx) {
+    [LBXAlertAction showActionSheetWithTitle:@"" message:nil chooseBlock:^(NSInteger buttonIdx) {
         
-        if (buttonIdx==0) {
+        if (buttonIdx==1) {
             [weakSelf createQR1];
-        }
-        else if (buttonIdx == 1)
-        {
-            [weakSelf createQR2];
         }
         else if (buttonIdx == 2)
         {
-            [weakSelf createQR3];
+            [weakSelf createQR2];
         }
         else if (buttonIdx == 3)
         {
-            [weakSelf createCodeEAN13];
+            [weakSelf createQR3];
         }
         else if (buttonIdx == 4)
+        {
+            [weakSelf createCodeEAN13];
+        }
+        else if (buttonIdx == 5)
         {
             [weakSelf createCode93];
         }
@@ -122,6 +122,8 @@
     _qrView.hidden = NO;
     _tView.hidden = YES;
     
+    
+    //如果想要圆角效果，建议还是将图像做成圆角的，或者通过logo图像做成UIImageView加在二维码上面即可
      UIImage *qrImg = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com" size:_qrImgView.bounds.size];
     
     UIImage *logoImg = [UIImage imageNamed:@"logo.JPG"];
