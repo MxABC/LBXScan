@@ -606,4 +606,29 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
 
 
 
+/**
+ @brief 获取摄像机最大拉远镜头
+ @return 放大系数
+ */
+- (CGFloat)getVideoMaxScale
+{
+    if (self.scanNativeObj) {
+       return [self.scanNativeObj getVideoMaxScale];
+    }
+    
+    return 1.0;
+}
+
+/**
+ @brief 拉近拉远镜头
+ @param scale 系数
+ */
+- (void)setVideoScale:(CGFloat)scale
+{
+    if (self.scanNativeObj) {
+        [self.scanNativeObj setVideoScale:scale];
+    }
+}
+
+
 @end

@@ -166,6 +166,7 @@
     vc.style = style;   
     
     vc.isQQSimulator = YES;
+    vc.isVideoZoom = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -19,6 +19,7 @@
 		48BD039D1BE36278005779B2 /* logo.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 48BD039C1BE36278005779B2 /* logo.JPG */; };
 		48DAEB301BFAB19B00F91B11 /* ScanResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DAEB2E1BFAB19A00F91B11 /* ScanResultViewController.m */; };
 		48DAEB311BFAB19B00F91B11 /* ScanResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48DAEB2F1BFAB19B00F91B11 /* ScanResultViewController.xib */; };
+		48DF8E011C9CF94100751B3D /* LBXScanVideoZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48DF8E001C9CF94100751B3D /* LBXScanVideoZoomView.m */; };
 		48E6C6801C9BF0CA001025B8 /* LBXSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E6C67F1C9BF0CA001025B8 /* LBXSlider.m */; };
 		57AC10CE26B6AD7DD97835E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBEC9368F81ABE333506853 /* libPods.a */; };
 		7D55B9521C2C34B6006C5C28 /* LBXZXCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D55B94E1C2C34B6006C5C28 /* LBXZXCapture.m */; };
@@ -57,6 +58,8 @@
 		48DAEB2D1BFAB19A00F91B11 /* ScanResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultViewController.h; sourceTree = "<group>"; };
 		48DAEB2E1BFAB19A00F91B11 /* ScanResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultViewController.m; sourceTree = "<group>"; };
 		48DAEB2F1BFAB19B00F91B11 /* ScanResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultViewController.xib; sourceTree = "<group>"; };
+		48DF8DFF1C9CF94100751B3D /* LBXScanVideoZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanVideoZoomView.h; sourceTree = "<group>"; };
+		48DF8E001C9CF94100751B3D /* LBXScanVideoZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanVideoZoomView.m; sourceTree = "<group>"; };
 		48E6C67E1C9BF0CA001025B8 /* LBXSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXSlider.h; sourceTree = "<group>"; };
 		48E6C67F1C9BF0CA001025B8 /* LBXSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXSlider.m; sourceTree = "<group>"; };
 		7D55B94D1C2C34B6006C5C28 /* LBXZXCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXZXCapture.h; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				7DD97B031C206F7B006188B8 /* LBXScanViewStyle.m */,
 				7DD97B041C206F7B006188B8 /* LBXScanWrapper.h */,
 				7DD97B051C206F7B006188B8 /* LBXScanWrapper.m */,
+				48DF8DFF1C9CF94100751B3D /* LBXScanVideoZoomView.h */,
+				48DF8E001C9CF94100751B3D /* LBXScanVideoZoomView.m */,
 			);
 			name = LBXScan;
 			path = ../LBXScan;
@@ -345,6 +350,7 @@
 				7DD97CF91C206F7B006188B8 /* LBXScanView.m in Sources */,
 				48E6C6801C9BF0CA001025B8 /* LBXSlider.m in Sources */,
 				48DAEB301BFAB19B00F91B11 /* ScanResultViewController.m in Sources */,
+				48DF8E011C9CF94100751B3D /* LBXScanVideoZoomView.m in Sources */,
 				7DD97CFA1C206F7B006188B8 /* LBXScanViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,16 +11,17 @@
 #import "ScanResultViewController.h"
 #import "LBXScanResult.h"
 #import "LBXScanWrapper.h"
-
+#import "LBXScanVideoZoomView.h"
 
 @interface SubLBXScanViewController ()
-
+@property (nonatomic, strong) LBXScanVideoZoomView *zoomView;
 @end
 
 @implementation SubLBXScanViewController
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -28,7 +29,6 @@
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
     self.view.backgroundColor = [UIColor blackColor];
     
     //设置扫码后需要扫码图像
@@ -40,7 +40,6 @@
 {
     [super viewDidAppear:animated];
     
-    
     if (_isQQSimulator) {
         
          [self drawBottomItems];
@@ -49,8 +48,6 @@
     }
     else
         _topTitle.hidden = YES;
-    
-    
 }
 
 //绘制扫描区域
@@ -58,8 +55,6 @@
 {
     if (!_topTitle)
     {
-        
-        
         self.topTitle = [[UILabel alloc]init];
         _topTitle.bounds = CGRectMake(0, 0, 145, 60);
         _topTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2, 50);
@@ -77,9 +72,68 @@
         _topTitle.text = @"将取景框对准二维码即可自动扫描";
         _topTitle.textColor = [UIColor whiteColor];
         [self.view addSubview:_topTitle];
+    }    
+}
+
+- (void)cameraInitOver
+{
+    if (self.isVideoZoom) {
+        [self zoomView];
+    }
+}
+
+- (LBXScanVideoZoomView*)zoomView
+{
+    if (!_zoomView)
+    {
+      
+        CGRect frame = self.view.frame;
+        
+        int XRetangleLeft = self.style.xScanRetangleOffset;
+        
+        CGSize sizeRetangle = CGSizeMake(frame.size.width - XRetangleLeft*2, frame.size.width - XRetangleLeft*2);
+        
+        if (self.style.whRatio != 1)
+        {
+            CGFloat w = sizeRetangle.width;
+            CGFloat h = w / self.style.whRatio;
+            
+            NSInteger hInt = (NSInteger)h;
+            h  = hInt;
+            
+            sizeRetangle = CGSizeMake(w, h);
+        }
+        
+        CGFloat videoMaxScale = [self.scanObj getVideoMaxScale];
+        
+        //扫码区域Y轴最小坐标
+        CGFloat YMinRetangle = frame.size.height / 2.0 - sizeRetangle.height/2.0 - self.style.centerUpOffset;
+        CGFloat YMaxRetangle = YMinRetangle + sizeRetangle.height;
+        
+        CGFloat zoomw = sizeRetangle.width + 40;
+        _zoomView = [[LBXScanVideoZoomView alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)-zoomw)/2, YMaxRetangle + 40, zoomw, 18)];
+        
+        [_zoomView setMaximunValue:videoMaxScale/4];
+        
+        
+        __weak __typeof(self) weakSelf = self;
+        _zoomView.block= ^(float value)
+        {            
+            [weakSelf.scanObj setVideoScale:value];
+        };
+        [self.view addSubview:_zoomView];
+                
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+        [self.view addGestureRecognizer:tap];
     }
     
-    
+    return _zoomView;
+   
+}
+
+- (void)tap
+{
+    _zoomView.hidden = !_zoomView.hidden;
 }
 
 - (void)drawBottomItems
@@ -91,7 +145,6 @@
     
     self.bottomItemsView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame)-164,
                                                                       CGRectGetWidth(self.view.frame), 100)];
-    
     _bottomItemsView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     
     [self.view addSubview:_bottomItemsView];
