@@ -447,7 +447,9 @@
  */
 + (UIImage*)addImageLogo:(UIImage*)srcImg centerLogoImage:(UIImage*)LogoImage logoSize:(CGSize)logoSize
 {
-    UIGraphicsBeginImageContext(srcImg.size);
+    //UIGraphicsBeginImageContext(srcImg.size);
+    
+    UIGraphicsBeginImageContextWithOptions(srcImg.size, NO, [[UIScreen mainScreen] scale]);
     
     [srcImg drawInRect:CGRectMake(0, 0, srcImg.size.width, srcImg.size.height)];
     
