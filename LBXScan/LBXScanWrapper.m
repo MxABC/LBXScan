@@ -461,6 +461,20 @@
 }
 
 
+/**
+ *  通过UIImageView形式添加Logo
+ *
+ *  @param srcImgView 显示二维码的UIImageView
+ *  @param logoView   logo的UIImageView
+ *  @param logoSize   logo大小
+ */
++ (void)addImageViewLogo:(UIImageView*)srcImgView centerLogoImageView:(UIImageView*)logoView logoSize:(CGSize)logoSize
+{    
+    logoView.center = srcImgView.center;
+    logoView.bounds = CGRectMake(0, 0, logoSize.width, logoSize.height);
+    [srcImgView addSubview:logoView];
+}
+
 #pragma mark --UIImage 圆角
 
 + (UIImage *)roundedCornerImageWithCornerRadius:(CGFloat)cornerRadius  srcImg:(UIImage*)srcImg

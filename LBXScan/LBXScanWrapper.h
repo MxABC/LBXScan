@@ -119,6 +119,16 @@
 + (UIImage*)addImageLogo:(UIImage*)srcImg centerLogoImage:(UIImage*)LogoImage logoSize:(CGSize)logoSize;
 
 
+/**
+ *  通过UIImageView形式添加Logo
+ *
+ *  @param srcImgView 显示二维码的UIImageView
+ *  @param logoView   logo的UIImageView
+ *  @param logoSize   logo大小
+ */
++ (void)addImageViewLogo:(UIImageView*)srcImgView centerLogoImageView:(UIImageView*)logoView logoSize:(CGSize)logoSize;
+
+
 
 #pragma mark - 生成二维码，背景色及二维码颜色设置
 /**

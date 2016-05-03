@@ -9,6 +9,7 @@
 #import "MyQRViewController.h"
 #import "LBXScanWrapper.h"
 #import "LBXAlertAction.h"
+#import <ZYCornerRadius/UIImageView+CornerRadius.h>
 
 @interface MyQRViewController ()
 
@@ -122,13 +123,30 @@
     _qrView.hidden = NO;
     _tView.hidden = YES;
     
+    _qrImgView.image = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com" size:_qrImgView.bounds.size];
     
-    //如果想要圆角效果，建议还是将图像做成圆角的，或者通过logo图像做成UIImageView加在二维码上面即可
-     UIImage *qrImg = [LBXScanWrapper createQRWithString:@"lbxia20091227@foxmail.com" size:_qrImgView.bounds.size];
+    CGSize logoSize=CGSizeMake(30, 30);
+    UIImageView* imageView = [self roundCornerWithImage:[UIImage imageNamed:@"logo.JPG"] size:logoSize];
+    [LBXScanWrapper addImageViewLogo:_qrImgView centerLogoImageView:imageView logoSize:logoSize];
     
-    UIImage *logoImg = [UIImage imageNamed:@"logo.JPG"];
-    _qrImgView.image = [LBXScanWrapper addImageLogo:qrImg centerLogoImage:logoImg logoSize:CGSizeMake(30, 30)];
+}
+
+- (UIImageView*)roundCornerWithImage:(UIImage*)logoImg size:(CGSize)size
+{
+    //logo圆角
+    UIImageView *backImage = [[UIImageView alloc] initWithCornerRadiusAdvance:6.0f rectCornerType:UIRectCornerAllCorners];
+    backImage.frame = CGRectMake(0, 0, size.width, size.height);
+    backImage.backgroundColor = [UIColor whiteColor];
     
+    UIImageView *logImage = [[UIImageView alloc] initWithCornerRadiusAdvance:6.0f rectCornerType:UIRectCornerAllCorners];
+    logImage.image =logoImg;
+    CGFloat diff  =2;
+    logImage.frame = CGRectMake(diff, diff, size.width - 2 * diff, size.height - 2 * diff);
+    
+    [backImage addSubview:logImage];
+    
+    
+    return backImage;
 }
 
 - (void)createQR2
