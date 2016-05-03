@@ -5,7 +5,7 @@
 
 ```ruby
 platform :ios, '7.0'
-pod 'LBXAlertAction',git: 'https://github.com/MxABC/LBXAlertAction.git'
+pod 'LBXAlertAction'
 ```
 
 ####手动导入：

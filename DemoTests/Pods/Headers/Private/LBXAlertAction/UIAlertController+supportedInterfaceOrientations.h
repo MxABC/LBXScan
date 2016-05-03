@@ -1,0 +1,1 @@
+../../../LBXAlertAction/LBXAlertAction/Class/UIAlertController+supportedInterfaceOrientations.h
