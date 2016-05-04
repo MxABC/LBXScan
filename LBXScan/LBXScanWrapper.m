@@ -532,7 +532,7 @@
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     // 设置内容和纠错级别
     [qrFilter setValue:stringData forKey:@"inputMessage"];
-    [qrFilter setValue:@"M" forKey:@"inputCorrectionLevel"];
+    [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
     // 返回CIImage
     return qrFilter.outputImage;
 }
