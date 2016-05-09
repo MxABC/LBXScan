@@ -232,6 +232,7 @@
         
        // [_input.device addObserver:self forKeyPath:@"torchMode" options:0 context:nil];
     }
+    bNeedScanResult = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -244,6 +245,7 @@
 
 - (void)stopScan
 {
+    bNeedScanResult = NO;
     if ( _input && _session.isRunning )
     {
         bNeedScanResult = NO;
@@ -368,6 +370,8 @@
         return;
     }
     
+    bNeedScanResult = NO;
+    
     if (!_arrayResult) {
         
         self.arrayResult = [NSMutableArray arrayWithCapacity:1];
@@ -387,14 +391,22 @@
             NSLog(@"type:%@",current.type);
             NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
             
-            LBXScanResult *result = [LBXScanResult new];
-            result.strScanned = scannedResult;
-            result.strBarCodeType = current.type;
-            
-            [_arrayResult addObject:result];
-            
+            if (scannedResult && ![scannedResult isEqualToString:@""])
+            {
+                LBXScanResult *result = [LBXScanResult new];
+                result.strScanned = scannedResult;
+                result.strBarCodeType = current.type;
+                
+                [_arrayResult addObject:result];
+            }
             //测试可以同时识别多个二维码
         }
+    }
+    
+    if (_arrayResult.count < 1)
+    {
+        bNeedScanResult = YES;
+        return;
     }
     
     if (_isNeedCaputureImage)

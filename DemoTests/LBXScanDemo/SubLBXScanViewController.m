@@ -219,9 +219,9 @@
     }
     
     //震动提醒
-    [LBXScanWrapper systemVibrate];
+   // [LBXScanWrapper systemVibrate];
     //声音提醒
-    [LBXScanWrapper systemSound];
+    //[LBXScanWrapper systemSound];
     
     [self showNextVCWithScanResult:scanResult];
    
