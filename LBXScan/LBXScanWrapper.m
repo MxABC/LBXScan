@@ -251,9 +251,32 @@
 
 + (void)systemSound
 {
-    AudioServicesPlaySystemSound(SOUNDID);
+//    AudioServicesPlaySystemSound(SOUNDID);
+    
+    static SystemSoundID soundID = 0;
+    if (soundID == 0) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"di" ofType:@"mp3"];
+        NSURL *filePath = [NSURL fileURLWithPath:path isDirectory:NO];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
+    }
+    if (soundID > 0) {
+        AudioServicesPlaySystemSound(soundID);
+    }
 }
 
++ (void)muteCaptureSound
+{
+    static SystemSoundID soundID = 0;
+    if (soundID == 0) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"photoShutter2" ofType:@"caf"];
+        NSURL *filePath = [NSURL fileURLWithPath:path isDirectory:NO];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
+    }
+    
+    if (soundID > 0) {
+        AudioServicesPlaySystemSound(soundID);
+    }
+}
 
 #pragma mark -相机、相册权限
 + (BOOL)isGetCameraPermission
