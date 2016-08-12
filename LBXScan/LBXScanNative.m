@@ -422,6 +422,9 @@
     }
     else
     {
+        //add by sing, 2016-08-12
+        [LBXScanWrapper systemSound];
+        
         [self stopScan];
         
         if (_blockScanResult) {
