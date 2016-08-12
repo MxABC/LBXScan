@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.source_files = 'LBXScan/*.{h,m}'
     s.prefix_header_contents = '#import <Foundation/Foundation.h>'
-    s.dependency 'ZXingObjC', '~> 3.0'
+    s.dependency 'ZXingObjC', '~> 3.1.0'
 end
