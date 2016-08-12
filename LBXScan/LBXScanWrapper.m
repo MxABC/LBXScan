@@ -57,6 +57,13 @@
     return NO;
 }
 
+- (void)setNeedCaptureImage:(BOOL)isNeedCaputureImg
+{
+    if (_scanNativeObj) {
+        [_scanNativeObj setNeedCaptureImage:isNeedCaputureImg];
+    }
+}
+
 - (instancetype)initWithPreView:(UIView*)preView ArrayObjectType:(NSArray*)arrayBarCodeType cropRect:(CGRect)cropRect
               success:(void(^)(NSArray<LBXScanResult*> *array))blockScanResult
 {
@@ -79,7 +86,7 @@
                     blockScanResult(array);
                 }
             }];
-            [_scanNativeObj setNeedCaptureImage:YES];
+            
         }
         else
         {
@@ -252,7 +259,9 @@
         NSURL *filePath = [NSURL fileURLWithPath:path isDirectory:NO];
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
     }
-    AudioServicesPlaySystemSound(soundID);
+    if (soundID > 0) {
+        AudioServicesPlaySystemSound(soundID);
+    }
 }
 
 + (void)muteCaptureSound
@@ -263,9 +272,11 @@
         NSURL *filePath = [NSURL fileURLWithPath:path isDirectory:NO];
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
     }
-    AudioServicesPlaySystemSound(soundID);
+    
+    if (soundID > 0) {
+        AudioServicesPlaySystemSound(soundID);
+    }
 }
-
 
 #pragma mark -相机、相册权限
 + (BOOL)isGetCameraPermission
@@ -459,7 +470,10 @@
  */
 + (UIImage*)addImageLogo:(UIImage*)srcImg centerLogoImage:(UIImage*)LogoImage logoSize:(CGSize)logoSize
 {
-    UIGraphicsBeginImageContext(srcImg.size);
+    //UIGraphicsBeginImageContext(srcImg.size);
+    
+    UIGraphicsBeginImageContextWithOptions(srcImg.size, NO, [[UIScreen mainScreen] scale]);
+    
     [srcImg drawInRect:CGRectMake(0, 0, srcImg.size.width, srcImg.size.height)];
     
     CGRect rect = CGRectMake(srcImg.size.width/2 - logoSize.width/2, srcImg.size.height/2-logoSize.height/2, logoSize.width, logoSize.height);
@@ -469,6 +483,44 @@
     return resultingImage;
 }
 
+
+/**
+ *  通过UIImageView形式添加Logo
+ *
+ *  @param srcImgView 显示二维码的UIImageView
+ *  @param logoView   logo的UIImageView
+ *  @param logoSize   logo大小
+ */
++ (void)addImageViewLogo:(UIImageView*)srcImgView centerLogoImageView:(UIImageView*)logoView logoSize:(CGSize)logoSize
+{    
+    logoView.center = srcImgView.center;
+    logoView.bounds = CGRectMake(0, 0, logoSize.width, logoSize.height);
+    [srcImgView addSubview:logoView];
+}
+
+#pragma mark --UIImage 圆角
+
++ (UIImage *)roundedCornerImageWithCornerRadius:(CGFloat)cornerRadius  srcImg:(UIImage*)srcImg
+{
+    CGFloat w = srcImg.size.width;
+    CGFloat h = srcImg.size.height;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    // 防止圆角半径小于0，或者大于宽/高中较小值的一半。
+    if (cornerRadius < 0)
+        cornerRadius = 0;
+    else if (cornerRadius > MIN(w, h))
+        cornerRadius = MIN(w, h) / 2.;
+    
+    UIImage *image = nil;
+    CGRect imageFrame = CGRectMake(0., 0., w, h);
+    UIGraphicsBeginImageContextWithOptions(srcImg.size, NO, scale);
+    [[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:cornerRadius] addClip];
+    [srcImg drawInRect:imageFrame];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 
 
 //下面引用自 https://github.com/yourtion/Demo_CustomQRCode
@@ -481,6 +533,7 @@
     size_t height = CGRectGetHeight(extent) * scale;
     CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
     CGContextRef bitmapRef = CGBitmapContextCreate(nil, width, height, 8, 0, cs, (CGBitmapInfo)kCGImageAlphaNone);
+    CGColorSpaceRelease(cs);
     CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef bitmapImage = [context createCGImage:image fromRect:extent];
     CGContextSetInterpolationQuality(bitmapRef, kCGInterpolationNone);
@@ -490,7 +543,9 @@
     CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
     CGContextRelease(bitmapRef);
     CGImageRelease(bitmapImage);
-    return [UIImage imageWithCGImage:scaledImage];
+    UIImage *aImage = [UIImage imageWithCGImage:scaledImage];
+    CGImageRelease(scaledImage);
+    return aImage;
 }
 
 #pragma mark - QRCodeGenerator
@@ -500,7 +555,7 @@
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     // 设置内容和纠错级别
     [qrFilter setValue:stringData forKey:@"inputMessage"];
-    [qrFilter setValue:@"M" forKey:@"inputCorrectionLevel"];
+    [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
     // 返回CIImage
     return qrFilter.outputImage;
 }
@@ -588,6 +643,31 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     return codeImage;
 }
 
+
+
+/**
+ @brief 获取摄像机最大拉远镜头
+ @return 放大系数
+ */
+- (CGFloat)getVideoMaxScale
+{
+    if (self.scanNativeObj) {
+       return [self.scanNativeObj getVideoMaxScale];
+    }
+    
+    return 1.0;
+}
+
+/**
+ @brief 拉近拉远镜头
+ @param scale 系数
+ */
+- (void)setVideoScale:(CGFloat)scale
+{
+    if (self.scanNativeObj) {
+        [self.scanNativeObj setVideoScale:scale];
+    }
+}
 
 
 @end
