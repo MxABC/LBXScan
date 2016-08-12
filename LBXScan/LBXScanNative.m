@@ -2,6 +2,7 @@
 
 
 #import "LBXScanNative.h"
+#import "LBXScanWrapper.h"
 
 
 @interface LBXScanNative()<AVCaptureMetadataOutputObjectsDelegate>
@@ -46,13 +47,6 @@
 - (void)setNeedCaptureImage:(BOOL)isNeedCaputureImg
 {
     _isNeedCaputureImage = isNeedCaputureImg;
-}
-
-+ (CGFloat)getCameraVideoMaxScale
-{
-    
-    
-    return 50.0;
 }
 
 - (id)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block
@@ -156,10 +150,8 @@
     
  
     
-    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+//    AVCaptureConnection *videoConnection = [AVCamUtilities connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
 //    CGFloat maxScale = videoConnection.videoMaxScaleAndCropFactor;
-     CGFloat scale = videoConnection.videoScaleAndCropFactor;
-    NSLog(@"%f",scale);
 //    CGFloat zoom = maxScale / 50;
 //    if (zoom < 1.0f || zoom > maxScale)
 //    {
@@ -180,32 +172,6 @@
     }
 }
 
-- (CGFloat)getVideoMaxScale
-{
-    [_input.device lockForConfiguration:nil];
-    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
-    CGFloat maxScale = videoConnection.videoMaxScaleAndCropFactor;
-    [_input.device unlockForConfiguration];
-    
-    return maxScale;
-}
-
-- (void)setVideoScale:(CGFloat)scale
-{
-    [_input.device lockForConfiguration:nil];
-    
-    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
-    
-    CGFloat zoom = scale / videoConnection.videoScaleAndCropFactor;
-    
-    videoConnection.videoScaleAndCropFactor = scale;
-    
-    [_input.device unlockForConfiguration];
-    
-    CGAffineTransform transform = _videoPreView.transform;
-    
-    _videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
-}
 
 - (void)setScanRect:(CGRect)scanRect
 {
@@ -232,7 +198,6 @@
         
        // [_input.device addObserver:self forKeyPath:@"torchMode" options:0 context:nil];
     }
-    bNeedScanResult = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -245,7 +210,6 @@
 
 - (void)stopScan
 {
-    bNeedScanResult = NO;
     if ( _input && _session.isRunning )
     {
         bNeedScanResult = NO;
@@ -285,9 +249,11 @@
 }
 
 
--(UIImage *)getImageFromLayer:(CALayer *)layer size:(CGSize)size
-{
-    UIGraphicsBeginImageContextWithOptions(size, YES, [[UIScreen mainScreen]scale]);
+-(UIImage *)getImageFromLayer:(CALayer *)layer{
+    
+    //CGSize size = layer.frame.size;
+    
+    UIGraphicsBeginImageContext(layer.frame.size);
     [layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -311,10 +277,16 @@
 {
     AVCaptureConnection *stillImageConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
     
+    //add by sing, 2016-08-12
+    //mute the system capture sound!
+    [LBXScanWrapper muteCaptureSound];
     
     [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:stillImageConnection
                                                          completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error)
      {
+         //add by sing, 2016-08-12
+         [LBXScanWrapper systemSound];
+         
          [self stopScan];
          
          if (imageDataSampleBuffer)
@@ -322,18 +294,26 @@
              NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
              
              UIImage *img = [UIImage imageWithData:imageData];
-             
-             for (LBXScanResult* result in _arrayResult) {
+            
+             if (_blockScanResult)
+             {
+                 for (LBXScanResult* result in _arrayResult) {
+                     
+                     result.imgScanned = img;
+                 }
                  
-                 result.imgScanned = img;
+                 _blockScanResult(_arrayResult);
+             }
+             
+             
+         }
+         else
+         {
+             if (_blockScanResult)
+             {
+                 _blockScanResult(_arrayResult);
              }
          }
-         
-         if (_blockScanResult)
-         {
-             _blockScanResult(_arrayResult);
-         }
-         
      }];
 }
 
@@ -370,8 +350,6 @@
         return;
     }
     
-    bNeedScanResult = NO;
-    
     if (!_arrayResult) {
         
         self.arrayResult = [NSMutableArray arrayWithCapacity:1];
@@ -391,22 +369,14 @@
             NSLog(@"type:%@",current.type);
             NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
             
-            if (scannedResult && ![scannedResult isEqualToString:@""])
-            {
-                LBXScanResult *result = [LBXScanResult new];
-                result.strScanned = scannedResult;
-                result.strBarCodeType = current.type;
-                
-                [_arrayResult addObject:result];
-            }
+            LBXScanResult *result = [LBXScanResult new];
+            result.strScanned = scannedResult;
+            result.strBarCodeType = current.type;
+            
+            [_arrayResult addObject:result];
+            
             //测试可以同时识别多个二维码
         }
-    }
-    
-    if (_arrayResult.count < 1)
-    {
-        bNeedScanResult = YES;
-        return;
     }
     
     if (_isNeedCaputureImage)
@@ -421,6 +391,7 @@
             _blockScanResult(_arrayResult);
         }
     }
+    
 }
 
 

@@ -46,16 +46,6 @@
 
 
 /*!
- *  设置扫码成功后是否拍照，ios7 AVFoundation框架，
- *  从 CALayer获取不到图像，如果有谁知道怎么做，请告诉我，谢谢 lbxia20091227@foxmail.com
- *  当前如果想要扫码后的照片，又没有拍照声音，可以考虑使用ZXing的代码库的方式
- *
- *  @param isNeedCaputureImg YES:拍照， NO:不拍照
- */
-- (void)setNeedCaptureImage:(BOOL)isNeedCaputureImg;
-
-
-/*!
  *  开始扫码,扫码成功返回数据后，内部调用stopScan，重新扫描需要重新调用startScan
  */
 - (void)startScan;
@@ -119,16 +109,6 @@
 + (UIImage*)addImageLogo:(UIImage*)srcImg centerLogoImage:(UIImage*)LogoImage logoSize:(CGSize)logoSize;
 
 
-/**
- *  通过UIImageView形式添加Logo
- *
- *  @param srcImgView 显示二维码的UIImageView
- *  @param logoView   logo的UIImageView
- *  @param logoSize   logo大小
- */
-+ (void)addImageViewLogo:(UIImageView*)srcImgView centerLogoImageView:(UIImageView*)logoView logoSize:(CGSize)logoSize;
-
-
 
 #pragma mark - 生成二维码，背景色及二维码颜色设置
 /**
@@ -178,6 +158,8 @@
  */
 + (void)systemSound;
 
++ (void)muteCaptureSound;
+
 
 #pragma mark -相机、相册权限
 
@@ -189,20 +171,6 @@
  @brief  获取相册权限
  */
 + (BOOL)isGetPhotoPermission;
-
-
-
-/**
- @brief 获取摄像机最大拉远镜头
- @return 放大系数
- */
-- (CGFloat)getVideoMaxScale;
-
-/**
- @brief 拉近拉远镜头
- @param scale 系数
- */
-- (void)setVideoScale:(CGFloat)scale;
 
 
 @end
