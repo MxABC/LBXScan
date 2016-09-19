@@ -2,7 +2,6 @@
 
 
 #import "LBXScanNative.h"
-#import "LBXScanWrapper.h"
 
 
 @interface LBXScanNative()<AVCaptureMetadataOutputObjectsDelegate>
@@ -312,16 +311,10 @@
 {
     AVCaptureConnection *stillImageConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
     
-    //add by sing, 2016-08-12
-    //mute the system capture sound!
-    [LBXScanWrapper muteCaptureSound];
     
     [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:stillImageConnection
                                                          completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error)
      {
-         //add by sing, 2016-08-12
-         [LBXScanWrapper systemSound];
-         
          [self stopScan];
          
          if (imageDataSampleBuffer)
@@ -422,9 +415,6 @@
     }
     else
     {
-        //add by sing, 2016-08-12
-        [LBXScanWrapper systemSound];
-        
         [self stopScan];
         
         if (_blockScanResult) {

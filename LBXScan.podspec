@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'LBXScan'
-    s.version      = '1.1.2'
+    s.version      = '1.1.1'
     s.summary      = 'ios scan wrapper'
     s.homepage     = 'https://github.com/MxABC'
     s.license      = 'MIT'
@@ -10,6 +10,5 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.source_files = 'LBXScan/*.{h,m}'
     s.prefix_header_contents = '#import <Foundation/Foundation.h>'
-    s.resources    = 'LBXScan/assets/*'
-    s.dependency 'ZXingObjC'
+    s.dependency 'ZXingObjC', '~> 3.0'
 end

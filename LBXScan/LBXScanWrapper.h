@@ -178,7 +178,6 @@
  */
 + (void)systemSound;
 
-+ (void)muteCaptureSound;
 
 #pragma mark -相机、相册权限
 
