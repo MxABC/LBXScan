@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
       all.source_files = 'LBXScan/**/*.{h,m}'
       all.libraries = 'iconv','z'
       all.resource     = 'LBXScan/UI/CodeScan.bundle'
+      all.dependency 'ZBarSDK', '~> 1.3.1'
       all.ios.frameworks = 'AVFoundation', 'CoreGraphics', 'CoreMedia', 'CoreVideo', 'ImageIO', 'QuartzCore'
     end
 
