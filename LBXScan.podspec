@@ -8,7 +8,6 @@ Pod::Spec.new do |s|
     s.platform     = :ios, '6.0'
     s.source       = {:git => 'https://github.com/MxABC/LBXScan.git', :tag => s.version}
     s.requires_arc = true
-    s.source_files = 'LBXScan/*.{h,m}'
     s.prefix_header_contents = '#import <Foundation/Foundation.h>'
     
 
@@ -16,11 +15,8 @@ Pod::Spec.new do |s|
 
     s.subspec 'All' do |all|
       all.source_files = 'LBXScan/**/*.{h,m}'
-      all.vendored_library = "LBXScan/LBXZBar/ZBarSDK/libzbar64.a"
       all.libraries = 'iconv','z'
-      all.resource_bundles = {
-      'UI' => ['LBXScan/UI/CodeScan.bundle/*.png']
-      }
+      all.resource     = 'LBXScan/UI/CodeScan.bundle'
       all.ios.frameworks = 'AVFoundation', 'CoreGraphics', 'CoreMedia', 'CoreVideo', 'ImageIO', 'QuartzCore'
     end
 
