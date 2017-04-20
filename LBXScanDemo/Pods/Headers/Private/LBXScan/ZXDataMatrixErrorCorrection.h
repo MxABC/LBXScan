@@ -1,0 +1,1 @@
+../../../../../LBXScan/LBXZXing/ZXingObjc/datamatrix/encoder/ZXDataMatrixErrorCorrection.h

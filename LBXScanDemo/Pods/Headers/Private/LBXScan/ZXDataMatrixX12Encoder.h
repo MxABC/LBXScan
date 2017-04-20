@@ -1,0 +1,1 @@
+../../../../../LBXScan/LBXZXing/ZXingObjc/datamatrix/encoder/ZXDataMatrixX12Encoder.h

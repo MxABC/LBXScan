@@ -1,0 +1,1 @@
+../../../../../LBXScan/LBXZXing/ZXingObjc/common/ZXHybridBinarizer.h

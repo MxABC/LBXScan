@@ -1,0 +1,1 @@
+../../../../../LBXScan/LBXZXing/ZXingObjc/oned/ZXUPCEANWriter.h

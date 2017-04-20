@@ -1,5 +1,0 @@
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/LBXAlertAction" "${PODS_ROOT}/Headers/Public/ZXingObjC" "${PODS_ROOT}/Headers/Public/ZYCornerRadius"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/LBXAlertAction" -isystem "${PODS_ROOT}/Headers/Public/ZXingObjC" -isystem "${PODS_ROOT}/Headers/Public/ZYCornerRadius"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"LBXAlertAction" -l"ZXingObjC" -l"ZYCornerRadius" -framework "AVFoundation" -framework "CoreGraphics" -framework "CoreMedia" -framework "CoreVideo" -framework "ImageIO" -framework "QuartzCore" -framework "UIKit"
-PODS_ROOT = ${SRCROOT}/Pods

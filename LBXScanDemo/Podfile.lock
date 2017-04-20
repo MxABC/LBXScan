@@ -1,0 +1,25 @@
+PODS:
+  - LBXScan/LBXNative (2.0)
+  - LBXScan/LBXZBar (2.0):
+    - ZBarSDK (~> 1.3.1)
+  - LBXScan/LBXZXing (2.0)
+  - LBXScan/UI (2.0)
+  - ZBarSDK (1.3.1)
+
+DEPENDENCIES:
+  - LBXScan/LBXNative (from `../`)
+  - LBXScan/LBXZBar (from `../`)
+  - LBXScan/LBXZXing (from `../`)
+  - LBXScan/UI (from `../`)
+
+EXTERNAL SOURCES:
+  LBXScan:
+    :path: ../
+
+SPEC CHECKSUMS:
+  LBXScan: 15701fad409ab2d51ed517c1a51260e070d2d415
+  ZBarSDK: 4c1b5daeb7d6cc67dc9355e690af0230a661f6ec
+
+PODFILE CHECKSUM: 4add3353722fb500d4ef98cb0b90dac3aff18cf5
+
+COCOAPODS: 1.2.0.rc.1
