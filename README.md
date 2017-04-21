@@ -32,6 +32,14 @@
 ```ruby
  pod 'LBXScan', '~> 2.0'
 ```
+建议按下面这样分组写，安装好后按文件夹分组，否则所有文件在一个文件夹里，很乱
+
+```ruby
+pod 'LBXScan/LBXNative','~> 2.0'
+pod 'LBXScan/LBXZXing','~> 2.0'
+pod 'LBXScan/LBXZBar','~> 2.0'
+pod 'LBXScan/UI','~> 2.0'
+```
 
 - 只安装系统原生API封装库  
 
