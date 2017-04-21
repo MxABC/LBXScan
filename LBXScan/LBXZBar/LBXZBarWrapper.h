@@ -11,6 +11,8 @@
 
 
 
+// enum zbar_symbol_type_t;
+
 /**
  扫码结果
  */
