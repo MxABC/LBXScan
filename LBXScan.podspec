@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     s.default_subspec = 'All'
 
     s.subspec 'All' do |all|
-      all.source_files = 'LBXScan/**/*.{h,m}'
+      all.source_files = 'LBXScan/LBXNative/*.{h,m}','LBXScan/LBXZXing/**/*.{h,m}','LBXScan/LBXZBar/*.{h,m}','LBXScan/UI/*.{h,m}'
       all.libraries = 'iconv','z'
       all.resource     = 'LBXScan/UI/CodeScan.bundle'
       all.dependency 'ZBarSDK', '~> 1.3.1'

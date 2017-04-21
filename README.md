@@ -24,35 +24,37 @@
 > 可独立安装某一功能,ZXing已经下载到本工程，解决之前版本下载速度慢的问题
 
 #### install with cocoapods by git tag
+
+
 ***
-- 安装所有库包括UI  (最低系统iOS7)
+- 安装所有库包括UI 
 
 ```ruby
-pod 'LBXScan/All',git:'https://github.com/MxABC/LBXScan.git', tag: '2.0'
+ pod 'LBXScan', '~> 2.0'
 ```
 
-- 只安装系统原生API封装库  (最低系统iOS7)
+- 只安装系统原生API封装库  
 
 ```ruby
-pod 'LBXScan/LBXNative',git:'https://github.com/MxABC/LBXScan.git', tag: '2.0'
+pod 'LBXScan/LBXNative','~> 2.0'
 ```
 
-- 只安装ZXing封装库  (最低系统iOS6)
+- 只安装ZXing封装库 
 
 ```ruby
-pod 'LBXScan/LBXZXing',git:'https://github.com/MxABC/LBXScan.git', tag: '2.0'
+pod 'LBXScan/LBXZXing','~> 2.0'
 ```
 
 - 只安装ZBar封装库 
 
 ```ruby
-pod 'LBXScan/LBXZBar',git:'https://github.com/MxABC/LBXScan.git', tag: '2.0'
+pod 'LBXScan/LBXZBar','~> 2.0'
 ```
 
 - 只安装UI
 
 ```ruby
-pod 'LBXScan/UI',git:'https://github.com/MxABC/LBXScan.git', tag: '2.0'
+pod 'LBXScan/UI','~> 2.0'
 ```
 - 安装任意组合
 
