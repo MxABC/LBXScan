@@ -77,14 +77,17 @@ pod 'LBXScan/UI','~> 2.0'
 ### 使用
 #### 自定义参数部分介绍
 ```obj-c
-- (void)custom
+- (LBXScanViewStyle*)DIY
 {
 //设置扫码区域参数
 LBXScanViewStyle *style = [[LBXScanViewStyle alloc]init];
+
+//扫码框中心位置上移像素
 style.centerUpOffset = 44;
 
 //扫码框周围4个角的类型设置为在框的上面
 style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_On;
+
 //扫码框周围4个角绘制线宽度
 style.photoframeLineW = 6;
 
@@ -112,6 +115,7 @@ style.colorRetangleLine = [UIColor colorWithRed:247/255. green:202./255. blue:15
 //非矩形框区域颜色
 style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 
+return style;
 }
 ```
 
