@@ -1,6 +1,7 @@
 
 
 # iOS 二维码、条形码 objective-c 版本
+[swift verison 点这里](https://github.com/MxABC/swiftScan)
 ### iOS扫码封装
 - 扫码识别封装: 系统API(AVFoundation)、ZXing、ZBar
 - 扫码界面效果封装
