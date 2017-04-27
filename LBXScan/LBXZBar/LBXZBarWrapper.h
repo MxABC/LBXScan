@@ -44,8 +44,7 @@
 
 
 /**
- ZBar封装,使用的ZBar库不支持bitcode,
- 另外需要添加libiconv库
+ ZBar封装
  */
 @interface LBXZBarWrapper : NSObject
 

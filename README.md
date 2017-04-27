@@ -20,10 +20,8 @@
 - 支付宝扫码框效果
 - 微信扫码框效果
 
-### install with cocoapods
+### Installation with CocoaPods
 > 可独立安装某一功能,ZXing已经下载到本工程，解决之前版本下载速度慢的问题
-
-#### install with cocoapods by git tag
 
 
 ***
