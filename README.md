@@ -2,6 +2,12 @@
 
 # iOS 二维码、条形码 objective-c 版本
 [swift verison 点这里](https://github.com/MxABC/swiftScan)
+[![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](https://developer.apple.com/iphone/index.action)
+[![Language](http://img.shields.io/badge/language-OC-yellow.svg?style=flat
+             )](https://en.wikipedia.org/wiki/Objective-C)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org)
+![CocoaPods Version](https://img.shields.io/badge/pod-v1.2.0-brightgreen.svg)
+
 ### iOS扫码封装
 - 扫码识别封装: 系统API(AVFoundation)、ZXing、ZBar
 - 扫码界面效果封装

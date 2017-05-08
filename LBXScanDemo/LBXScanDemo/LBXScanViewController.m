@@ -77,17 +77,23 @@
     switch ([Global sharedManager].libraryType) {
         case SLT_Native:
         {
-           [_scanObj startScan];
+#ifdef LBXScan_Define_Native
+            [_scanObj startScan];
+#endif
         }
             break;
         case SLT_ZXing:
         {
+#ifdef LBXScan_Define_ZXing
             [_zxingObj start];
+#endif
         }
             break;
         case SLT_ZBar:
         {
+#ifdef LBXScan_Define_ZBar
             [_zbarObj start];
+#endif
         }
             break;
         default:
@@ -115,6 +121,10 @@
     switch ([Global sharedManager].libraryType) {
         case SLT_Native:
         {
+
+            
+#ifdef LBXScan_Define_Native
+            
             if (!_scanObj )
             {
                 CGRect cropRect = CGRectZero;
@@ -139,11 +149,14 @@
                 [_scanObj setNeedCaptureImage:_isNeedScanImage];
             }
             [_scanObj startScan];
+#endif
 
         }
             break;
         case SLT_ZXing:
         {
+
+#ifdef LBXScan_Define_ZXing
             if (!_zxingObj) {
                 
                 self.zxingObj = [[ZXingWrapper alloc]initWithPreView:videoView block:^(ZXBarcodeFormat barcodeFormat, NSString *str, UIImage *scanImg) {
@@ -165,12 +178,13 @@
                      [_zxingObj setScanRect:cropRect];
                 }               
             }
-            
             [_zxingObj start];
+#endif
         }
             break;
         case SLT_ZBar:
         {
+#ifdef LBXScan_Define_ZBar
             if (!_zbarObj) {
                 
                 self.zbarObj = [[LBXZBarWrapper alloc]initWithPreView:videoView barCodeType:ZBAR_I25 block:^(NSArray<LBXZbarResult *> *result) {
@@ -187,14 +201,17 @@
                 }];
             }
             [_zbarObj start];
+#endif
         }
             break;
         default:
             break;
     }
-    [_qRScanView stopDeviceReadying];
     
+#ifdef LBXScan_Define_UI
+    [_qRScanView stopDeviceReadying];
     [_qRScanView startScanAnimation];
+#endif
     
     self.view.backgroundColor = [UIColor clearColor];
 }
@@ -207,27 +224,40 @@
     [super viewWillDisappear:animated];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+ 
+    [self stopScan];
     
+    [_qRScanView stopScanAnimation];
+}
+
+- (void)stopScan
+{
     switch ([Global sharedManager].libraryType) {
         case SLT_Native:
         {
-           [_scanObj stopScan];
+#ifdef LBXScan_Define_Native
+            [_scanObj stopScan];
+#endif
         }
             break;
         case SLT_ZXing:
         {
+#ifdef LBXScan_Define_ZXing
             [_zxingObj stop];
+#endif
         }
             break;
         case SLT_ZBar:
         {
+#ifdef LBXScan_Define_ZBar
             [_zbarObj stop];
+#endif
         }
             break;
         default:
             break;
     }
-    [_qRScanView stopScanAnimation];
+
 }
 
 #pragma mark -实现类继承该方法，作出对应处理
@@ -299,30 +329,32 @@
 //开关闪光灯
 - (void)openOrCloseFlash
 {
+    
     switch ([Global sharedManager].libraryType) {
         case SLT_Native:
         {
-//             [_scanObj setTorch:!self.isOpenFlash];
+#ifdef LBXScan_Define_Native
             [_scanObj changeTorch];
+#endif
         }
             break;
         case SLT_ZXing:
         {
+#ifdef LBXScan_Define_ZXing
             [_zxingObj openOrCloseTorch];
+#endif
         }
             break;
         case SLT_ZBar:
         {
-            
+#ifdef LBXScan_Define_ZBar
+            [_zbarObj openOrCloseFlash];
+#endif
         }
             break;
-            
         default:
             break;
     }
-    
-   
- 
     self.isOpenFlash =!self.isOpenFlash;
 }
 
@@ -361,12 +393,14 @@
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
     
+    __weak __typeof(self) weakSelf = self;
+        
     switch ([Global sharedManager].libraryType) {
         case SLT_Native:
         {
+#ifdef LBXScan_Define_Native
             if ([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0)
             {
-                __weak __typeof(self) weakSelf = self;
                 [LBXScanNative recognizeImage:image success:^(NSArray<LBXScanResult *> *array) {
                     [weakSelf scanResultWithArray:array];
                 }];
@@ -375,11 +409,13 @@
             {
                 [self showError:@"native低于ios8.0系统不支持识别图片条码"];
             }
+#endif
         }
             break;
         case SLT_ZXing:
         {
-            __weak __typeof(self) weakSelf = self;
+#ifdef LBXScan_Define_ZXing
+            
             [ZXingWrapper recognizeImage:image block:^(ZXBarcodeFormat barcodeFormat, NSString *str) {
                 
                 LBXScanResult *result = [[LBXScanResult alloc]init];
@@ -389,13 +425,13 @@
                 
                 [weakSelf scanResultWithArray:@[result]];
             }];
-
+#endif
+            
         }
             break;
         case SLT_ZBar:
         {
-            __weak __typeof(self) weakSelf = self;
-            
+#ifdef LBXScan_Define_ZBar
             [LBXZBarWrapper recognizeImage:image block:^(NSArray<LBXZbarResult *> *result) {
                 
                 //测试，只使用扫码结果第一项
@@ -407,15 +443,16 @@
                 scanResult.strBarCodeType = [LBXZBarWrapper convertFormat2String:firstObj.format];
                 
                 [weakSelf scanResultWithArray:@[scanResult]];
-
+                
             }];
+#endif
             
         }
             break;
             
         default:
             break;
-    }     
+    }
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
@@ -430,6 +467,7 @@
      [LBXAlertAction showAlertWithTitle:@"提示" msg:str buttonsStatement:@[@"知道了"] chooseBlock:nil];
 }
 
+#ifdef LBXScan_Define_ZBar
 - (NSString*)convertZXBarcodeFormat:(ZXBarcodeFormat)barCodeFormat
 {
     NSString *strAVMetadataObjectType = nil;
@@ -481,5 +519,6 @@
     
     return strAVMetadataObjectType;
 }
+#endif
 
 @end

@@ -10,7 +10,6 @@ pod 'LBXScan/LBXNative', path:"../"
 pod 'LBXScan/LBXZXing', path:"../"
 pod 'LBXScan/UI', path:"../"
 
-#pod 'ZBarSDK', '~> 1.3.1'
 end
 
 

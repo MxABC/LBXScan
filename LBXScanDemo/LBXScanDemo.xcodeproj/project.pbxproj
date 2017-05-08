@@ -31,6 +31,7 @@
 		735850151E1CFAB900ED6A60 /* QQLBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 735850141E1CFAB900ED6A60 /* QQLBXScanViewController.m */; };
 		738C86A61EA7687700689E04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 738C86A51EA7687700689E04 /* Foundation.framework */; };
 		738C86A81EA7688300689E04 /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 738C86A71EA7688300689E04 /* libz.1.1.3.tbd */; };
+		739294081EAF72E300122669 /* LBXScanBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 739294071EAF72E300122669 /* LBXScanBaseViewController.m */; };
 		739FD57C1E8F540C007D75D3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 739FD57B1E8F540C007D75D3 /* SettingViewController.m */; };
 		73B700821E1FAE660081A39D /* LBXScanPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = 73B700801E1FAE660081A39D /* LBXScanPermissions.m */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,8 @@
 		735852E11E1CFC3300ED6A60 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		738C86A51EA7687700689E04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		738C86A71EA7688300689E04 /* libz.1.1.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.1.3.tbd; path = usr/lib/libz.1.1.3.tbd; sourceTree = SDKROOT; };
+		739294061EAF72E300122669 /* LBXScanBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanBaseViewController.h; sourceTree = "<group>"; };
+		739294071EAF72E300122669 /* LBXScanBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanBaseViewController.m; sourceTree = "<group>"; };
 		739FD57A1E8F540C007D75D3 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		739FD57B1E8F540C007D75D3 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		739FD57D1E8F58D2007D75D3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				73584FFA1E1CEE5000ED6A60 /* Global.m */,
 				73B700801E1FAE660081A39D /* LBXScanPermissions.m */,
 				73B700811E1FAE660081A39D /* LBXScanPermissions.h */,
+				739294061EAF72E300122669 /* LBXScanBaseViewController.h */,
+				739294071EAF72E300122669 /* LBXScanBaseViewController.m */,
 			);
 			path = LBXScanDemo;
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 				73584FB51E1CD62300ED6A60 /* AppDelegate.m in Sources */,
 				73584FFB1E1CEE5000ED6A60 /* Global.m in Sources */,
 				7358500D1E1CF26E00ED6A60 /* LBXScanViewController.m in Sources */,
+				739294081EAF72E300122669 /* LBXScanBaseViewController.m in Sources */,
 				7354618D1E1E402600F9F7FC /* CreateBarCodeViewController.m in Sources */,
 				73584FF41E1CE4B900ED6A60 /* UIWindow+LBXHierarchy.m in Sources */,
 				73584FF21E1CE4B900ED6A60 /* UIAlertController+supportedInterfaceOrientations.m in Sources */,
