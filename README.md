@@ -6,11 +6,9 @@
              )](https://en.wikipedia.org/wiki/Objective-C)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org)
 ![CocoaPods Version](https://img.shields.io/badge/pod-v1.2.0-brightgreen.svg)
-***
 
-<br />
 [swift版本 点这里](https://github.com/MxABC/swiftScan)
-<br />
+
 ### iOS扫码封装
 - 扫码识别封装: 系统API(AVFoundation)、ZXing、ZBar
 - 扫码界面效果封装
