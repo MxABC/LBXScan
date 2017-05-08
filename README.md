@@ -1,6 +1,6 @@
 
 
-# iOS 二维码、条形码 objective-c 版本
+# iOS 二维码、条形码 
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](https://developer.apple.com/iphone/index.action)
 [![Language](http://img.shields.io/badge/language-OC-yellow.svg?style=flat
              )](https://en.wikipedia.org/wiki/Objective-C)
