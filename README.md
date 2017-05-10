@@ -5,7 +5,7 @@
 [![Language](http://img.shields.io/badge/language-OC-yellow.svg?style=flat
              )](https://en.wikipedia.org/wiki/Objective-C)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org)
-![CocoaPods Version](https://img.shields.io/badge/pod-v1.2.0-brightgreen.svg)
+![CocoaPods Version](https://img.shields.io/badge/pod-v2.0-brightgreen.svg)
 
 [swift版本 点这里](https://github.com/MxABC/swiftScan)
 
