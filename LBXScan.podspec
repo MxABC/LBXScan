@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'LBXScan'
-    s.version      = '2.1'
+    s.version      = '2.2'
     s.summary      = 'ios scan wrapper'
     s.homepage     = 'https://github.com/MxABC/LBXScan'
     s.license      = 'MIT'
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
       all.libraries = 'iconv','z'
       all.resource     = 'LBXScan/UI/CodeScan.bundle'
       all.dependency 'ZBarSDK', '~> 1.3.1'
-      all.dependency 'LBXScan/Types','~> 2.1'
+      all.dependency 'LBXScan/Types','~> 2.2'
       all.ios.frameworks = 'AVFoundation', 'CoreGraphics', 'CoreMedia', 'CoreVideo', 'ImageIO', 'QuartzCore'
       all.prefix_header_contents = '#import "LBXScanNative.h"','#import "ZXingWrapper.h"','#import "LBXZBarWrapper.h"','#import "LBXScanView.h"'
     end
@@ -31,14 +31,14 @@ Pod::Spec.new do |s|
       lbxNative.source_files = 'LBXScan/LBXNative/*.{h,m}'
       lbxNative.ios.frameworks = 'AVFoundation'
       lbxNative.prefix_header_contents = '#import "LBXScanNative.h"'
-      lbxNative.dependency 'LBXScan/Types','~> 2.1'
+      lbxNative.dependency 'LBXScan/Types','~> 2.2'
     end
 
     s.subspec 'LBXZXing' do |lbxZXing|
       lbxZXing.source_files = 'LBXScan/LBXZXing/**/*.{h,m}'
       lbxZXing.ios.frameworks = 'AVFoundation', 'CoreGraphics', 'CoreMedia', 'CoreVideo', 'ImageIO', 'QuartzCore'
       lbxZXing.prefix_header_contents = '#import "ZXingWrapper.h"'
-      lbxZXing.dependency 'LBXScan/Types','~> 2.1'
+      lbxZXing.dependency 'LBXScan/Types','~> 2.2'
     end
 
     s.subspec 'LBXZBar' do |lbxZBar|
@@ -47,14 +47,14 @@ Pod::Spec.new do |s|
        lbxZBar.dependency 'ZBarSDK', '~> 1.3.1'
        lbxZBar.ios.frameworks = 'AVFoundation', 'CoreGraphics', 'CoreMedia'
        lbxZBar.prefix_header_contents = '#import "LBXZBarWrapper.h"'
-       lbxZBar.dependency 'LBXScan/Types','~> 2.1'
+       lbxZBar.dependency 'LBXScan/Types','~> 2.2'
     end
   
     s.subspec 'UI' do |ui|
       ui.source_files = 'LBXScan/UI/*.{h,m}'
       ui.resource     = 'LBXScan/UI/CodeScan.bundle'
       ui.prefix_header_contents = '#import "LBXScanView.h"'
-      ui.dependency 'LBXScan/Types','~> 2.1'
+      ui.dependency 'LBXScan/Types','~> 2.2'
     end
 
 end
