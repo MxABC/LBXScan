@@ -127,16 +127,22 @@ return style;
 }
 ```
 
-### 使用扫码控制器
+### 使用扫码控制器LBXScanViewController
 
-如果你需要使用提供的扫码控制器LBXScanViewController(包含在UI模块)，需要在你的工程的pch或对应调用的地方添加对应的宏
+如果你需要使用提供的扫码控制器LBXScanViewController(包含在UI模块)，需要在你的工程的xx.pch文件或对应调用的地方添加对应的宏(LBXScanViewController代码包含了所有的库和UI，所以需要你根据你自己下载的库的情况，对应添加宏)
 
+例如，xxx.pch文件中添加，我的demo中下载了所有的模块，所以下面定义了各个模块的宏
 
 ```
-#define LBXScan_Define_Native  //包含native库
-#define LBXScan_Define_ZXing   //包含ZXing库
-#define LBXScan_Define_ZBar   //包含ZBar库
-#define LBXScan_Define_UI     //包含界面
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#define LBXScan_Define_Native  //下载了native模块
+#define LBXScan_Define_ZXing   //下载了ZXing模块
+#define LBXScan_Define_ZBar   //下载了ZBar模块
+#define LBXScan_Define_UI     //下载了界面模块
 
 ```
 
