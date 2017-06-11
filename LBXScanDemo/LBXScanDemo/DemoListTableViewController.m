@@ -14,10 +14,8 @@
 #import "Global.h"
 #import "SettingViewController.h"
 
-//#import <LBXScanViewStyle.h>
-
 #import "LBXScanViewStyle.h"
-#import "LBXScanViewController.h"
+#import "DIYScanViewController.h"
 #import "QQLBXScanViewController.h"
 #import "ScanResultViewController.h"
 #import "CreateBarCodeViewController.h"
@@ -193,9 +191,12 @@
 
 - (void)openScanVCWithStyle:(LBXScanViewStyle*)style
 {
-    LBXScanViewController *vc = [LBXScanViewController new];
+    DIYScanViewController *vc = [DIYScanViewController new];
     vc.style = style;
     vc.isOpenInterestRect = YES;
+    vc.libraryType = [Global sharedManager].libraryType;
+    vc.scanCodeType = [Global sharedManager].scanCodeType;
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -204,6 +205,9 @@
 {
     //添加一些扫码或相册结果处理
     QQLBXScanViewController *vc = [QQLBXScanViewController new];
+    vc.libraryType = [Global sharedManager].libraryType;
+    vc.scanCodeType = [Global sharedManager].scanCodeType;
+
     vc.style = [StyleDIY qqStyle];
     
     //镜头拉远拉近功能
@@ -232,7 +236,10 @@
 #pragma mark -框内区域识别
 - (void)recoCropRect
 {
-    LBXScanViewController *vc = [LBXScanViewController new];
+    DIYScanViewController *vc = [DIYScanViewController new];
+    vc.libraryType = [Global sharedManager].libraryType;
+    vc.scanCodeType = [Global sharedManager].scanCodeType;
+
     vc.style = [StyleDIY recoCropRect];
     //开启只识别框内
     vc.isOpenInterestRect = YES;
@@ -248,7 +255,10 @@
 #pragma mark -自定义4个角及矩形框颜色
 - (void)changeColor
 {
-    LBXScanViewController *vc = [LBXScanViewController new];
+    DIYScanViewController *vc = [DIYScanViewController new];
+    vc.libraryType = [Global sharedManager].libraryType;
+    vc.scanCodeType = [Global sharedManager].scanCodeType;
+
     vc.style = [StyleDIY changeColor];
     
     //开启只识别矩形框内图像功能

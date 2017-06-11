@@ -40,6 +40,45 @@
 }
 
 
++ (void)requestCameraPemissionWithResult:(void(^)( BOOL granted))completion
+{
+    if ([AVCaptureDevice respondsToSelector:@selector(authorizationStatusForMediaType:)])
+    {
+        AVAuthorizationStatus permission =
+        [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        
+        switch (permission) {
+            case AVAuthorizationStatusAuthorized:
+                completion(YES);
+                break;
+            case AVAuthorizationStatusDenied:
+            case AVAuthorizationStatusRestricted:
+                completion(NO);
+                break;
+            case AVAuthorizationStatusNotDetermined:
+            {
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
+                                         completionHandler:^(BOOL granted) {
+                                             
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 if (granted) {
+                                                     completion(true);
+                                                 } else {
+                                                     completion(false);
+                                                 }
+                                             });
+                                             
+                                         }];
+            }
+                break;
+                
+        }
+    }
+    
+   
+}
+
+
 + (BOOL)photoPermission
 {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)

@@ -127,6 +127,21 @@ return style;
 }
 ```
 
+### 使用扫码控制器
+
+如果你需要使用提供的扫码控制器LBXScanViewController(包含在UI模块)，需要在你的工程的pch或对应调用的地方添加对应的宏
+
+
+```
+#define LBXScan_Define_Native  //包含native库
+#define LBXScan_Define_ZXing   //包含ZXing库
+#define LBXScan_Define_ZBar   //包含ZBar库
+#define LBXScan_Define_UI     //包含界面
+
+```
+
+实现委托方法 scanResultWithArray 或继承控制器LBXScanViewController，然后override方法scanResultWithArray
+
 
 # 界面效果
 ![image](https://github.com/MxABC/Resource/blob/master/scan12.gif)

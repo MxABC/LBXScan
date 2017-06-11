@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		04C148A7DA7FA7441E1F9251 /* libPods-LBXScanDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DC3A080623800FA6959ED7 /* libPods-LBXScanDemo.a */; };
 		730D98331E8F8AAD001BBB6F /* StyleDIY.m in Sources */ = {isa = PBXBuildFile; fileRef = 730D98321E8F8AAD001BBB6F /* StyleDIY.m */; };
+		733CF2F81EE570F300AD1DC7 /* DIYScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 733CF2F71EE570F300AD1DC7 /* DIYScanViewController.m */; };
 		7349377C1E1F6B02007DDD7A /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 734937741E1F6A6E007DDD7A /* libiconv.2.4.0.tbd */; };
 		734E165C1E237AB000120818 /* LBXScan.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 734E165B1E237AB000120818 /* LBXScan.podspec */; };
 		734E165E1E237B2F00120818 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 734E165D1E237B2F00120818 /* README.md */; };
@@ -25,14 +26,12 @@
 		73584FF51E1CE4B900ED6A60 /* LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 73584FF01E1CE4B900ED6A60 /* LBXAlertAction.m */; };
 		73584FF81E1CECC700ED6A60 /* DemoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73584FF71E1CECC700ED6A60 /* DemoListTableViewController.m */; };
 		73584FFB1E1CEE5000ED6A60 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 73584FFA1E1CEE5000ED6A60 /* Global.m */; };
-		7358500D1E1CF26E00ED6A60 /* LBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7358500C1E1CF26E00ED6A60 /* LBXScanViewController.m */; };
 		735850111E1CFA5800ED6A60 /* ScanResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7358500F1E1CFA5800ED6A60 /* ScanResultViewController.m */; };
 		735850121E1CFA5800ED6A60 /* ScanResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 735850101E1CFA5800ED6A60 /* ScanResultViewController.xib */; };
-		735850151E1CFAB900ED6A60 /* QQLBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 735850141E1CFAB900ED6A60 /* QQLBXScanViewController.m */; };
 		738C86A61EA7687700689E04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 738C86A51EA7687700689E04 /* Foundation.framework */; };
 		738C86A81EA7688300689E04 /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 738C86A71EA7688300689E04 /* libz.1.1.3.tbd */; };
-		739294081EAF72E300122669 /* LBXScanBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 739294071EAF72E300122669 /* LBXScanBaseViewController.m */; };
 		739FD57C1E8F540C007D75D3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 739FD57B1E8F540C007D75D3 /* SettingViewController.m */; };
+		73A69FFB1EED39DA00378E1E /* QQLBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A69FFA1EED39DA00378E1E /* QQLBXScanViewController.m */; };
 		73B700821E1FAE660081A39D /* LBXScanPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = 73B700801E1FAE660081A39D /* LBXScanPermissions.m */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +40,8 @@
 		6CEC1D273563FBA3D7419E06 /* Pods-LBXScanDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBXScanDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo.release.xcconfig"; sourceTree = "<group>"; };
 		730D98311E8F8AAD001BBB6F /* StyleDIY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleDIY.h; sourceTree = "<group>"; };
 		730D98321E8F8AAD001BBB6F /* StyleDIY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleDIY.m; sourceTree = "<group>"; };
+		733CF2F61EE570F300AD1DC7 /* DIYScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYScanViewController.h; sourceTree = "<group>"; };
+		733CF2F71EE570F300AD1DC7 /* DIYScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYScanViewController.m; sourceTree = "<group>"; };
 		734937741E1F6A6E007DDD7A /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
 		734937761E1F6AA2007DDD7A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		734937781E1F6AB1007DDD7A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -72,21 +73,17 @@
 		73584FF71E1CECC700ED6A60 /* DemoListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoListTableViewController.m; sourceTree = "<group>"; };
 		73584FF91E1CEE5000ED6A60 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		73584FFA1E1CEE5000ED6A60 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
-		7358500B1E1CF26E00ED6A60 /* LBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanViewController.h; sourceTree = "<group>"; };
-		7358500C1E1CF26E00ED6A60 /* LBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanViewController.m; sourceTree = "<group>"; };
 		7358500E1E1CFA5800ED6A60 /* ScanResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultViewController.h; sourceTree = "<group>"; };
 		7358500F1E1CFA5800ED6A60 /* ScanResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultViewController.m; sourceTree = "<group>"; };
 		735850101E1CFA5800ED6A60 /* ScanResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanResultViewController.xib; sourceTree = "<group>"; };
-		735850131E1CFAB900ED6A60 /* QQLBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQLBXScanViewController.h; sourceTree = "<group>"; };
-		735850141E1CFAB900ED6A60 /* QQLBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQLBXScanViewController.m; sourceTree = "<group>"; };
 		735852E11E1CFC3300ED6A60 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		738C86A51EA7687700689E04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		738C86A71EA7688300689E04 /* libz.1.1.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.1.3.tbd; path = usr/lib/libz.1.1.3.tbd; sourceTree = SDKROOT; };
-		739294061EAF72E300122669 /* LBXScanBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanBaseViewController.h; sourceTree = "<group>"; };
-		739294071EAF72E300122669 /* LBXScanBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanBaseViewController.m; sourceTree = "<group>"; };
 		739FD57A1E8F540C007D75D3 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		739FD57B1E8F540C007D75D3 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		739FD57D1E8F58D2007D75D3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		73A69FF91EED39DA00378E1E /* QQLBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQLBXScanViewController.h; sourceTree = "<group>"; };
+		73A69FFA1EED39DA00378E1E /* QQLBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQLBXScanViewController.m; sourceTree = "<group>"; };
 		73B700801E1FAE660081A39D /* LBXScanPermissions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanPermissions.m; sourceTree = "<group>"; };
 		73B700811E1FAE660081A39D /* LBXScanPermissions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanPermissions.h; sourceTree = "<group>"; };
 		BC33DB177441D59AF65AC025 /* Pods-LBXScanDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBXScanDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +150,8 @@
 		73584FAF1E1CD62300ED6A60 /* LBXScanDemo */ = {
 			isa = PBXGroup;
 			children = (
+				73A69FF91EED39DA00378E1E /* QQLBXScanViewController.h */,
+				73A69FFA1EED39DA00378E1E /* QQLBXScanViewController.m */,
 				735852E11E1CFC3300ED6A60 /* PrefixHeader.pch */,
 				73584FB31E1CD62300ED6A60 /* AppDelegate.h */,
 				73584FB41E1CD62300ED6A60 /* AppDelegate.m */,
@@ -168,10 +167,8 @@
 				73584FF71E1CECC700ED6A60 /* DemoListTableViewController.m */,
 				730D98311E8F8AAD001BBB6F /* StyleDIY.h */,
 				730D98321E8F8AAD001BBB6F /* StyleDIY.m */,
-				7358500B1E1CF26E00ED6A60 /* LBXScanViewController.h */,
-				7358500C1E1CF26E00ED6A60 /* LBXScanViewController.m */,
-				735850131E1CFAB900ED6A60 /* QQLBXScanViewController.h */,
-				735850141E1CFAB900ED6A60 /* QQLBXScanViewController.m */,
+				733CF2F61EE570F300AD1DC7 /* DIYScanViewController.h */,
+				733CF2F71EE570F300AD1DC7 /* DIYScanViewController.m */,
 				7354618B1E1E402600F9F7FC /* CreateBarCodeViewController.h */,
 				7354618C1E1E402600F9F7FC /* CreateBarCodeViewController.m */,
 				7358500E1E1CFA5800ED6A60 /* ScanResultViewController.h */,
@@ -181,8 +178,6 @@
 				73584FFA1E1CEE5000ED6A60 /* Global.m */,
 				73B700801E1FAE660081A39D /* LBXScanPermissions.m */,
 				73B700811E1FAE660081A39D /* LBXScanPermissions.h */,
-				739294061EAF72E300122669 /* LBXScanBaseViewController.h */,
-				739294071EAF72E300122669 /* LBXScanBaseViewController.m */,
 			);
 			path = LBXScanDemo;
 			sourceTree = "<group>";
@@ -357,15 +352,14 @@
 				735461991E1E44B900F9F7FC /* UIImageView+CornerRadius.m in Sources */,
 				734E165E1E237B2F00120818 /* README.md in Sources */,
 				73584FB51E1CD62300ED6A60 /* AppDelegate.m in Sources */,
+				733CF2F81EE570F300AD1DC7 /* DIYScanViewController.m in Sources */,
 				73584FFB1E1CEE5000ED6A60 /* Global.m in Sources */,
-				7358500D1E1CF26E00ED6A60 /* LBXScanViewController.m in Sources */,
-				739294081EAF72E300122669 /* LBXScanBaseViewController.m in Sources */,
 				7354618D1E1E402600F9F7FC /* CreateBarCodeViewController.m in Sources */,
 				73584FF41E1CE4B900ED6A60 /* UIWindow+LBXHierarchy.m in Sources */,
+				73A69FFB1EED39DA00378E1E /* QQLBXScanViewController.m in Sources */,
 				73584FF21E1CE4B900ED6A60 /* UIAlertController+supportedInterfaceOrientations.m in Sources */,
 				73584FF51E1CE4B900ED6A60 /* LBXAlertAction.m in Sources */,
 				73584FF11E1CE4B900ED6A60 /* UIActionSheet+LBXAlertAction.m in Sources */,
-				735850151E1CFAB900ED6A60 /* QQLBXScanViewController.m in Sources */,
 				73584FB21E1CD62300ED6A60 /* main.m in Sources */,
 				730D98331E8F8AAD001BBB6F /* StyleDIY.m in Sources */,
 				73584FF81E1CECC700ED6A60 /* DemoListTableViewController.m in Sources */,

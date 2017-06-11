@@ -11,29 +11,11 @@
 @import Foundation;
 @import AVFoundation;
 
+#import "LBXScanTypes.h"
+#define LBXScan_Define_Native
 
 
 
-@interface LBXScanResult : NSObject
-
-
-- (instancetype)initWithScanString:(NSString*)str imgScan:(UIImage*)img barCodeType:(NSString*)type;
-
-/**
- @brief  条码字符串
- */
-@property (nonatomic, copy) NSString* strScanned;
-/**
- @brief  扫码图像
- */
-@property (nonatomic, strong) UIImage* imgScanned;
-/**
- @brief  扫码码的类型,AVMetadataObjectType  如AVMetadataObjectTypeQRCode，AVMetadataObjectTypeEAN13Code等
- 如果使用ZXing扫码，返回类型也已经转换成对应的AVMetadataObjectType
- */
-@property (nonatomic, copy) NSString* strBarCodeType;
-
-@end
 
 /**
  @brief  ios系统自带扫码功能

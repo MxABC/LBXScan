@@ -12,6 +12,8 @@
 
 + (BOOL)cameraPemission;
 
++ (void)requestCameraPemissionWithResult:(void(^)( BOOL granted))completion;
+
 + (BOOL)photoPermission;
 
 @end

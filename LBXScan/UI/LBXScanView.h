@@ -12,7 +12,7 @@
 #import "LBXScanNetAnimation.h"
 #import "LBXScanViewStyle.h"
 
-
+#define LBXScan_Define_UI
 
 /**
  扫码区域显示效果

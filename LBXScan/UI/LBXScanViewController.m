@@ -7,14 +7,10 @@
 //
 
 #import "LBXScanViewController.h"
-#import "LBXAlertAction.h"
-#import "ScanResultViewController.h"
-#import "Global.h"
-
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 
 @interface LBXScanViewController ()
-
-
 @end
 
 @implementation LBXScanViewController
@@ -32,7 +28,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     
 
-    switch ([Global sharedManager].libraryType) {
+    switch (_libraryType) {
         case SLT_Native:
             self.title = @"native";
             break;
@@ -53,13 +49,31 @@
     
     [self drawScanView];
     
-    //不延时，可能会导致界面黑屏并卡住一会
-    [self performSelector:@selector(startScan) withObject:nil afterDelay:0.2];
+    [self requestCameraPemissionWithResult:^(BOOL granted) {
+       
+        if (granted) {
+            
+            //不延时，可能会导致界面黑屏并卡住一会
+            [self performSelector:@selector(startScan) withObject:nil afterDelay:0.3];
+            
+        }else{
+            
+#ifdef LBXScan_Define_UI
+            [_qRScanView stopDeviceReadying];
+#endif
+            
+            [self showError:@"   请到设置隐私中开启本程序相机权限   "];
+        }
+    }];
+    
+   
 }
 
 //绘制扫描区域
 - (void)drawScanView
 {
+#ifdef LBXScan_Define_UI
+    
     if (!_qRScanView)
     {
         CGRect rect = self.view.frame;
@@ -69,12 +83,13 @@
         
         [self.view addSubview:_qRScanView];
     }
-    [_qRScanView startDeviceReadyingWithText:@"相机启动中"];
+    [_qRScanView startDeviceReadyingWithText:_cameraInvokeMsg];
+#endif
 }
 
 - (void)reStartDevice
 {
-    switch ([Global sharedManager].libraryType) {
+    switch (_libraryType) {
         case SLT_Native:
         {
 #ifdef LBXScan_Define_Native
@@ -105,20 +120,20 @@
 //启动设备
 - (void)startScan
 {
-    if ( ![LBXScanPermissions cameraPemission] )
-    {
-        [_qRScanView stopDeviceReadying];
-        
-        [self showError:@"   请到设置隐私中开启本程序相机权限   "];
-        return;
-    }
+//    if ( ![LBXScanPermissions cameraPemission] )
+//    {
+//        [_qRScanView stopDeviceReadying];
+//        
+//        [self showError:@"   请到设置隐私中开启本程序相机权限   "];
+//        return;
+//    }
     
     UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
     videoView.backgroundColor = [UIColor clearColor];
     [self.view insertSubview:videoView atIndex:0];
     __weak __typeof(self) weakSelf = self;
     
-    switch ([Global sharedManager].libraryType) {
+    switch (_libraryType) {
         case SLT_Native:
         {
 
@@ -136,9 +151,9 @@
                 }
 
                 NSString *strCode = AVMetadataObjectTypeQRCode;
-                if ([Global sharedManager].scanCodeType != SCT_BarCodeITF ) {
+                if (_scanCodeType != SCT_BarCodeITF ) {
                     
-                    strCode = [[Global sharedManager]nativeCodeType];
+                    strCode = [self nativeCodeWithType:_scanCodeType];
                 }
                 
                 //AVMetadataObjectTypeITF14Code 扫码效果不行,另外只能输入一个码制，虽然接口是可以输入多个码制
@@ -187,7 +202,7 @@
 #ifdef LBXScan_Define_ZBar
             if (!_zbarObj) {
                 
-                self.zbarObj = [[LBXZBarWrapper alloc]initWithPreView:videoView barCodeType:ZBAR_I25 block:^(NSArray<LBXZbarResult *> *result) {
+                self.zbarObj = [[LBXZBarWrapper alloc]initWithPreView:videoView barCodeType:[self zbarTypeWithScanType:_scanCodeType] block:^(NSArray<LBXZbarResult *> *result) {
                     
                     //测试，只使用扫码结果第一项
                     LBXZbarResult *firstObj = result[0];
@@ -216,8 +231,33 @@
     self.view.backgroundColor = [UIColor clearColor];
 }
 
-
-
+#ifdef LBXScan_Define_ZBar
+- (zbar_symbol_type_t)zbarTypeWithScanType:(SCANCODETYPE)type
+{
+    //test only ZBAR_I25 effective,why
+    return ZBAR_I25;
+    
+//    switch (type) {
+//        case SCT_QRCode:
+//            return ZBAR_QRCODE;
+//            break;
+//        case SCT_BarCode93:
+//            return ZBAR_CODE93;
+//            break;
+//        case SCT_BarCode128:
+//            return ZBAR_CODE128;
+//            break;
+//        case SCT_BarEAN13:
+//            return ZBAR_EAN13;
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//    
+//    return (zbar_symbol_type_t)type;
+}
+#endif
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -227,12 +267,14 @@
  
     [self stopScan];
     
+#ifdef LBXScan_Define_UI
     [_qRScanView stopScanAnimation];
+#endif
 }
 
 - (void)stopScan
 {
-    switch ([Global sharedManager].libraryType) {
+    switch (_libraryType) {
         case SLT_Native:
         {
 #ifdef LBXScan_Define_Native
@@ -260,77 +302,25 @@
 
 }
 
-#pragma mark -实现类继承该方法，作出对应处理
+#pragma mark -扫码结果处理
 
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
 {
-    if (!array ||  array.count < 1)
-    {
-        [self popAlertMsgWithScanResult:nil];
-        
-        return;
+    //设置了委托的处理
+    if (_delegate) {
+        [_delegate scanResultWithArray:array];
     }
     
-    //经测试，可以同时识别2个二维码，不能同时识别二维码和条形码
-//    for (LBXScanResult *result in array) {
-//        
-//        NSLog(@"scanResult:%@",result.strScanned);
-//    }
-    
-    LBXScanResult *scanResult = array[0];
-    
-    NSString*strResult = scanResult.strScanned;
-    
-    self.scanImage = scanResult.imgScanned;
-    
-    if (!strResult) {
-        
-        [self popAlertMsgWithScanResult:nil];
-        
-        return;
-    }
-    
-    //震动提醒
-    // [LBXScanWrapper systemVibrate];
-    //声音提醒
-    //[LBXScanWrapper systemSound];
-    
-    [self showNextVCWithScanResult:scanResult];
-    
+    //也可以通过继承LBXScanViewController，重写本方法即可
 }
 
-- (void)popAlertMsgWithScanResult:(NSString*)strResult
-{
-    if (!strResult) {
-        
-        strResult = @"识别失败";
-    }
-    
-    __weak __typeof(self) weakSelf = self;
-    [LBXAlertAction showAlertWithTitle:@"扫码内容" msg:strResult buttonsStatement:@[@"知道了"] chooseBlock:^(NSInteger buttonIdx) {
-        
-        [weakSelf reStartDevice];
-    }];
-}
-
-- (void)showNextVCWithScanResult:(LBXScanResult*)strResult
-{
-    ScanResultViewController *vc = [ScanResultViewController new];
-    vc.imgScan = strResult.imgScanned;
-    
-    vc.strScan = strResult.strScanned;
-    
-    vc.strCodeType = strResult.strBarCodeType;
-    
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
 
 //开关闪光灯
 - (void)openOrCloseFlash
 {
     
-    switch ([Global sharedManager].libraryType) {
+    switch (_libraryType) {
         case SLT_Native:
         {
 #ifdef LBXScan_Define_Native
@@ -364,7 +354,7 @@
 /*!
  *  打开本地照片，选择图片识别
  */
-- (void)openLocalPhoto
+- (void)openLocalPhoto:(BOOL)allowsEditing
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     
@@ -373,7 +363,7 @@
     picker.delegate = self;
    
     //部分机型有问题
-//    picker.allowsEditing = YES;
+    picker.allowsEditing = allowsEditing;
     
     
     [self presentViewController:picker animated:YES completion:nil];
@@ -395,7 +385,7 @@
     
     __weak __typeof(self) weakSelf = self;
         
-    switch ([Global sharedManager].libraryType) {
+    switch (_libraryType) {
         case SLT_Native:
         {
 #ifdef LBXScan_Define_Native
@@ -461,13 +451,8 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-//子类继承必须实现的提示
-- (void)showError:(NSString*)str
-{
-     [LBXAlertAction showAlertWithTitle:@"提示" msg:str buttonsStatement:@[@"知道了"] chooseBlock:nil];
-}
 
-#ifdef LBXScan_Define_ZBar
+#ifdef LBXScan_Define_ZXing
 - (NSString*)convertZXBarcodeFormat:(ZXBarcodeFormat)barCodeFormat
 {
     NSString *strAVMetadataObjectType = nil;
@@ -520,5 +505,97 @@
     return strAVMetadataObjectType;
 }
 #endif
+
+
+- (NSString*)nativeCodeWithType:(SCANCODETYPE)type
+{
+    switch (type) {
+        case SCT_QRCode:
+            return AVMetadataObjectTypeQRCode;
+            break;
+        case SCT_BarCode93:
+            return AVMetadataObjectTypeCode93Code;
+            break;
+        case SCT_BarCode128:
+            return AVMetadataObjectTypeCode128Code;
+            break;
+        case SCT_BarCodeITF:
+            return @"ITF条码:only ZXing支持";
+            break;
+        case SCT_BarEAN13:
+            return AVMetadataObjectTypeEAN13Code;
+            break;
+
+        default:
+            return AVMetadataObjectTypeQRCode;
+            break;
+    }
+}
+
+- (void)showError:(NSString*)str
+{
+    
+}
+
+- (void)requestCameraPemissionWithResult:(void(^)( BOOL granted))completion
+{
+    if ([AVCaptureDevice respondsToSelector:@selector(authorizationStatusForMediaType:)])
+    {
+        AVAuthorizationStatus permission =
+        [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        
+        switch (permission) {
+            case AVAuthorizationStatusAuthorized:
+                completion(YES);
+                break;
+            case AVAuthorizationStatusDenied:
+            case AVAuthorizationStatusRestricted:
+                completion(NO);
+                break;
+            case AVAuthorizationStatusNotDetermined:
+            {
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
+                                         completionHandler:^(BOOL granted) {
+                                             
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 if (granted) {
+                                                     completion(true);
+                                                 } else {
+                                                     completion(false);
+                                                 }
+                                             });
+                                             
+                                         }];
+            }
+                break;
+                
+        }
+    }
+    
+    
+}
+
++ (BOOL)photoPermission
+{
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
+    {
+        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+        
+        if ( author == ALAuthorizationStatusDenied ) {
+            
+            return NO;
+        }
+        return YES;
+    }
+    
+    PHAuthorizationStatus authorStatus = [PHPhotoLibrary authorizationStatus];
+    if ( authorStatus == PHAuthorizationStatusDenied ) {
+        
+        return NO;
+    }
+    return YES;
+}
+
+
 
 @end

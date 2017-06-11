@@ -8,28 +8,39 @@
     "lbxia": "lbxia20091227@foxmail.com"
   },
   "platforms": {
-    "ios": "6.0"
+    "ios": "7.0"
   },
   "source": {
     "git": "https://github.com/MxABC/LBXScan.git",
     "tag": "2.0"
   },
   "requires_arc": true,
-  "source_files": "LBXScan/*.{h,m}",
   "prefix_header_contents": "#import <Foundation/Foundation.h>",
   "default_subspecs": "All",
   "subspecs": [
     {
+      "name": "Types",
+      "source_files": "LBXScan/*.{h,m}"
+    },
+    {
       "name": "All",
-      "source_files": "LBXScan/**/*.{h,m}",
-      "vendored_libraries": "LBXScan/LBXZBar/ZBarSDK/libzbar64.a",
+      "source_files": [
+        "LBXScan/LBXNative/*.{h,m}",
+        "LBXScan/LBXZXing/**/*.{h,m}",
+        "LBXScan/LBXZBar/*.{h,m}",
+        "LBXScan/UI/*.{h,m}"
+      ],
       "libraries": [
         "iconv",
         "z"
       ],
-      "resource_bundles": {
-        "UI": [
-          "LBXScan/UI/CodeScan.bundle/*.png"
+      "resources": "LBXScan/UI/CodeScan.bundle",
+      "dependencies": {
+        "ZBarSDK": [
+          "~> 1.3.1"
+        ],
+        "LBXScan/Types": [
+          "~> 2.0"
         ]
       },
       "ios": {
@@ -41,13 +52,25 @@
           "ImageIO",
           "QuartzCore"
         ]
-      }
+      },
+      "prefix_header_contents": [
+        "#import \"LBXScanNative.h\"",
+        "#import \"ZXingWrapper.h\"",
+        "#import \"LBXZBarWrapper.h\"",
+        "#import \"LBXScanView.h\""
+      ]
     },
     {
       "name": "LBXNative",
       "source_files": "LBXScan/LBXNative/*.{h,m}",
       "ios": {
         "frameworks": "AVFoundation"
+      },
+      "prefix_header_contents": "#import \"LBXScanNative.h\"",
+      "dependencies": {
+        "LBXScan/Types": [
+          "~> 2.0"
+        ]
       }
     },
     {
@@ -62,6 +85,12 @@
           "ImageIO",
           "QuartzCore"
         ]
+      },
+      "prefix_header_contents": "#import \"ZXingWrapper.h\"",
+      "dependencies": {
+        "LBXScan/Types": [
+          "~> 2.0"
+        ]
       }
     },
     {
@@ -74,6 +103,9 @@
       "dependencies": {
         "ZBarSDK": [
           "~> 1.3.1"
+        ],
+        "LBXScan/Types": [
+          "~> 2.0"
         ]
       },
       "ios": {
@@ -82,12 +114,19 @@
           "CoreGraphics",
           "CoreMedia"
         ]
-      }
+      },
+      "prefix_header_contents": "#import \"LBXZBarWrapper.h\""
     },
     {
       "name": "UI",
       "source_files": "LBXScan/UI/*.{h,m}",
-      "resources": "LBXScan/UI/CodeScan.bundle"
+      "resources": "LBXScan/UI/CodeScan.bundle",
+      "prefix_header_contents": "#import \"LBXScanView.h\"",
+      "dependencies": {
+        "LBXScan/Types": [
+          "~> 2.0"
+        ]
+      }
     }
   ]
 }

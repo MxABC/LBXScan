@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ZBarSDK.h"
 
-
+#define LBXScan_Define_ZBar
 
 // enum zbar_symbol_type_t;
 

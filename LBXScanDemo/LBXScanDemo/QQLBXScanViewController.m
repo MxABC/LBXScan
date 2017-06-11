@@ -247,7 +247,7 @@
 - (void)openPhoto
 {
     if ([LBXScanPermissions cameraPemission])
-        [self openLocalPhoto];
+        [self openLocalPhoto:NO];
     else
     {
         [self showError:@"      请到设置->隐私中开启本程序相册权限     "];
@@ -257,10 +257,8 @@
 //开关闪光灯
 - (void)openOrCloseFlash
 {
-    
     [super openOrCloseFlash];
    
-    
     if (self.isOpenFlash)
     {
         [_btnFlash setImage:[UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_btn_flash_down"] forState:UIControlStateNormal];
