@@ -5,7 +5,7 @@
 [![Language](http://img.shields.io/badge/language-OC-yellow.svg?style=flat
              )](https://en.wikipedia.org/wiki/Objective-C)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org)
-![CocoaPods Version](https://img.shields.io/badge/pod-v2.0-brightgreen.svg)
+![CocoaPods Version](https://img.shields.io/badge/pod-v2.2-brightgreen.svg)
 
 [swift版本 点这里](https://github.com/MxABC/swiftScan)
 
@@ -36,39 +36,39 @@
 - 安装所有库包括UI 
 
 ```ruby
- pod 'LBXScan', '~> 2.0'
+ pod 'LBXScan', '~> 2.2'
 ```
 建议按下面这样分组写，安装好后按文件夹分组，否则所有文件在一个文件夹里，很乱
 
 ```ruby
-pod 'LBXScan/LBXNative','~> 2.0'
-pod 'LBXScan/LBXZXing','~> 2.0'
-pod 'LBXScan/LBXZBar','~> 2.0'
-pod 'LBXScan/UI','~> 2.0'
+pod 'LBXScan/LBXNative','~> 2.2'
+pod 'LBXScan/LBXZXing','~> 2.2'
+pod 'LBXScan/LBXZBar','~> 2.2'
+pod 'LBXScan/UI','~> 2.2'
 ```
 
 - 只安装系统原生API封装库  
 
 ```ruby
-pod 'LBXScan/LBXNative','~> 2.0'
+pod 'LBXScan/LBXNative','~> 2.2'
 ```
 
 - 只安装ZXing封装库 
 
 ```ruby
-pod 'LBXScan/LBXZXing','~> 2.0'
+pod 'LBXScan/LBXZXing','~> 2.2'
 ```
 
 - 只安装ZBar封装库 
 
 ```ruby
-pod 'LBXScan/LBXZBar','~> 2.0'
+pod 'LBXScan/LBXZBar','~> 2.2'
 ```
 
 - 只安装UI
 
 ```ruby
-pod 'LBXScan/UI','~> 2.0'
+pod 'LBXScan/UI','~> 2.2'
 ```
 - 安装任意组合
 
