@@ -129,9 +129,9 @@ return style;
 
 ### 使用扫码控制器LBXScanViewController
 
-如果你需要使用提供的扫码控制器LBXScanViewController(包含在UI模块)，需要在你的工程的xx.pch文件或对应调用的地方添加对应的宏(LBXScanViewController代码包含了所有的库和UI，所以需要你根据你自己下载的库的情况，对应添加宏)
+如果你需要使用提供的扫码控制器LBXScanViewController(包含在UI模块中)，需要在你的工程中添加预编译头文件xx.pch文件或对应调用的地方添加对应的宏(LBXScanViewController代码包含了所有的库和UI，所以需要你根据你自己下载的库的情况，对应添加宏)
 
-例如，xxx.pch文件中添加，我的demo中下载了所有的模块，所以下面定义了各个模块的宏
+例如，当前工程Demo中PrefixHeader.pch，我的demo中下载了所有的模块，所以下面定义了各个模块的宏
 
 ```
 
@@ -143,10 +143,11 @@ return style;
 #define LBXScan_Define_ZXing   //下载了ZXing模块
 #define LBXScan_Define_ZBar   //下载了ZBar模块
 #define LBXScan_Define_UI     //下载了界面模块
+#endif
 
 ```
 
-实现委托方法 scanResultWithArray 或继承控制器LBXScanViewController，然后override方法scanResultWithArray
+扫码结果处理，可以通过实现委托方法 scanResultWithArray 或继承控制器LBXScanViewController，然后override方法scanResultWithArray即可
 
 
 # 界面效果
