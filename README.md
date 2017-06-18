@@ -81,6 +81,10 @@ pod 'LBXScan/UI','~> 2.2'
 - Demo提供了选择对应库进行扫码识别、相册选择图片识别、生成条码等测试
 
 ### UI DIY参数介绍
+
+辅助理解参考工具请看：[LBXScanUITool](https://github.com/MxABC/LBXScanUITool)
+
+
 ```obj-c
 - (LBXScanViewStyle*)DIY
 {
