@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <LBXScanTypes.h>
+#import "LBXScanTypes.h"
 
 //UI
 #ifdef LBXScan_Define_UI
