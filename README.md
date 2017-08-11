@@ -9,6 +9,8 @@
 
 [swift版本 点这里](https://github.com/MxABC/swiftScan)
 
+QQ交流群: 522806629 
+
 ### iOS扫码封装
 - 扫码识别封装: 系统API(AVFoundation)、ZXing、ZBar
 - 扫码界面效果封装
