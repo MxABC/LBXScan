@@ -81,7 +81,7 @@ typedef void(^blockScan)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *sc
 - (void)stop
 {
     self.bNeedScanResult = NO;
-    [self.capture stop];
+    [self.capture hard_stop];
     
 }
 
