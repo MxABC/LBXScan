@@ -84,24 +84,39 @@ NS_ASSUME_NONNULL_END
     //设备启动状态提示
     if (!_activityView)
     {
-        self.activityView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-        [_activityView setCenter:CGPointMake(XRetangleLeft +  sizeRetangle.width/2 - 50, YMinRetangle + sizeRetangle.height/2)];
+        self.activityView = [[UIActivityIndicatorView alloc]init];
         
         [_activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [self addSubview:_activityView];
-        
-        CGRect labelReadyRect = CGRectMake(_activityView.frame.origin.x + _activityView.frame.size.width + 10, _activityView.frame.origin.y, 100, 30);
-        self.labelReadying = [[UILabel alloc]initWithFrame:labelReadyRect];
+      
+        self.labelReadying = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, sizeRetangle.width, 30)];
         _labelReadying.backgroundColor = [UIColor clearColor];
         _labelReadying.textColor  = [UIColor whiteColor];
         _labelReadying.font = [UIFont systemFontOfSize:18.];
         _labelReadying.text = text;
+        [_labelReadying sizeToFit];
+        CGRect frame = _labelReadying.frame;
+        CGPoint centerPt = CGPointMake(self.frame.size.width/2 + 20, YMinRetangle + sizeRetangle.height/2);
+        _labelReadying.bounds = CGRectMake(0, 0, frame.size.width,30);
+        _labelReadying.center = centerPt;
         
+        _activityView.bounds = CGRectMake(0, 0, 30, 30);
+        if (text)
+            _activityView.center = CGPointMake(centerPt.x - frame.size.width/2 - 24 , _labelReadying.center.y);
+        else
+            _activityView.center = CGPointMake(self.frame.size.width/2 , _labelReadying.center.y);
+        
+        [self addSubview:_activityView];
         [self addSubview:_labelReadying];
-        
         [_activityView startAnimating];
     }
 
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    
 }
 
 - (void)stopDeviceReadying

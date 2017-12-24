@@ -33,6 +33,7 @@
     
     //设置扫码后需要扫码图像
     self.isNeedScanImage = YES;
+    
 }
 
 

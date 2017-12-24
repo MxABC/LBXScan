@@ -30,6 +30,19 @@ QQ交流群: 522806629
 - 支付宝扫码框效果
 - 微信扫码框效果
 
+### 历史版本
+#### 2.3 
+- 修改ZXing内存修改bug,完善ZXing扫码完成后，内存释放
+- Demo相机和相册权限获取代码优化
+- ZBar修改参数支持ITF-14
+- 扫码启动相机提示优化，放置中间位置
+
+#### 2.2 
+- 可分库下载(native、ZXing、ZBar)
+
+#### 1.x 
+- 1.x
+
 ### Installation with CocoaPods
 > 可独立安装某一功能,ZXing已经下载到本工程，解决之前版本下载速度慢的问题
 
@@ -38,39 +51,39 @@ QQ交流群: 522806629
 - 安装所有库包括UI 
 
 ```ruby
- pod 'LBXScan', '~> 2.2'
+ pod 'LBXScan', '~> 2.3'
 ```
 建议按下面这样分组写，安装好后按文件夹分组，否则所有文件在一个文件夹里，很乱
 
 ```ruby
-pod 'LBXScan/LBXNative','~> 2.2'
-pod 'LBXScan/LBXZXing','~> 2.2'
-pod 'LBXScan/LBXZBar','~> 2.2'
-pod 'LBXScan/UI','~> 2.2'
+pod 'LBXScan/LBXNative','~> 2.3'
+pod 'LBXScan/LBXZXing','~> 2.3'
+pod 'LBXScan/LBXZBar','~> 2.3'
+pod 'LBXScan/UI','~> 2.3'
 ```
 
 - 只安装系统原生API封装库  
 
 ```ruby
-pod 'LBXScan/LBXNative','~> 2.2'
+pod 'LBXScan/LBXNative','~> 2.3'
 ```
 
 - 只安装ZXing封装库 
 
 ```ruby
-pod 'LBXScan/LBXZXing','~> 2.2'
+pod 'LBXScan/LBXZXing','~> 2.3'
 ```
 
 - 只安装ZBar封装库 
 
 ```ruby
-pod 'LBXScan/LBXZBar','~> 2.2'
+pod 'LBXScan/LBXZBar','~> 2.3'
 ```
 
 - 只安装UI
 
 ```ruby
-pod 'LBXScan/UI','~> 2.2'
+pod 'LBXScan/UI','~> 2.3'
 ```
 - 安装任意组合
 
@@ -78,7 +91,7 @@ pod 'LBXScan/UI','~> 2.2'
 
 
 ### Demo测试
-- xcode版本:xcode8.3
+- xcode版本:xcode9.2
 - 将工程下载下来，打开DemoTests中 LBXScanDemo.xcworkspace
 - Demo提供了选择对应库进行扫码识别、相册选择图片识别、生成条码等测试
 

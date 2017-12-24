@@ -570,7 +570,7 @@
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yunqueyi.Doctor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.lbxScan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "15a388a8-ec37-4bc9-9400-f23bfa5493d4";
 				PROVISIONING_PROFILE_SPECIFIER = dev_pro;
@@ -594,7 +594,7 @@
 					"$(inherited)",
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yunqueyi.Doctor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.lbxScan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
