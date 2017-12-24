@@ -61,7 +61,6 @@ typedef void(^blockScan)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *sc
         
         [preView.layer insertSublayer:self.capture.layer atIndex:0];
         
-        
     }
     return self;
 }
@@ -81,8 +80,7 @@ typedef void(^blockScan)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *sc
 - (void)stop
 {
     self.bNeedScanResult = NO;
-    [self.capture hard_stop];
-    
+    [self.capture stop];
 }
 
 - (void)openTorch:(BOOL)on_off

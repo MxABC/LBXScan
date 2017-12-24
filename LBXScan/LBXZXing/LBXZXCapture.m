@@ -136,10 +136,10 @@
 - (void)setDelegate:(id<LBXZXCaptureDelegate>)delegate {
   _delegate = delegate;
 
-  if (delegate) {
-    self.hardStop = NO;
-  }
-  [self startStop];
+//  if (delegate) {
+//    self.hardStop = NO;
+//  }
+//  [self startStop];
 }
 
 - (void)setFocusMode:(AVCaptureFocusMode)focusMode {
@@ -290,23 +290,23 @@
         return;
     }
     
-  if (self.hardStop) {
-    return;
-  }
-
-  if (self.delegate || self.luminanceLayer || self.binaryLayer) {
-    (void)[self output];
-  }
-
-  if (!self.session.running) {
-    static int i = 0;
-    if (++i == -2) {
-      abort();
+    if (self.hardStop) {
+        return;
     }
-
-    [self.session startRunning];
-  }
-  self.running = YES;
+    
+    if (self.delegate || self.luminanceLayer || self.binaryLayer) {
+        (void)[self output];
+    }
+    
+    if (!self.session.running) {
+        static int i = 0;
+        if (++i == -2) {
+            abort();
+        }
+        
+        [self.session startRunning];
+    }
+    self.running = YES;
 }
 
 - (void)stop
@@ -344,7 +344,7 @@
     }
 
     self.onScreen = YES;
-    [self startStop];
+//    [self startStop];
   } else if ([key isEqualToString:kCAOnOrderOut]) {
     if (self.orderOutSkip) {
       self.orderOutSkip--;
@@ -352,7 +352,7 @@
     }
 
     self.onScreen = NO;
-    [self startStop];
+//    [self startStop];
   }
 }
 
@@ -361,6 +361,16 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
+    
+    
+    if (!self.running) {
+        return;
+    }
+    
+  
+    
+    
+    
   @autoreleasepool {
     if (!self.cameraIsReady) {
       self.cameraIsReady = YES;
@@ -428,6 +438,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
       if (self.delegate)
       {
+          static NSInteger sampleBufferNums = 0;
+          
+          sampleBufferNums++;
+          
+          if (sampleBufferNums != 2) {
+              return;
+          }
+          
+          NSLog(@"sampleBufferNums");
+          sampleBufferNums = 0;
+          
         ZXBinaryBitmap *bitmap = [[ZXBinaryBitmap alloc] initWithBinarizer:binarizer];
 
         NSError *error;
