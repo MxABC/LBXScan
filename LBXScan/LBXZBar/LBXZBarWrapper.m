@@ -48,7 +48,7 @@
     ZBarImageScanner *scanner = _readerView.scanner;
     [scanner setSymbology: zbarFormat
                    config: ZBAR_CFG_ENABLE
-                       to: 0];
+                       to: 1];
 }
 
 - (void)start
