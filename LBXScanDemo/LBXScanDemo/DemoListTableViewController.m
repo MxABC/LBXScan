@@ -9,7 +9,8 @@
 #import "DemoListTableViewController.h"
 #import <objc/message.h>
 
-#import "LBXScanPermissions.h"
+#import "LBXPermission.h"
+#import "LBXPermissionSetting.h"
 #import "LBXAlertAction.h"
 #import "Global.h"
 #import "SettingViewController.h"
@@ -171,12 +172,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![LBXScanPermissions cameraPemission])
-    {
-        [self showError:@"没有摄像机权限"];
-        return;
-    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    
+    __weak __typeof(self) weakSelf = self;
+    [LBXPermission authorizeWithType:LBXPermissionType_Camera completion:^(BOOL granted, BOOL firstTime) {
+        if (granted) {
+            [weakSelf startWithIndexPath:indexPath];
+        }
+        else if(!firstTime)
+        {
+            [LBXPermissionSetting showAlertToDislayPrivacySettingWithTitle:@"提示" msg:@"没有相机权限，是否前往设置" cancel:@"取消" setting:@"设置" ];
+        }
+    }];
+
+  
+}
+
+- (void)startWithIndexPath:(NSIndexPath *)indexPath
+{
     NSArray* array = _arrayItems[indexPath.section][indexPath.row];
     NSString *methodName = array.lastObject;
     SEL normalSelector = NSSelectorFromString(methodName);
@@ -184,7 +198,6 @@
         
         ((void (*)(id, SEL))objc_msgSend)(self, normalSelector);
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark ---自定义界面
@@ -295,12 +308,16 @@
 #pragma mark - 相册
 - (void)openLocalPhotoAlbum
 {
-    if ([LBXScanPermissions photoPermission])
-    {
-        [self openLocalPhoto];
-    }
-    else
-        [self showError:@"      请到设置->隐私中开启本程序相册权限     "];
+    __weak __typeof(self) weakSelf = self;
+    [LBXPermission authorizeWithType:LBXPermissionType_Photos completion:^(BOOL granted, BOOL firstTime) {
+        if (granted) {
+            [weakSelf openLocalPhoto];
+        }
+        else if (!firstTime )
+        {
+            [LBXPermissionSetting showAlertToDislayPrivacySettingWithTitle:@"提示" msg:@"没有相册权限，是否前往设置" cancel:@"取消" setting:@"设置"];
+        }
+    }];
 }
 
 /*!

@@ -62,7 +62,6 @@
             [_qRScanView stopDeviceReadying];
 #endif
             
-            [self showError:@"   请到设置隐私中开启本程序相机权限   "];
         }
     }];
     
@@ -83,6 +82,12 @@
         
         [self.view addSubview:_qRScanView];
     }
+    
+    if (!_cameraInvokeMsg) {
+        
+        _cameraInvokeMsg = NSLocalizedString(@"wating...", nil);
+    }
+    
     [_qRScanView startDeviceReadyingWithText:_cameraInvokeMsg];
 #endif
 }
@@ -120,14 +125,6 @@
 //启动设备
 - (void)startScan
 {
-//    if ( ![LBXScanPermissions cameraPemission] )
-//    {
-//        [_qRScanView stopDeviceReadying];
-//        
-//        [self showError:@"   请到设置隐私中开启本程序相机权限   "];
-//        return;
-//    }
-    
     UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
     videoView.backgroundColor = [UIColor clearColor];
     [self.view insertSubview:videoView atIndex:0];
@@ -174,12 +171,13 @@
 #ifdef LBXScan_Define_ZXing
             if (!_zxingObj) {
                 
+                __weak __typeof(self) weakSelf = self;
                 self.zxingObj = [[ZXingWrapper alloc]initWithPreView:videoView block:^(ZXBarcodeFormat barcodeFormat, NSString *str, UIImage *scanImg) {
                     
                     LBXScanResult *result = [[LBXScanResult alloc]init];
                     result.strScanned = str;
                     result.imgScanned = scanImg;
-                    result.strBarCodeType = [self convertZXBarcodeFormat:barcodeFormat];
+                    result.strBarCodeType = [weakSelf convertZXBarcodeFormat:barcodeFormat];
                     
                     [weakSelf scanResultWithArray:@[result]];
                     
@@ -595,6 +593,7 @@
     }
     return YES;
 }
+
 
 
 

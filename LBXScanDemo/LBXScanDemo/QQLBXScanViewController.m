@@ -10,6 +10,8 @@
 #import "CreateBarCodeViewController.h"
 #import "ScanResultViewController.h"
 #import "LBXScanVideoZoomView.h"
+#import "LBXPermission.h"
+#import "LBXPermissionSetting.h"
 
 @interface QQLBXScanViewController ()
 @property (nonatomic, strong) LBXScanVideoZoomView *zoomView;
@@ -246,12 +248,16 @@
 //打开相册
 - (void)openPhoto
 {
-    if ([LBXScanPermissions cameraPemission])
-        [self openLocalPhoto:NO];
-    else
-    {
-        [self showError:@"      请到设置->隐私中开启本程序相册权限     "];
-    }
+    __weak __typeof(self) weakSelf = self;
+    [LBXPermission authorizeWithType:LBXPermissionType_Photos completion:^(BOOL granted, BOOL firstTime) {
+        if (granted) {
+            [weakSelf openLocalPhoto:NO];
+        }
+        else if (!firstTime )
+        {
+            [LBXPermissionSetting showAlertToDislayPrivacySettingWithTitle:@"提示" msg:@"没有相册权限，是否前往设置" cancel:@"取消" setting:@"设置"];
+        }
+    }];
 }
 
 //开关闪光灯

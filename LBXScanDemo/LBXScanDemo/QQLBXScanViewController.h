@@ -7,8 +7,7 @@
 //
 
 #import "LBXAlertAction.h"
-#import "LBXScanViewController.h"
-#import "LBXScanPermissions.h"
+#import <LBXScanViewController.h>
 
 #pragma mark -模仿qq界面
 //继承LBXScanViewController,在界面上绘制想要的按钮，提示语等

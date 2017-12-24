@@ -9,7 +9,6 @@ pod 'LBXScan/LBXZBar', path:"../"
 pod 'LBXScan/LBXNative', path:"../"
 pod 'LBXScan/LBXZXing', path:"../"
 pod 'LBXScan/UI', path:"../"
-
 end
 
 

@@ -42,6 +42,9 @@
     //线条上下移动图片
     style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
     
+    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
+    
     return style;
 }
 
@@ -60,7 +63,6 @@
         style.xScanRetangleOffset = 20;
     }
     
-    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Inner;
     style.photoframeLineW = 2.0;
     style.photoframeAngleW = 16;
@@ -68,6 +70,9 @@
     
     style.isNeedShowRetangle = NO;
     style.anmiationStyle = LBXScanViewAnimationStyle_NetGrid;
+    
+    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
     
     //使用的支付宝里面网格图片
     UIImage *imgFullNet = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_full_net"];
@@ -94,6 +99,9 @@
     UIImage *imgLine = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
     style.animationImage = imgLine;
     
+    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
+    
     return style;
 }
 
@@ -115,6 +123,9 @@
     //qq里面的线条图片
     UIImage *imgLine = [UIImage imageNamed:@"CodeScan.bundle/qrcode_Scan_weixin_Line"];
     style.animationImage = imgLine;
+    
+    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
     
     return style;
 }
@@ -139,6 +150,9 @@
     UIImage *imgPartNet = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_part_net"];
     style.animationImage = imgPartNet;
     
+    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
+    
     return style;
 }
 
@@ -158,6 +172,9 @@
     //使用的支付宝里面网格图片
     UIImage *imgPartNet = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_part_net"];
     style.animationImage = imgPartNet;
+    
+    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
     
     return style;
 }
@@ -215,6 +232,9 @@
     UIImage *imgLine = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
     style.animationImage = imgLine;
     
+    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
+    
     return style;
 }
 
@@ -250,6 +270,9 @@
     style.whRatio = 4.3/2.18;
     //离左边和右边距离
     style.xScanRetangleOffset = 30;
+    
+    style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
     
     return style;
 }
