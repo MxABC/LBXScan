@@ -9,6 +9,8 @@
 
 [swift版本 点这里](https://github.com/MxABC/swiftScan)
 
+[DIY参数理解参考工具点这里](https://github.com/MxABC/LBXScanUITool)
+
 QQ交流群: 522806629 
 
 ### iOS扫码封装
@@ -18,6 +20,7 @@ QQ交流群: 522806629
 - 相册获取图片后识别
 
 ### 设置参数自定义效果
+
 - 扫码框周围区域背景色可设置
 - 扫码框颜色可也设置
 - 扫码框4个角的颜色可设置、大小可设置
