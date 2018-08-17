@@ -13,6 +13,14 @@
 
 QQ交流群: 522806629 
 
+- [iOS扫码封装](#iOS扫码封装)
+- [DIY](#设置参数自定义效果)
+- [模仿其他app](#模仿其他app(通过设置参数即可完成))
+- [安装](#Installation with CocoaPods)
+- [DIY参数介绍](#DIY参数介绍)
+- [界面效果](#界面效果)
+
+
 ### iOS扫码封装
 - 扫码识别封装: 系统API(AVFoundation)、ZXing、ZBar
 - 扫码界面效果封装
