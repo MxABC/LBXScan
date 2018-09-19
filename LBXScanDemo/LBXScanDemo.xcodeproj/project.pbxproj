@@ -316,8 +316,8 @@
 				TargetAttributes = {
 					73584FAC1E1CD62300ED6A60 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = KKT5X966GB;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 8LQ7CL73D8;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -557,8 +557,9 @@
 			baseConfigurationReference = BC33DB177441D59AF65AC025 /* Pods-LBXScanDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = KKT5X966GB;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8LQ7CL73D8;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LBXScanDemo/PrefixHeader.pch;
@@ -570,10 +571,10 @@
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.lbxScan;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.test2018;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "15a388a8-ec37-4bc9-9400-f23bfa5493d4";
-				PROVISIONING_PROFILE_SPECIFIER = dev_pro;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -582,8 +583,9 @@
 			baseConfigurationReference = 6CEC1D273563FBA3D7419E06 /* Pods-LBXScanDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8LQ7CL73D8;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LBXScanDemo/PrefixHeader.pch;
@@ -594,7 +596,7 @@
 					"$(inherited)",
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.lbxScan;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.test2018;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
