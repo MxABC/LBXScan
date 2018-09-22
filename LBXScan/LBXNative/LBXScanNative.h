@@ -7,9 +7,11 @@
 //
 
 
+#ifndef __cplusplus
 @import UIKit;
 @import Foundation;
 @import AVFoundation;
+#endif
 
 #import "LBXScanTypes.h"
 #define LBXScan_Define_Native
