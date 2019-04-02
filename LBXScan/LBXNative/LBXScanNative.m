@@ -529,7 +529,6 @@
 
 
 #pragma mark - 生成二维码，背景色及二维码颜色设置
-
 + (UIImage*)createQRWithString:(NSString*)text QRSize:(CGSize)size
 {
     NSData *stringData = [text dataUsingEncoding: NSUTF8StringEncoding];
@@ -538,9 +537,6 @@
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [qrFilter setValue:stringData forKey:@"inputMessage"];
     [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
-    
-    
- 
     
     CIImage *qrImage = qrFilter.outputImage;
     
@@ -557,10 +553,8 @@
     CGImageRelease(cgImage);
     
     return codeImage;
-
-    
-    
 }
+
 //引用自:http://www.jianshu.com/p/e8f7a257b612
 + (UIImage*)createQRWithString:(NSString*)text QRSize:(CGSize)size QRColor:(UIColor*)qrColor bkColor:(UIColor*)bkColor
 {

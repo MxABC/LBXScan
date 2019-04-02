@@ -8,26 +8,24 @@
 
 #import "LBXPermission.h"
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
+#import <objc/message.h>
 
-#import "LBXPermissionCamera.h"
-#import "LBXPermissionPhotos.h"
-#import "LBXPermissionContacts.h"
-#import "LBXPermissionLocation.h"
-#import "LBXPermissionHealth.h"
-#import "LBXPermissionCalendar.h"
-#import "LBXPermissionReminders.h"
-#import "LBXPermissionMicrophone.h"
-#import "LBXPermissionNetwork.h"
+
+typedef void(^completionPermissionHandler)(BOOL granted,BOOL firstTime);
+
 
 @implementation LBXPermission
 
 
 + (BOOL)isServicesEnabledWithType:(LBXPermissionType)type
 {
-    if (type == LBXPermissionType_Location) {
-        return [LBXPermissionLocation isServicesEnabled];
+    if (type == LBXPermissionType_Location)
+    {
+        SEL sel = NSSelectorFromString(@"isServicesEnabled");
+        BOOL ret  = ((BOOL *(*)(id,SEL))objc_msgSend)( NSClassFromString(@"LBXPermissionLocation"), sel);
+        return ret;
     }
-    
     return YES;
 }
 
@@ -35,81 +33,104 @@
 {
     if (type == LBXPermissionType_Health) {
         
-        return  [LBXPermissionHealth isHealthDataAvailable];
+        SEL sel = NSSelectorFromString(@"isHealthDataAvailable");
+        BOOL ret  = ((BOOL *(*)(id,SEL))objc_msgSend)( NSClassFromString(@"LBXPermissionHealth"), sel);
+        return ret;
     }
-    
     return YES;
 }
 
 + (BOOL)authorizedWithType:(LBXPermissionType)type
 {
+    SEL sel = NSSelectorFromString(@"authorized");
+    
+    NSString *strClass = nil;
     switch (type) {
         case LBXPermissionType_Location:
-            return [LBXPermissionLocation authorized];
+            strClass = @"LBXPermissionLocation";
             break;
         case LBXPermissionType_Camera:
-            return [LBXPermissionCamera authorized];
+            strClass = @"LBXPermissionCamera";
             break;
         case LBXPermissionType_Photos:
-            return [LBXPermissionPhotos authorized];
+            strClass = @"LBXPermissionPhotos";
             break;
         case LBXPermissionType_Contacts:
-            return [LBXPermissionContacts authorized];
+            strClass = @"LBXPermissionContacts";
             break;
         case LBXPermissionType_Reminders:
-            return [LBXPermissionReminders authorized];
+            strClass = @"LBXPermissionReminders";
             break;
         case LBXPermissionType_Calendar:
-            return [LBXPermissionCalendar authorized];
+            strClass = @"LBXPermissionCalendar";
             break;
         case LBXPermissionType_Microphone:
-            return [LBXPermissionMicrophone authorized];
+            strClass = @"LBXPermissionMicrophone";
             break;
         case LBXPermissionType_Health:
-            return [LBXPermissionHealth authorized];
+            strClass = @"LBXPermissionHealth";
             break;
-        case LBXPermissionType_Network:
-            return [LBXPermissionNetwork authorized];
+        case LBXPermissionType_DataNetwork:
             break;
+        case LBXPermissionType_MediaLibrary:
+            strClass = @"LBXPermissionMediaLibrary";
+            break;
+            
         default:
             break;
     }
+    
+    if (strClass) {
+        BOOL ret  = ((BOOL *(*)(id,SEL))objc_msgSend)( NSClassFromString(strClass), sel);
+        return ret;
+    }
+    
     return NO;
 }
 
 + (void)authorizeWithType:(LBXPermissionType)type completion:(void(^)(BOOL granted,BOOL firstTime))completion
 {
+    NSString *strClass = nil;
     switch (type) {
         case LBXPermissionType_Location:
-            return [LBXPermissionLocation authorizeWithCompletion:completion];
+            strClass = @"LBXPermissionLocation";
             break;
         case LBXPermissionType_Camera:
-            return [LBXPermissionCamera authorizeWithCompletion:completion];
+            strClass = @"LBXPermissionCamera";
             break;
         case LBXPermissionType_Photos:
-            return [LBXPermissionPhotos authorizeWithCompletion:completion];
+            strClass = @"LBXPermissionPhotos";
             break;
         case LBXPermissionType_Contacts:
-            return [LBXPermissionContacts authorizeWithCompletion:completion];
+            strClass = @"LBXPermissionContacts";
             break;
         case LBXPermissionType_Reminders:
-            return [LBXPermissionReminders authorizeWithCompletion:completion];
+            strClass = @"LBXPermissionReminders";
             break;
         case LBXPermissionType_Calendar:
-            return [LBXPermissionCalendar authorizeWithCompletion:completion];
+             strClass = @"LBXPermissionCalendar";
             break;
         case LBXPermissionType_Microphone:
-            return [LBXPermissionMicrophone authorizeWithCompletion:completion];
+            strClass = @"LBXPermissionMicrophone";
             break;
         case LBXPermissionType_Health:
-            return [LBXPermissionHealth authorizeWithCompletion:completion];
+            strClass = @"LBXPermissionHealth";
             break;
-        case LBXPermissionType_Network:
-            return [LBXPermissionNetwork authorizeWithCompletion:completion];
+        case LBXPermissionType_DataNetwork:
+            strClass = @"LBXPermissionData";
+            break;
+        case LBXPermissionType_MediaLibrary:
+            strClass = @"LBXPermissionMediaLibrary";
             break;
             
         default:
             break;
+    }
+    
+    if (strClass)
+    {
+        SEL sel = NSSelectorFromString(@"authorizeWithCompletion:");
+        ((void(*)(id,SEL, completionPermissionHandler))objc_msgSend)(NSClassFromString(strClass),sel, completion);
     }
 }
 

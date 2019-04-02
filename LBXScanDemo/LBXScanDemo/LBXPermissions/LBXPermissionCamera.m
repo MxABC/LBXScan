@@ -20,7 +20,7 @@
         return permission == AVAuthorizationStatusAuthorized;
        
     } else {
-        // Prior to iOS 8 all apps were authorized.
+        // Prior to iOS 7 all apps were authorized.
         return YES;
     }
 }
@@ -31,7 +31,7 @@
     {
         return [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     } else {
-        // Prior to iOS 8 all apps were authorized.
+        // Prior to iOS 7 all apps were authorized.
         return AVAuthorizationStatusAuthorized;
     }
 }
@@ -65,7 +65,7 @@
                 break;
         }
     } else {
-        // Prior to iOS 8 all apps were authorized.
+        // Prior to iOS 7 all apps were authorized.
         completion(YES,NO);
     }
 }
