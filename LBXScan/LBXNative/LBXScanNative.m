@@ -260,7 +260,9 @@
 - (void)setTorch:(BOOL)torch {   
     
     [self.input.device lockForConfiguration:nil];
-    self.input.device.torchMode = torch ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
+    if ([self.input.device hasTorch]) {
+        self.input.device.torchMode = torch ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
+    }
     [self.input.device unlockForConfiguration];
 }
 
