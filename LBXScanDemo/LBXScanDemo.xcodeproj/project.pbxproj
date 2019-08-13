@@ -290,8 +290,10 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 73584FA41E1CD62300ED6A60;
 			productRefGroup = 73584FAE1E1CD62300ED6A60 /* Products */;
