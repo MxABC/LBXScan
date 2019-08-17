@@ -7,9 +7,10 @@
 //
 
 
+#ifndef __cplusplus
 @import UIKit;
 @import Foundation;
-
+#endif
 
 
 
