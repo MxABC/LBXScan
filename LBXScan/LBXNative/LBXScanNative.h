@@ -17,13 +17,7 @@
 #define LBXScan_Define_Native
 
 
-
-
-/**
- @brief  ios系统自带扫码功能
- */
 @interface LBXScanNative : NSObject
-
 
 #pragma mark --初始化
 /**
@@ -101,49 +95,15 @@
 - (void)setVideoScale:(CGFloat)scale;
 
 #pragma mark --识别图片
-
-
-/**
- 识别QR二维码图片,ios8.0以上支持
-
- @param image 图片
- @param block 返回识别结果
- */
+//! 识别QR二维码图片,ios8.0以上支持
 + (void)recognizeImage:(UIImage*)image success:(void(^)(NSArray<LBXScanResult*> *array))block;
 
-#pragma mark --生成条码
-
-
-/**
- 生成QR二维码
-
- @param text 字符串
- @param size 二维码大小
- @return 返回二维码图像
- */
-+ (UIImage*)createQRWithString:(NSString*)text QRSize:(CGSize)size;
-
-
-/**
- 生成QR二维码
-
- @param text 字符串
- @param size 大小
- @param qrColor 二维码前景色
- @param bkColor 二维码背景色
- @return 二维码图像
- */
-+ (UIImage*)createQRWithString:(NSString*)text QRSize:(CGSize)size QRColor:(UIColor*)qrColor bkColor:(UIColor*)bkColor;
-
-
-/**
- 生成条形码
-
- @param text 字符串
- @param size 大小
- @return 返回条码图像
- */
-+ (UIImage*)createBarCodeWithString:(NSString*)text QRSize:(CGSize)size;
-
+#pragma mark - 生成二维码/条形码
+//! 生成二维码
++ (UIImage *)generateQRCode:(NSString *)code size:(CGSize)size;
+//! 生成二维码+logo
++ (UIImage *)generateQRCode:(NSString *)code size:(CGSize)size logo:(nonnull UIImage *)logo;
+//! 生成条形码
++ (UIImage *)generateCode128:(NSString *)code size:(CGSize)size;
 @end
 
