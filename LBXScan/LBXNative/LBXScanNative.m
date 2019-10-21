@@ -43,33 +43,26 @@
 @implementation LBXScanNative
 
 
-- (void)setNeedCaptureImage:(BOOL)isNeedCaputureImg
-{
+- (void)setNeedCaptureImage:(BOOL)isNeedCaputureImg{
     _isNeedCaputureImage = isNeedCaputureImg;
 }
 
-
-- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block
-{
+- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block{
     if (self = [super init]) {
         [self initParaWithPreView:preView ObjectType:objType cropRect:cropRect success:block];
     }
     return self;
 }
 
-- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType success:(void(^)(NSArray<LBXScanResult*> *array))block
-{
+- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType success:(void(^)(NSArray<LBXScanResult*> *array))block{
     if (self = [super init]) {
-        
         [self initParaWithPreView:preView ObjectType:objType cropRect:CGRectZero success:block];
     }
-    
     return self;
 }
 
 
-- (void)initParaWithPreView:(UIView*)videoPreView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block
-{
+- (void)initParaWithPreView:(UIView*)videoPreView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block{
     self.arrayBarCodeType = objType;
     self.blockScanResult = block;
     self.videoPreView = videoPreView;
@@ -82,27 +75,19 @@
     
     // Input
     _input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:nil];
-    if ( !_input  )
-        return ;
-    
-    
+    if ( !_input  ){
+        return;
+    }
+
     bNeedScanResult = YES;
-    
-    // Output
+
     _output = [[AVCaptureMetadataOutput alloc]init];
     [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
     
-    
-    if ( !CGRectEqualToRect(cropRect,CGRectZero) )
-    {
+    if (!CGRectEqualToRect(cropRect,CGRectZero)){
         _output.rectOfInterest = cropRect;
     }
-    
-    /*
-    // Setup the still image file output
-     */
-//    AVCapturePhotoOutput
-    
+
     _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
     NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:
                                     AVVideoCodecJPEG, AVVideoCodecKey,
@@ -112,31 +97,19 @@
     // Session
     _session = [[AVCaptureSession alloc]init];
     [_session setSessionPreset:AVCaptureSessionPresetHigh];
-    
-   // _session.
-    
-   // videoScaleAndCropFactor
-    
-    if ([_session canAddInput:_input])
-    {
+
+    if ([_session canAddInput:_input]){
         [_session addInput:_input];
     }
     
-    if ([_session canAddOutput:_output])
-    {
+    if ([_session canAddOutput:_output]){
         [_session addOutput:_output];
     }
 
-    if ([_session canAddOutput:_stillImageOutput])
-    {
+    if ([_session canAddOutput:_stillImageOutput]){
         [_session addOutput:_stillImageOutput];
     }
-    
- 
- 
-    
-    // 条码类型 AVMetadataObjectTypeQRCode
-   // _output.metadataObjectTypes =@[AVMetadataObjectTypeQRCode];
+
     
     if (!objType) {
         objType = [self defaultMetaDataObjectTypes];
@@ -148,52 +121,33 @@
     _preview =[AVCaptureVideoPreviewLayer layerWithSession:_session];
     _preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
-    //_preview.frame =CGRectMake(20,110,280,280);
-    
     CGRect frame = videoPreView.frame;
     frame.origin = CGPointZero;
     _preview.frame = frame;
     
     [videoPreView.layer insertSublayer:self.preview atIndex:0];
-    
- 
-    
-    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
-//    CGFloat maxScale = videoConnection.videoMaxScaleAndCropFactor;
-     CGFloat scale = videoConnection.videoScaleAndCropFactor;
-    NSLog(@"%f",scale);
-//    CGFloat zoom = maxScale / 50;
-//    if (zoom < 1.0f || zoom > maxScale)
-//    {
-//        return;
-//    }
-//    videoConnection.videoScaleAndCropFactor += zoom;
-//    CGAffineTransform transform = videoPreView.transform;
-//    videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
 
-    
-    
+    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+     CGFloat scale = videoConnection.videoScaleAndCropFactor;
+
     //先进行判断是否支持控制对焦,不开启自动对焦功能，很难识别二维码。
-    if (_device.isFocusPointOfInterestSupported &&[_device isFocusModeSupported:AVCaptureFocusModeAutoFocus])
-    {
+    if (_device.isFocusPointOfInterestSupported &&
+        [_device isFocusModeSupported:AVCaptureFocusModeAutoFocus]){
         [_input.device lockForConfiguration:nil];
         [_input.device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
         [_input.device unlockForConfiguration];
     }
 }
 
-- (CGFloat)getVideoMaxScale
-{
+- (CGFloat)getVideoMaxScale{
     [_input.device lockForConfiguration:nil];
     AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
     CGFloat maxScale = videoConnection.videoMaxScaleAndCropFactor;
     [_input.device unlockForConfiguration];
-    
     return maxScale;
 }
 
-- (void)setVideoScale:(CGFloat)scale
-{
+- (void)setVideoScale:(CGFloat)scale{
     [_input.device lockForConfiguration:nil];
     
     AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
@@ -209,65 +163,44 @@
     _videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
 }
 
-- (void)setScanRect:(CGRect)scanRect
-{
+- (void)setScanRect:(CGRect)scanRect{
     //识别区域设置
     if (_output) {
         _output.rectOfInterest = [self.preview metadataOutputRectOfInterestForRect:scanRect];
     }
-    
 }
 
-- (void)changeScanType:(NSArray*)objType
-{    
+- (void)changeScanType:(NSArray*)objType{
     _output.metadataObjectTypes = objType;
 }
 
-- (void)startScan
-{
-    if ( _input && !_session.isRunning )
-    {
+- (void)startScan{
+    if ( _input && !_session.isRunning ){
         [_session startRunning];
         bNeedScanResult = YES;
-        
         [_videoPreView.layer insertSublayer:self.preview atIndex:0];
-        
-       // [_input.device addObserver:self forKeyPath:@"torchMode" options:0 context:nil];
     }
     bNeedScanResult = YES;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ( object == _input.device ) {
-        
-        NSLog(@"flash change");
-    }
-}
-
-- (void)stopScan
-{
+- (void)stopScan{
     bNeedScanResult = NO;
-    if ( _input && _session.isRunning )
-    {
+    if ( _input && _session.isRunning ){
         bNeedScanResult = NO;
         [_session stopRunning];
-        
-       // [self.preview removeFromSuperlayer];
     }
 }
 
 - (void)setTorch:(BOOL)torch {   
-    
-    [self.input.device lockForConfiguration:nil];
-    self.input.device.torchMode = torch ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
-    [self.input.device unlockForConfiguration];
+    if ([self.input.device hasFlash] && [self.input.device hasTorch]) {
+        [self.input.device lockForConfiguration:nil];
+        self.input.device.torchMode = torch ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
+        [self.input.device unlockForConfiguration];
+    }
 }
 
-- (void)changeTorch
-{
+- (void)changeTorch{
     AVCaptureTorchMode torch = self.input.device.torchMode;
-   
     switch (_input.device.torchMode) {
         case AVCaptureTorchModeAuto:
             break;
@@ -280,25 +213,12 @@
         default:
             break;
     }
-    
     [_input.device lockForConfiguration:nil];
     _input.device.torchMode = torch;
     [_input.device unlockForConfiguration];
 }
 
-
--(UIImage *)getImageFromLayer:(CALayer *)layer size:(CGSize)size
-{
-    UIGraphicsBeginImageContextWithOptions(size, YES, [[UIScreen mainScreen]scale]);
-    [layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
-
-- (AVCaptureConnection *)connectionWithMediaType:(NSString *)mediaType fromConnections:(NSArray *)connections
-{
+- (AVCaptureConnection *)connectionWithMediaType:(NSString *)mediaType fromConnections:(NSArray *)connections {
     for ( AVCaptureConnection *connection in connections ) {
         for ( AVCaptureInputPort *port in [connection inputPorts] ) {
             if ( [[port mediaType] isEqual:mediaType] ) {
@@ -309,127 +229,75 @@
     return nil;
 }
 
-- (void)captureImage
-{
+- (void)captureImage{
     AVCaptureConnection *stillImageConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
-    
-    
+    __weak typeof(self) weakSelf = self;
     [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:stillImageConnection
-                                                         completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error)
-     {
-         [self stopScan];
-         
-         if (imageDataSampleBuffer)
-         {
+                                                         completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error){
+         [weakSelf stopScan];
+         if (imageDataSampleBuffer){
              NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-             
              UIImage *img = [UIImage imageWithData:imageData];
-             
              for (LBXScanResult* result in _arrayResult) {
-                 
                  result.imgScanned = img;
              }
          }
-         
-         if (_blockScanResult)
-         {
+         if (_blockScanResult){
              _blockScanResult(_arrayResult);
          }
-         
      }];
 }
 
 
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
-- (void)captureOutput2:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
-{
-   
-    
+- (void)captureOutput2:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
     //识别扫码类型
-    for(AVMetadataObject *current in metadataObjects)
-    {
-        if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]] )
-        {
-            
+    for(AVMetadataObject *current in metadataObjects){
+        if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]] ){
             NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
-            NSLog(@"type:%@",current.type);
-            NSLog(@"result:%@",scannedResult);
-            
-            
-            
-         
-            
-            //测试可以同时识别多个二维码
         }
     }
-    
-   
-    
 }
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
-{
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     if (!bNeedScanResult) {
         return;
     }
-    
     bNeedScanResult = NO;
     
     if (!_arrayResult) {
-        
         self.arrayResult = [NSMutableArray arrayWithCapacity:1];
-    }
-    else
-    {
+    }else{
         [_arrayResult removeAllObjects];
     }
-    
     //识别扫码类型
-    for(AVMetadataObject *current in metadataObjects)
-    {
-        if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]] )
-        {
+    for(AVMetadataObject *current in metadataObjects){
+        if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]]){
             bNeedScanResult = NO;
-            
-            NSLog(@"type:%@",current.type);
             NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
             
-            if (scannedResult && ![scannedResult isEqualToString:@""])
-            {
+            if (scannedResult && ![scannedResult isEqualToString:@""]) {
                 LBXScanResult *result = [LBXScanResult new];
                 result.strScanned = scannedResult;
                 result.strBarCodeType = current.type;
                 
                 [_arrayResult addObject:result];
             }
-            //测试可以同时识别多个二维码
         }
     }
-    
-    if (_arrayResult.count < 1)
-    {
+    if (_arrayResult.count < 1){
         bNeedScanResult = YES;
         return;
     }
-    
-    if (_isNeedCaputureImage)
-    {
+    if (_isNeedCaputureImage){
         [self captureImage];
-    }
-    else
-    {
+    }else{
         [self stopScan];
-        
         if (_blockScanResult) {
             _blockScanResult(_arrayResult);
         }
     }
 }
 
-
-/**
- @brief  默认支持码的类别
- @return 支持类别 数组
- */
 - (NSArray *)defaultMetaDataObjectTypes
 {
     NSMutableArray *types = [@[AVMetadataObjectTypeQRCode,
@@ -443,23 +311,18 @@
                                AVMetadataObjectTypePDF417Code,
                                AVMetadataObjectTypeAztecCode] mutableCopy];
     
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_8_0)
-    {
-        [types addObjectsFromArray:@[
-                                     AVMetadataObjectTypeInterleaved2of5Code,
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_8_0){
+        [types addObjectsFromArray:@[AVMetadataObjectTypeInterleaved2of5Code,
                                      AVMetadataObjectTypeITF14Code,
-                                     AVMetadataObjectTypeDataMatrixCode
-                                     ]];
+                                     AVMetadataObjectTypeDataMatrixCode]];
     }
     
     return types;
 }
 
 #pragma mark --识别条码图片
-+ (void)recognizeImage:(UIImage*)image success:(void(^)(NSArray<LBXScanResult*> *array))block;
-{
-    if ([[[UIDevice currentDevice]systemVersion]floatValue] < 8.0 )
-    {
++ (void)recognizeImage:(UIImage*)image success:(void(^)(NSArray<LBXScanResult*> *array))block {
+    if ([[[UIDevice currentDevice]systemVersion]floatValue] < 8.0 || !image){
         if (block) {
             LBXScanResult *result = [[LBXScanResult alloc]init];
             result.strScanned = @"只支持ios8.0之后系统";
@@ -471,151 +334,114 @@
     CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
     NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
     NSMutableArray<LBXScanResult*> *mutableArray = [[NSMutableArray alloc]initWithCapacity:1];
-    for (int index = 0; index < [features count]; index ++)
-    {
-        CIQRCodeFeature *feature = [features objectAtIndex:index];
-        NSString *scannedResult = feature.messageString;
-        NSLog(@"result:%@",scannedResult);
-        
-        LBXScanResult *item = [[LBXScanResult alloc]init];
-        item.strScanned = scannedResult;
-        item.strBarCodeType = CIDetectorTypeQRCode;
-        item.imgScanned = image;
-        [mutableArray addObject:item];
+    if (features.count > 0) {
+        for (CIQRCodeFeature *feature in features) {
+            NSString *scannedResult = feature.messageString;
+            LBXScanResult *item = [[LBXScanResult alloc]init];
+            item.strScanned = scannedResult;
+            item.strBarCodeType = CIDetectorTypeQRCode;
+            item.imgScanned = image;
+            [mutableArray addObject:item];
+        }
     }
     if (block) {
         block(mutableArray);
     }
 }
 
-#pragma mark --生成条码
 
-//下面引用自 https://github.com/yourtion/Demo_CustomQRCode
-#pragma mark - InterpolatedUIImage
-+ (UIImage *)createNonInterpolatedUIImageFormCIImage:(CIImage *)image withSize:(CGFloat) size {
-    CGRect extent = CGRectIntegral(image.extent);
-    CGFloat scale = MIN(size/CGRectGetWidth(extent), size/CGRectGetHeight(extent));
-    // 创建bitmap;
-    size_t width = CGRectGetWidth(extent) * scale;
-    size_t height = CGRectGetHeight(extent) * scale;
-    CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
-    CGContextRef bitmapRef = CGBitmapContextCreate(nil, width, height, 8, 0, cs, (CGBitmapInfo)kCGImageAlphaNone);
-    CGColorSpaceRelease(cs);
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CGImageRef bitmapImage = [context createCGImage:image fromRect:extent];
-    CGContextSetInterpolationQuality(bitmapRef, kCGInterpolationNone);
-    CGContextScaleCTM(bitmapRef, scale, scale);
-    CGContextDrawImage(bitmapRef, extent, bitmapImage);
-    // 保存bitmap到图片
-    CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
-    CGContextRelease(bitmapRef);
-    CGImageRelease(bitmapImage);
-    UIImage *aImage = [UIImage imageWithCGImage:scaledImage];
-    CGImageRelease(scaledImage);
-    return aImage;
-}
-
-#pragma mark - QRCodeGenerator
-+ (CIImage *)createQRForString:(NSString *)qrString {
-    NSData *stringData = [qrString dataUsingEncoding:NSUTF8StringEncoding];
-    // 创建filter
-    CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
-    // 设置内容和纠错级别
-    [qrFilter setValue:stringData forKey:@"inputMessage"];
-    [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
-    // 返回CIImage
-    return qrFilter.outputImage;
-}
-
-
-#pragma mark - 生成二维码，背景色及二维码颜色设置
-+ (UIImage*)createQRWithString:(NSString*)text QRSize:(CGSize)size
-{
-    NSData *stringData = [text dataUsingEncoding: NSUTF8StringEncoding];
+#pragma mark - 生成二维码/条形码
+//! 生成二维码
++ (UIImage *)generateQRCode:(NSString *)code size:(CGSize)size {
     
-    //生成
-    CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
-    [qrFilter setValue:stringData forKey:@"inputMessage"];
-    [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
-    
-    CIImage *qrImage = qrFilter.outputImage;
-    
-    //绘制
-    CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:qrImage fromRect:qrImage.extent];
-    UIGraphicsBeginImageContext(size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    CGContextDrawImage(context, CGContextGetClipBoundingBox(context), cgImage);
-    UIImage *codeImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    CGImageRelease(cgImage);
+    NSData *codeData = [code dataUsingEncoding:NSUTF8StringEncoding];
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator" withInputParameters:@{@"inputMessage": codeData, @"inputCorrectionLevel": @"H"}];
+    UIImage *codeImage = [LBXScanNative scaleImage:filter.outputImage toSize:size];
     
     return codeImage;
 }
 
-//引用自:http://www.jianshu.com/p/e8f7a257b612
-+ (UIImage*)createQRWithString:(NSString*)text QRSize:(CGSize)size QRColor:(UIColor*)qrColor bkColor:(UIColor*)bkColor
-{
+//! 生成二维码+logo
++ (UIImage *)generateQRCode:(NSString *)code size:(CGSize)size logo:(nonnull UIImage *)logo {
     
-    NSData *stringData = [text dataUsingEncoding: NSUTF8StringEncoding];
-    
-    //生成
-    CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
-    [qrFilter setValue:stringData forKey:@"inputMessage"];
-    [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
-    
-    
-    //上色
-    CIFilter *colorFilter = [CIFilter filterWithName:@"CIFalseColor"
-                                       keysAndValues:
-                             @"inputImage",qrFilter.outputImage,
-                             @"inputColor0",[CIColor colorWithCGColor:qrColor.CGColor],
-                             @"inputColor1",[CIColor colorWithCGColor:bkColor.CGColor],
-                             nil];
-    
-    CIImage *qrImage = colorFilter.outputImage;
-    
-    //绘制
-    CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:qrImage fromRect:qrImage.extent];
-    UIGraphicsBeginImageContext(size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    CGContextDrawImage(context, CGContextGetClipBoundingBox(context), cgImage);
-    UIImage *codeImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    CGImageRelease(cgImage);
+    UIImage *codeImage = [LBXScanNative generateQRCode:code size:size];
+    codeImage = [LBXScanNative combinateCodeImage:codeImage andLogo:logo];
     
     return codeImage;
 }
 
-+ (UIImage*)createBarCodeWithString:(NSString*)text QRSize:(CGSize)size
-{
+//! 生成条形码
++ (UIImage *)generateCode128:(NSString *)code size:(CGSize)size {
     
-    NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:false];
+    NSData *codeData = [code dataUsingEncoding:NSUTF8StringEncoding];
+    CIFilter *filter = [CIFilter filterWithName:@"CICode128BarcodeGenerator" withInputParameters:@{@"inputMessage": codeData, @"inputQuietSpace": @.0}];
+    UIImage *codeImage = [LBXScanNative scaleImage:filter.outputImage toSize:size];
     
-    CIFilter *filter = [CIFilter filterWithName:@"CICode128BarcodeGenerator"];
-    
-    [filter setValue:data forKey:@"inputMessage"];
-    
-     CIImage *barcodeImage = [filter outputImage];
-    
-    // 消除模糊
-    
-    CGFloat scaleX = size.width / barcodeImage.extent.size.width; // extent 返回图片的frame
-    
-    CGFloat scaleY = size.height / barcodeImage.extent.size.height;
-    
-    CIImage *transformedImage = [barcodeImage imageByApplyingTransform:CGAffineTransformScale(CGAffineTransformIdentity, scaleX, scaleY)];
-    
-    return [UIImage imageWithCIImage:transformedImage];
-    
+    return codeImage;
 }
 
 
+#pragma mark - Util functions
+// 缩放图片(生成高质量图片）
++ (UIImage *)scaleImage:(CIImage *)image toSize:(CGSize)size {
+    
+    //! 将CIImage转成CGImageRef
+    CGRect integralRect = image.extent;// CGRectIntegral(image.extent);// 将rect取整后返回，origin取舍，size取入
+    CGImageRef imageRef = [[CIContext context] createCGImage:image fromRect:integralRect];
+    
+    //! 创建上下文
+    CGFloat sideScale = fminf(size.width / integralRect.size.width, size.width / integralRect.size.height) * [UIScreen mainScreen].scale;// 计算需要缩放的比例
+    size_t contextRefWidth = ceilf(integralRect.size.width * sideScale);
+    size_t contextRefHeight = ceilf(integralRect.size.height * sideScale);
+    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceGray();
+    CGContextRef contextRef = CGBitmapContextCreate(nil, contextRefWidth, contextRefHeight, 8, 0, colorSpaceRef, (CGBitmapInfo)kCGImageAlphaNone);// 灰度、不透明
+    CGColorSpaceRelease(colorSpaceRef);
+    
+    CGContextSetInterpolationQuality(contextRef, kCGInterpolationNone);// 设置上下文无插值
+    CGContextScaleCTM(contextRef, sideScale, sideScale);// 设置上下文缩放
+    CGContextDrawImage(contextRef, integralRect, imageRef);// 在上下文中的integralRect中绘制imageRef
+    CGImageRelease(imageRef);
+    
+    //! 从上下文中获取CGImageRef
+    CGImageRef scaledImageRef = CGBitmapContextCreateImage(contextRef);
+    CGContextRelease(contextRef);
+    
+    //! 将CGImageRefc转成UIImage
+    UIImage *scaledImage = [UIImage imageWithCGImage:scaledImageRef scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp];
+    CGImageRelease(scaledImageRef);
+    
+    return scaledImage;
+}
+
+// 合成图片（code+logo）
++ (UIImage *)combinateCodeImage:(UIImage *)codeImage andLogo:(UIImage *)logo {
+    
+    UIGraphicsBeginImageContextWithOptions(codeImage.size, YES, [UIScreen mainScreen].scale);
+    
+    // 将codeImage画到上下文中
+    [codeImage drawInRect:(CGRect){.0, .0, codeImage.size.width, codeImage.size.height}];
+    
+    // 定义logo的绘制参数
+    CGFloat logoSide = fminf(codeImage.size.width, codeImage.size.height) / 4;
+    CGFloat logoX = (codeImage.size.width - logoSide) / 2;
+    CGFloat logoY = (codeImage.size.height - logoSide) / 2;
+    CGRect logoRect = (CGRect){logoX, logoY, logoSide, logoSide};
+    UIBezierPath *cornerPath = [UIBezierPath bezierPathWithRoundedRect:logoRect cornerRadius:logoSide / 5];
+    [cornerPath setLineWidth:2.0];
+    [[UIColor whiteColor] set];
+    [cornerPath stroke];
+    [cornerPath addClip];
+    
+    // 将logo画到上下文中
+    [logo drawInRect:logoRect];
+    
+    // 从上下文中读取image
+    codeImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return codeImage;
+}
 
 
 @end
