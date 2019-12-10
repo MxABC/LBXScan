@@ -362,6 +362,7 @@
     //部分机型有问题
     picker.allowsEditing = allowsEditing;
     
+    picker.modalPresentationStyle = UIModalPresentationFullScreen;
     
     [self presentViewController:picker animated:YES completion:nil];
 }
