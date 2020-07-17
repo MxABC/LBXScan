@@ -352,16 +352,13 @@
     switch ([Global sharedManager].libraryType) {
         case SLT_Native:
         {
-            if ([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0)
-            {
+            if (@available(iOS 8.0, *)) {
                 //ios8.0之后支持
                 __weak __typeof(self) weakSelf = self;
                 [LBXScanNative recognizeImage:image success:^(NSArray<LBXScanResult *> *array) {
                     [weakSelf scanResultWithArray:array];
                 }];
-            }
-            else
-            {
+            }else{
                 [self showError:@"native低于ios8.0不支持识别图片"];
             }
         }
@@ -371,12 +368,14 @@
             __weak __typeof(self) weakSelf = self;
             [ZXingWrapper recognizeImage:image block:^(ZXBarcodeFormat barcodeFormat, NSString *str) {
                 
-                LBXScanResult *result = [[LBXScanResult alloc]init];
-                result.strScanned = str;
-                result.imgScanned = image;
-                result.strBarCodeType = [StyleDIY convertZXBarcodeFormat:barcodeFormat];
-                
-                [weakSelf scanResultWithArray:@[result]];
+                if (str) {
+                    LBXScanResult *result = [[LBXScanResult alloc]init];
+                    result.strScanned = str;
+                    result.imgScanned = image;
+                    result.strBarCodeType = [StyleDIY convertZXBarcodeFormat:barcodeFormat];
+                    
+                    [weakSelf scanResultWithArray:@[result]];
+                }
             }];
         }
             break;
@@ -386,15 +385,18 @@
             
             [LBXZBarWrapper recognizeImage:image block:^(NSArray<LBXZbarResult *> *result) {
                 
-                //测试，只使用扫码结果第一项
-                LBXZbarResult *firstObj = result[0];
-                
-                LBXScanResult *scanResult = [[LBXScanResult alloc]init];
-                scanResult.strScanned = firstObj.strScanned;
-                scanResult.imgScanned = firstObj.imgScanned;
-                scanResult.strBarCodeType = [LBXZBarWrapper convertFormat2String:firstObj.format];
-                
-                [weakSelf scanResultWithArray:@[scanResult]];
+                if (result && result.count > 0) {
+                    
+                    //测试，只使用扫码结果第一项
+                    LBXZbarResult *firstObj = result[0];
+                    
+                    LBXScanResult *scanResult = [[LBXScanResult alloc]init];
+                    scanResult.strScanned = firstObj.strScanned;
+                    scanResult.imgScanned = firstObj.imgScanned;
+                    scanResult.strBarCodeType = [LBXZBarWrapper convertFormat2String:firstObj.format];
+                    
+                    [weakSelf scanResultWithArray:@[scanResult]];
+                }
                 
             }];
         }

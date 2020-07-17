@@ -49,7 +49,7 @@
 		734937761E1F6AA2007DDD7A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		734937781E1F6AB1007DDD7A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7349377A1E1F6ABC007DDD7A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		734E165B1E237AB000120818 /* LBXScan.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LBXScan.podspec; path = ../LBXScan.podspec; sourceTree = "<group>"; };
+		734E165B1E237AB000120818 /* LBXScan.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LBXScan.podspec; path = ../LBXScan.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		734E165D1E237B2F00120818 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7354618B1E1E402600F9F7FC /* CreateBarCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBarCodeViewController.h; sourceTree = "<group>"; };
 		7354618C1E1E402600F9F7FC /* CreateBarCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBarCodeViewController.m; sourceTree = "<group>"; };
@@ -519,7 +519,7 @@
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk2019;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk2019234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -544,7 +544,7 @@
 					"$(inherited)",
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk2019;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk2019234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
