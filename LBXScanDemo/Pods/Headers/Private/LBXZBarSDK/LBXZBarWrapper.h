@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/LBXZBarWrapper.h

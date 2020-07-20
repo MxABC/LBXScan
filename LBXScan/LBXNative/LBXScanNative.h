@@ -28,10 +28,28 @@
  @brief  初始化采集相机
  @param preView 视频显示区域
  @param objType 识别码类型：如果为nil，默认支持很多类型。(二维码QR：AVMetadataObjectTypeQRCode,条码如：AVMetadataObjectTypeCode93Code
- @param block   识别结果
+ @param success   识别结果
  @return LBXScanNative的实例
  */
-- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType success:(void(^)(NSArray<LBXScanResult*> *array))block;
+- (instancetype)initWithPreView:(UIView*)preView
+                     ObjectType:(NSArray*)objType
+                        success:(void(^)(NSArray<LBXScanResult*> *array))success;
+
+
+
+
+/**
+@brief  初始化采集相机
+@param preView 视频显示区域
+@param objType 识别码类型：如果为nil，默认支持很多类型。(二维码QR：AVMetadataObjectTypeQRCode,条码如：AVMetadataObjectTypeCode93Code
+@param blockvideoMaxScale  返回摄像头放大最大范围
+@param success   识别结果
+@return LBXScanNative的实例
+*/
+- (instancetype)initWithPreView:(UIView*)preView
+                     ObjectType:(NSArray*)objType
+                  videoMaxScale:(void(^)(CGFloat maxScale))blockvideoMaxScale
+                        success:(void(^)(NSArray<LBXScanResult*> *array))success;
 
 
 /**
@@ -39,11 +57,29 @@
  @param preView 视频显示区域
  @param objType 识别码类型：如果为nil，默认支持很多类型。(二维码如QR：AVMetadataObjectTypeQRCode,条码如：AVMetadataObjectTypeCode93Code
  @param cropRect 识别区域，值CGRectZero 全屏识别
- @param block   识别结果
+ @param success   识别结果
  @return LBXScanNative的实例
  */
-- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect
-              success:(void(^)(NSArray<LBXScanResult*> *array))block;
+- (instancetype)initWithPreView:(UIView*)preView
+                     ObjectType:(NSArray*)objType
+                       cropRect:(CGRect)cropRect
+                        success:(void(^)(NSArray<LBXScanResult*> *array))success;
+
+
+/**
+@brief  初始化采集相机
+@param preView 视频显示区域
+@param objType 识别码类型：如果为nil，默认支持很多类型。(二维码如QR：AVMetadataObjectTypeQRCode,条码如：AVMetadataObjectTypeCode93Code
+@param cropRect 识别区域，值CGRectZero 全屏识别
+@param blockvideoMaxScale  返回摄像头放大最大范围
+@param success   识别结果
+@return LBXScanNative的实例
+*/
+- (instancetype)initWithPreView:(UIView*)preView
+                     ObjectType:(NSArray*)objType
+                       cropRect:(CGRect)cropRect
+                  videoMaxScale:(void(^)(CGFloat maxScale))blockvideoMaxScale
+                        success:(void(^)(NSArray<LBXScanResult*> *array))success;
 
 
 

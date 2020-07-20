@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/iphone/include/ZBarSDK/ZBarCaptureReader.h

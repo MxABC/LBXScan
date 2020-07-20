@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/zbar/mutex.h

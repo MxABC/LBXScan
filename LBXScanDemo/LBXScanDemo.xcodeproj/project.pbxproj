@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		04C148A7DA7FA7441E1F9251 /* libPods-LBXScanDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DC3A080623800FA6959ED7 /* libPods-LBXScanDemo.a */; };
 		730D98331E8F8AAD001BBB6F /* StyleDIY.m in Sources */ = {isa = PBXBuildFile; fileRef = 730D98321E8F8AAD001BBB6F /* StyleDIY.m */; };
-		733CF2F81EE570F300AD1DC7 /* DIYScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 733CF2F71EE570F300AD1DC7 /* DIYScanViewController.m */; };
 		7349377C1E1F6B02007DDD7A /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 734937741E1F6A6E007DDD7A /* libiconv.2.4.0.tbd */; };
 		734E165C1E237AB000120818 /* LBXScan.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 734E165B1E237AB000120818 /* LBXScan.podspec */; };
 		734E165E1E237B2F00120818 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 734E165D1E237B2F00120818 /* README.md */; };
@@ -31,11 +30,17 @@
 		738C86A61EA7687700689E04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 738C86A51EA7687700689E04 /* Foundation.framework */; };
 		738C86A81EA7688300689E04 /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 738C86A71EA7688300689E04 /* libz.1.1.3.tbd */; };
 		739FD57C1E8F540C007D75D3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 739FD57B1E8F540C007D75D3 /* SettingViewController.m */; };
-		73A69FFB1EED39DA00378E1E /* QQLBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A69FFA1EED39DA00378E1E /* QQLBXScanViewController.m */; };
+		73A69FFB1EED39DA00378E1E /* QQScanNativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A69FFA1EED39DA00378E1E /* QQScanNativeViewController.m */; };
 		77576ECA1FEF741F00578A6B /* LBXPermissionSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EB81FEF741E00578A6B /* LBXPermissionSetting.m */; };
 		77576ECE1FEF741F00578A6B /* LBXPermissionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EBF1FEF741E00578A6B /* LBXPermissionCamera.m */; };
 		77576ECF1FEF741F00578A6B /* LBXPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EC01FEF741E00578A6B /* LBXPermission.m */; };
 		8D06C00822446BDC002DE116 /* LBXPermissionPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D06C00722446BDC002DE116 /* LBXPermissionPhotos.m */; };
+		8D9B64F724C543040098EA52 /* LBXScanNativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B64F524C543040098EA52 /* LBXScanNativeViewController.m */; };
+		8D9B64FA24C55F6E0098EA52 /* LBXScanZXingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B64F824C55F6E0098EA52 /* LBXScanZXingViewController.m */; };
+		8D9B64FD24C561600098EA52 /* LBXScanZBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B64FC24C561600098EA52 /* LBXScanZBarViewController.m */; };
+		8D9B650024C568FD0098EA52 /* LBXScanBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B64FF24C568FD0098EA52 /* LBXScanBaseViewController.m */; };
+		8D9B650624C574E10098EA52 /* QQScanZBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B650424C574E10098EA52 /* QQScanZBarViewController.m */; };
+		8D9B650924C5754F0098EA52 /* QQScanZXingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B650824C5754F0098EA52 /* QQScanZXingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,8 +48,6 @@
 		6CEC1D273563FBA3D7419E06 /* Pods-LBXScanDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBXScanDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo.release.xcconfig"; sourceTree = "<group>"; };
 		730D98311E8F8AAD001BBB6F /* StyleDIY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleDIY.h; sourceTree = "<group>"; };
 		730D98321E8F8AAD001BBB6F /* StyleDIY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleDIY.m; sourceTree = "<group>"; };
-		733CF2F61EE570F300AD1DC7 /* DIYScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYScanViewController.h; sourceTree = "<group>"; };
-		733CF2F71EE570F300AD1DC7 /* DIYScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYScanViewController.m; sourceTree = "<group>"; };
 		734937741E1F6A6E007DDD7A /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
 		734937761E1F6AA2007DDD7A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		734937781E1F6AB1007DDD7A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -85,8 +88,8 @@
 		739FD57A1E8F540C007D75D3 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		739FD57B1E8F540C007D75D3 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		739FD57D1E8F58D2007D75D3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		73A69FF91EED39DA00378E1E /* QQLBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQLBXScanViewController.h; sourceTree = "<group>"; };
-		73A69FFA1EED39DA00378E1E /* QQLBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQLBXScanViewController.m; sourceTree = "<group>"; };
+		73A69FF91EED39DA00378E1E /* QQScanNativeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQScanNativeViewController.h; sourceTree = "<group>"; };
+		73A69FFA1EED39DA00378E1E /* QQScanNativeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQScanNativeViewController.m; sourceTree = "<group>"; };
 		77576EB31FEF741E00578A6B /* LBXPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermission.h; sourceTree = "<group>"; };
 		77576EB41FEF741E00578A6B /* LBXPermissionCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionCamera.h; sourceTree = "<group>"; };
 		77576EB81FEF741E00578A6B /* LBXPermissionSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionSetting.m; sourceTree = "<group>"; };
@@ -95,6 +98,18 @@
 		77576EC21FEF741E00578A6B /* LBXPermissionSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionSetting.h; sourceTree = "<group>"; };
 		8D06C00622446BDC002DE116 /* LBXPermissionPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionPhotos.h; sourceTree = "<group>"; };
 		8D06C00722446BDC002DE116 /* LBXPermissionPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionPhotos.m; sourceTree = "<group>"; };
+		8D9B64F524C543040098EA52 /* LBXScanNativeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanNativeViewController.m; sourceTree = "<group>"; };
+		8D9B64F624C543040098EA52 /* LBXScanNativeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanNativeViewController.h; sourceTree = "<group>"; };
+		8D9B64F824C55F6E0098EA52 /* LBXScanZXingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanZXingViewController.m; sourceTree = "<group>"; };
+		8D9B64F924C55F6E0098EA52 /* LBXScanZXingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanZXingViewController.h; sourceTree = "<group>"; };
+		8D9B64FB24C561600098EA52 /* LBXScanZBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanZBarViewController.h; sourceTree = "<group>"; };
+		8D9B64FC24C561600098EA52 /* LBXScanZBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanZBarViewController.m; sourceTree = "<group>"; };
+		8D9B64FE24C568FD0098EA52 /* LBXScanBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBXScanBaseViewController.h; sourceTree = "<group>"; };
+		8D9B64FF24C568FD0098EA52 /* LBXScanBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBXScanBaseViewController.m; sourceTree = "<group>"; };
+		8D9B650424C574E10098EA52 /* QQScanZBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQScanZBarViewController.m; sourceTree = "<group>"; };
+		8D9B650524C574E10098EA52 /* QQScanZBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQScanZBarViewController.h; sourceTree = "<group>"; };
+		8D9B650724C5754F0098EA52 /* QQScanZXingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQScanZXingViewController.h; sourceTree = "<group>"; };
+		8D9B650824C5754F0098EA52 /* QQScanZXingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQScanZXingViewController.m; sourceTree = "<group>"; };
 		BC33DB177441D59AF65AC025 /* Pods-LBXScanDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBXScanDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,6 +156,7 @@
 			children = (
 				734E165D1E237B2F00120818 /* README.md */,
 				734E165B1E237AB000120818 /* LBXScan.podspec */,
+				8D9B64F124C541980098EA52 /* DIYScanViewController */,
 				73584FAF1E1CD62300ED6A60 /* LBXScanDemo */,
 				73584FAE1E1CD62300ED6A60 /* Products */,
 				734937731E1F6A6E007DDD7A /* Frameworks */,
@@ -160,8 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				77576EAE1FEF741E00578A6B /* LBXPermissions */,
-				73A69FF91EED39DA00378E1E /* QQLBXScanViewController.h */,
-				73A69FFA1EED39DA00378E1E /* QQLBXScanViewController.m */,
 				735852E11E1CFC3300ED6A60 /* PrefixHeader.pch */,
 				73584FB31E1CD62300ED6A60 /* AppDelegate.h */,
 				73584FB41E1CD62300ED6A60 /* AppDelegate.m */,
@@ -175,10 +189,6 @@
 				739FD57B1E8F540C007D75D3 /* SettingViewController.m */,
 				73584FF61E1CECC700ED6A60 /* DemoListTableViewController.h */,
 				73584FF71E1CECC700ED6A60 /* DemoListTableViewController.m */,
-				730D98311E8F8AAD001BBB6F /* StyleDIY.h */,
-				730D98321E8F8AAD001BBB6F /* StyleDIY.m */,
-				733CF2F61EE570F300AD1DC7 /* DIYScanViewController.h */,
-				733CF2F71EE570F300AD1DC7 /* DIYScanViewController.m */,
 				7354618B1E1E402600F9F7FC /* CreateBarCodeViewController.h */,
 				7354618C1E1E402600F9F7FC /* CreateBarCodeViewController.m */,
 				7358500E1E1CFA5800ED6A60 /* ScanResultViewController.h */,
@@ -236,6 +246,53 @@
 				77576EB81FEF741E00578A6B /* LBXPermissionSetting.m */,
 			);
 			path = LBXPermissions;
+			sourceTree = "<group>";
+		};
+		8D9B64F124C541980098EA52 /* DIYScanViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8D9B650324C5748D0098EA52 /* ZXing */,
+				8D9B650224C574820098EA52 /* ZBar */,
+				8D9B650124C574760098EA52 /* Native */,
+				8D9B64FE24C568FD0098EA52 /* LBXScanBaseViewController.h */,
+				8D9B64FF24C568FD0098EA52 /* LBXScanBaseViewController.m */,
+				730D98311E8F8AAD001BBB6F /* StyleDIY.h */,
+				730D98321E8F8AAD001BBB6F /* StyleDIY.m */,
+			);
+			path = DIYScanViewController;
+			sourceTree = "<group>";
+		};
+		8D9B650124C574760098EA52 /* Native */ = {
+			isa = PBXGroup;
+			children = (
+				73A69FF91EED39DA00378E1E /* QQScanNativeViewController.h */,
+				73A69FFA1EED39DA00378E1E /* QQScanNativeViewController.m */,
+				8D9B64F624C543040098EA52 /* LBXScanNativeViewController.h */,
+				8D9B64F524C543040098EA52 /* LBXScanNativeViewController.m */,
+			);
+			path = Native;
+			sourceTree = "<group>";
+		};
+		8D9B650224C574820098EA52 /* ZBar */ = {
+			isa = PBXGroup;
+			children = (
+				8D9B650524C574E10098EA52 /* QQScanZBarViewController.h */,
+				8D9B650424C574E10098EA52 /* QQScanZBarViewController.m */,
+				8D9B64FB24C561600098EA52 /* LBXScanZBarViewController.h */,
+				8D9B64FC24C561600098EA52 /* LBXScanZBarViewController.m */,
+			);
+			path = ZBar;
+			sourceTree = "<group>";
+		};
+		8D9B650324C5748D0098EA52 /* ZXing */ = {
+			isa = PBXGroup;
+			children = (
+				8D9B650724C5754F0098EA52 /* QQScanZXingViewController.h */,
+				8D9B650824C5754F0098EA52 /* QQScanZXingViewController.m */,
+				8D9B64F924C55F6E0098EA52 /* LBXScanZXingViewController.h */,
+				8D9B64F824C55F6E0098EA52 /* LBXScanZXingViewController.m */,
+			);
+			path = ZXing;
 			sourceTree = "<group>";
 		};
 		9EF62AFDEF0DF216F6211EF5 /* Pods */ = {
@@ -326,24 +383,16 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo-resources.sh",
 				"${PODS_ROOT}/../../LBXScan/UI/CodeScan.bundle",
-				"${PODS_ROOT}/ZBarSDK/iphone/res/zbar-back.png",
-				"${PODS_ROOT}/ZBarSDK/iphone/res/zbar-help.html",
-				"${PODS_ROOT}/ZBarSDK/iphone/res/zbar-helpicons.png",
-				"${PODS_ROOT}/ZBarSDK/iphone/res/zbar-samples.png",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zbar-back.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zbar-help.html",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zbar-helpicons.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zbar-samples.png",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CF9BF86C6515D72A18935DE1 /* [CP] Check Pods Manifest.lock */ = {
@@ -373,25 +422,30 @@
 			files = (
 				735850111E1CFA5800ED6A60 /* ScanResultViewController.m in Sources */,
 				735461991E1E44B900F9F7FC /* UIImageView+CornerRadius.m in Sources */,
+				8D9B650624C574E10098EA52 /* QQScanZBarViewController.m in Sources */,
 				734E165E1E237B2F00120818 /* README.md in Sources */,
 				73584FB51E1CD62300ED6A60 /* AppDelegate.m in Sources */,
-				733CF2F81EE570F300AD1DC7 /* DIYScanViewController.m in Sources */,
+				8D9B64F724C543040098EA52 /* LBXScanNativeViewController.m in Sources */,
 				73584FFB1E1CEE5000ED6A60 /* Global.m in Sources */,
 				7354618D1E1E402600F9F7FC /* CreateBarCodeViewController.m in Sources */,
 				77576ECE1FEF741F00578A6B /* LBXPermissionCamera.m in Sources */,
+				8D9B64FA24C55F6E0098EA52 /* LBXScanZXingViewController.m in Sources */,
 				73584FF41E1CE4B900ED6A60 /* UIWindow+LBXHierarchy.m in Sources */,
-				73A69FFB1EED39DA00378E1E /* QQLBXScanViewController.m in Sources */,
+				73A69FFB1EED39DA00378E1E /* QQScanNativeViewController.m in Sources */,
 				73584FF21E1CE4B900ED6A60 /* UIAlertController+supportedInterfaceOrientations.m in Sources */,
 				8D06C00822446BDC002DE116 /* LBXPermissionPhotos.m in Sources */,
 				77576ECA1FEF741F00578A6B /* LBXPermissionSetting.m in Sources */,
+				8D9B650024C568FD0098EA52 /* LBXScanBaseViewController.m in Sources */,
 				73584FF51E1CE4B900ED6A60 /* LBXAlertAction.m in Sources */,
 				77576ECF1FEF741F00578A6B /* LBXPermission.m in Sources */,
+				8D9B650924C5754F0098EA52 /* QQScanZXingViewController.m in Sources */,
 				73584FF11E1CE4B900ED6A60 /* UIActionSheet+LBXAlertAction.m in Sources */,
 				73584FB21E1CD62300ED6A60 /* main.m in Sources */,
 				730D98331E8F8AAD001BBB6F /* StyleDIY.m in Sources */,
 				73584FF81E1CECC700ED6A60 /* DemoListTableViewController.m in Sources */,
 				739FD57C1E8F540C007D75D3 /* SettingViewController.m in Sources */,
 				73584FF31E1CE4B900ED6A60 /* UIAlertView+LBXAlertAction.m in Sources */,
+				8D9B64FD24C561600098EA52 /* LBXScanZBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

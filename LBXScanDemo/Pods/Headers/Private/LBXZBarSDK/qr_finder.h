@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/zbar/decoder/qr_finder.h

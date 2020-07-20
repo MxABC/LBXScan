@@ -552,9 +552,9 @@ That's all there is to it!
 
 </string>
 			<key>License</key>
-			<string>GNU LGPL 2.1</string>
+			<string>MIT</string>
 			<key>Title</key>
-			<string>ZBarSDK</string>
+			<string>LBXZBarSDK</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

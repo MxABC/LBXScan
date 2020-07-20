@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/iphone/ZBarCVImage.h

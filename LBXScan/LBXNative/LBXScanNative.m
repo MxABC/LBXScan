@@ -37,6 +37,8 @@
  */
 @property(nonatomic,copy)void (^blockScanResult)(NSArray<LBXScanResult*> *array);
 
+@property (nonatomic, copy) void (^blockvideoMaxScale)(CGFloat maxScale);
+
 
 @end
 
@@ -49,29 +51,69 @@
 }
 
 
-- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block
-{
-    if (self = [super init]) {
-        [self initParaWithPreView:preView ObjectType:objType cropRect:cropRect success:block];
-    }
-    return self;
-}
-
-- (instancetype)initWithPreView:(UIView*)preView ObjectType:(NSArray*)objType success:(void(^)(NSArray<LBXScanResult*> *array))block
+- (instancetype)initWithPreView:(UIView*)preView
+                     ObjectType:(NSArray*)objType
+                  videoMaxScale:(void(^)(CGFloat maxScale))blockvideoMaxScale
+                        success:(void(^)(NSArray<LBXScanResult*> *array))success
 {
     if (self = [super init]) {
         
-        [self initParaWithPreView:preView ObjectType:objType cropRect:CGRectZero success:block];
+        
+        [self initParaWithPreView:preView ObjectType:objType cropRect:CGRectZero videoMaxScale:blockvideoMaxScale success:success];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithPreView:(UIView*)preView
+                     ObjectType:(NSArray*)objType
+                        success:(void(^)(NSArray<LBXScanResult*> *array))success
+{
+    if (self = [super init]) {
+        
+        [self initParaWithPreView:preView ObjectType:objType cropRect:CGRectZero videoMaxScale:nil success:success];
     }
     
     return self;
 }
 
 
-- (void)initParaWithPreView:(UIView*)videoPreView ObjectType:(NSArray*)objType cropRect:(CGRect)cropRect success:(void(^)(NSArray<LBXScanResult*> *array))block
+- (instancetype)initWithPreView:(UIView*)preView
+                     ObjectType:(NSArray*)objType
+                       cropRect:(CGRect)cropRect
+                  videoMaxScale:(void(^)(CGFloat maxScale))blockvideoMaxScale
+                        success:(void(^)(NSArray<LBXScanResult*> *array))success
 {
+    if (self = [super init]) {
+        [self initParaWithPreView:preView ObjectType:objType cropRect:cropRect videoMaxScale:blockvideoMaxScale success:success];
+    }
+    return self;
+}
+
+- (instancetype)initWithPreView:(UIView*)preView
+                     ObjectType:(NSArray*)objType
+                       cropRect:(CGRect)cropRect
+                        success:(void(^)(NSArray<LBXScanResult*> *array))success
+{
+    if (self = [super init]) {
+        [self initParaWithPreView:preView ObjectType:objType cropRect:cropRect videoMaxScale:nil success:success];
+    }
+    return self;
+}
+
+
+
+- (void)initParaWithPreView:(UIView*)videoPreView
+                 ObjectType:(NSArray*)objType
+                   cropRect:(CGRect)cropRect
+              videoMaxScale:(void(^)(CGFloat maxScale))blockvideoMaxScale
+                    success:(void(^)(NSArray<LBXScanResult*> *array))success
+{
+    
+    self.blockvideoMaxScale  = blockvideoMaxScale;
+    
     self.arrayBarCodeType = objType;
-    self.blockScanResult = block;
+    self.blockScanResult = success;
     self.videoPreView = videoPreView;
     
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -156,12 +198,18 @@
     
     [videoPreView.layer insertSublayer:self.preview atIndex:0];
     
- 
     
-    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
-//    CGFloat maxScale = videoConnection.videoMaxScaleAndCropFactor;
-     CGFloat scale = videoConnection.videoScaleAndCropFactor;
-    NSLog(@"%f",scale);
+    if (_blockvideoMaxScale) {
+        
+        AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+        CGFloat maxScale = videoConnection.videoMaxScaleAndCropFactor;
+        CGFloat scale = videoConnection.videoScaleAndCropFactor;
+        NSLog(@"max:%F cur:%f",maxScale,scale);
+        
+        _blockvideoMaxScale(maxScale);
+    }
+    
+    
 //    CGFloat zoom = maxScale / 50;
 //    if (zoom < 1.0f || zoom > maxScale)
 //    {
@@ -196,9 +244,17 @@
 {
     [_input.device lockForConfiguration:nil];
     
+
     AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
     
+
+    if (scale < 1 || scale > videoConnection.videoMaxScaleAndCropFactor ) {
+        return;
+    }
+    
     CGFloat zoom = scale / videoConnection.videoScaleAndCropFactor;
+//     NSLog(@"max :%f",videoConnection.videoMaxScaleAndCropFactor);
+
     
     videoConnection.videoScaleAndCropFactor = scale;
     
@@ -207,6 +263,13 @@
     CGAffineTransform transform = _videoPreView.transform;
     
     _videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
+    
+    
+//    CGFloat y = 0;
+//    y = y + zoom > 1 ? zoom : -zoom;
+//    //移动
+//    _videoPreView.transform = CGAffineTransformTranslate(_videoPreView.transform, 0, y);
+
 }
 
 - (void)setScanRect:(CGRect)scanRect
@@ -398,6 +461,33 @@
             
             NSLog(@"corners:%@",corners);
             
+            CGFloat totalX  = 0;
+            CGFloat totalY = 0;
+            for (NSDictionary* dic in corners) {
+                
+                NSNumber *numX = dic[@"X"];
+                NSNumber *numY = dic[@"Y"];
+                
+                totalX += numX.floatValue;
+                totalY += numY.floatValue;
+            }
+            
+            NSLog(@"aver X:%f Y:%f",totalX / corners.count,totalY / corners.count);
+            
+       
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 更新界面
+                [self videoNearCode:totalX / corners.count averY:totalY / corners.count];
+            });
+            
+            
+             [self stopScan];
+            
+            //    CGFloat y = 0;
+            //    y = y + zoom > 1 ? zoom : -zoom;
+            //    //移动
+            //    _videoPreView.transform = CGAffineTransformTranslate(_videoPreView.transform, 0, y);
+            
             //y从下往上
 //            (
 //                    {
@@ -436,6 +526,9 @@
         return;
     }
     
+    
+    return;
+    
     if (_isNeedCaputureImage)
     {
         [self captureImage];
@@ -448,6 +541,85 @@
             _blockScanResult(_arrayResult);
         }
     }
+}
+
+- (void)videoNearCode:(CGFloat)averX averY:(CGFloat)averY
+{
+    //    CGFloat y = 0;
+    //    y = y + zoom > 1 ? zoom : -zoom;
+    //    //移动
+    //    _videoPreView.transform = CGAffineTransformTranslate(_videoPreView.transform, 0, y);
+    
+    CGFloat width = _videoPreView.bounds.size.width;
+    CGFloat height = _videoPreView.bounds.size.height;
+    
+    CGFloat centerX = width / 2;
+    CGFloat centerY = height / 2;
+    
+    CGFloat diffX  =  centerX - averX * width;
+    CGFloat diffY =   centerY - averY * height;
+    
+    //计算二维码尺寸，然后计算放大比例
+    CGFloat scale  = 1.2;
+    
+//    diffX = diffX /scale;
+    diffY = diffY /scale;
+    
+    NSLog(@"diffX:%f,diffY:%f",diffX,diffY);
+    
+    
+//    self.videoPreView.layer.anchorPoint = CGPointMake(width * averX, height * averY);
+
+    
+    
+    
+//    [_input.device lockForConfiguration:nil];
+//
+//
+//    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+//
+//
+//    if (scale < 1 || scale > videoConnection.videoMaxScaleAndCropFactor ) {
+//        return;
+//    }
+//
+//    CGFloat zoom = scale / videoConnection.videoScaleAndCropFactor;
+//    //     NSLog(@"max :%f",videoConnection.videoMaxScaleAndCropFactor);
+//
+//
+//    videoConnection.videoScaleAndCropFactor = scale;
+//
+//    [_input.device unlockForConfiguration];
+//
+//
+//    self.videoPreView.layer.anchorPoint = CGPointMake(0.0f, 0.0f);
+//
+//    CGAffineTransform transform = _videoPreView.transform;
+//
+//    [UIView animateWithDuration:0.3 animations:^{
+//
+//        self.videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
+//    }];
+    
+    
+
+    
+//    [UIView animateWithDuration:0.3 animations:^{
+//
+//
+//        self.videoPreView.transform = CGAffineTransformMakeTranslation(diffX, diffY);
+//    }];
+    
+    
+    [UIView animateWithDuration:0.3 animations:^{
+
+
+           self.videoPreView.transform = CGAffineTransformTranslate(self.videoPreView.transform,diffX , 0);
+       }];
+//
+    
+ 
+   
 }
 
 

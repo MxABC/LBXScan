@@ -15,12 +15,21 @@
 #import "Global.h"
 #import "SettingViewController.h"
 
-#import "LBXScanViewStyle.h"
-#import "DIYScanViewController.h"
-#import "QQLBXScanViewController.h"
+#import "StyleDIY.h"
+
+
+
+#import "LBXScanNativeViewController.h"
+#import "LBXScanZXingViewController.h"
+#import "LBXScanZBarViewController.h"
+
+#import "QQScanNativeViewController.h"
+#import "QQScanZBarViewController.h"
+#import "QQScanZXingViewController.h"
+
 #import "ScanResultViewController.h"
 #import "CreateBarCodeViewController.h"
-#import "StyleDIY.h"
+
 
 @interface DemoListTableViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) NSArray<NSArray*>* arrayItems;
@@ -185,7 +194,6 @@
             [LBXPermissionSetting showAlertToDislayPrivacySettingWithTitle:@"提示" msg:@"没有相机权限，是否前往设置" cancel:@"取消" setting:@"设置" ];
         }
     }];
-
   
 }
 
@@ -204,11 +212,8 @@
 
 - (void)openScanVCWithStyle:(LBXScanViewStyle*)style
 {
-    DIYScanViewController *vc = [DIYScanViewController new];
-    vc.style = style;
-    vc.isOpenInterestRect = YES;
-    vc.libraryType = [Global sharedManager].libraryType;
-    vc.scanCodeType = [Global sharedManager].scanCodeType;
+    LBXScanBaseViewController *vc = [self createScanVC];    vc.style = style;
+    
     
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -216,16 +221,41 @@
 #pragma mark -模仿qq界面
 - (void)qqStyle
 {
-    //添加一些扫码或相册结果处理
-    QQLBXScanViewController *vc = [QQLBXScanViewController new];
-    vc.libraryType = [Global sharedManager].libraryType;
-    vc.scanCodeType = [Global sharedManager].scanCodeType;
-
-    vc.style = [StyleDIY qqStyle];
+    switch ([Global sharedManager].libraryType) {
+        case SLT_Native:
+        {
+            QQScanNativeViewController *vc = [QQScanNativeViewController new];
+            vc.style = [StyleDIY qqStyle];
+            
+            //镜头拉远拉近功能
+            vc.isVideoZoom = YES;
+            vc.cameraInvokeMsg = @"相机启动中";
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case SLT_ZXing:
+        {
+            QQScanZXingViewController *vc = [QQScanZXingViewController new];
+            vc.style = [StyleDIY qqStyle];
+            vc.cameraInvokeMsg = @"相机启动中";
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            
+            break;
+        case SLT_ZBar:
+        {
+            QQScanZBarViewController *vc = [QQScanZBarViewController new];
+            vc.style = [StyleDIY qqStyle];
+            
+            vc.cameraInvokeMsg = @"相机启动中";
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }
+            break;
+        default:
+            break;
+    }
     
-    //镜头拉远拉近功能
-    vc.isVideoZoom = YES;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark --模仿支付宝
@@ -249,13 +279,10 @@
 #pragma mark -框内区域识别
 - (void)recoCropRect
 {
-    DIYScanViewController *vc = [DIYScanViewController new];
-    vc.libraryType = [Global sharedManager].libraryType;
-    vc.scanCodeType = [Global sharedManager].scanCodeType;
-
+    LBXScanBaseViewController *vc = [self createScanVC];
+    
     vc.style = [StyleDIY recoCropRect];
-    //开启只识别框内
-    vc.isOpenInterestRect = YES;
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -268,14 +295,10 @@
 #pragma mark -自定义4个角及矩形框颜色
 - (void)changeColor
 {
-    DIYScanViewController *vc = [DIYScanViewController new];
-    vc.libraryType = [Global sharedManager].libraryType;
-    vc.scanCodeType = [Global sharedManager].scanCodeType;
+    LBXScanBaseViewController *vc = [self createScanVC];
 
     vc.style = [StyleDIY changeColor];
-    
-    //开启只识别矩形框内图像功能
-    vc.isOpenInterestRect = YES;
+
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -289,6 +312,45 @@
 - (void)notSquare
 {
     [self openScanVCWithStyle:[StyleDIY notSquare]];
+}
+
+
+- (LBXScanBaseViewController*)createScanVC
+{
+    LBXScanBaseViewController *vc = nil;
+    
+    
+    switch ([Global sharedManager].libraryType) {
+        case SLT_Native:
+        {
+           LBXScanNativeViewController* tmp = [LBXScanNativeViewController new];
+            tmp.listScanTypes = @[[StyleDIY nativeCodeWithType:[Global sharedManager].scanCodeType]];
+            vc = tmp;
+        }
+            break;
+        case SLT_ZXing:
+        {
+            vc = [LBXScanZXingViewController new];
+        }
+            break;
+        case SLT_ZBar:
+        {
+            LBXScanZBarViewController *tmp = [LBXScanZBarViewController new];
+            tmp.zbarType = [StyleDIY zbarTypeWithScanType:[Global sharedManager].scanCodeType];
+            vc = tmp;
+        }
+            break;
+        default:
+            break;
+    }
+    
+    vc.cameraInvokeMsg = @"相机启动中";
+    
+    //开启只识别框内,ZBar暂不支持
+    vc.isOpenInterestRect = YES;
+    
+    return vc;
+    
 }
 
 #pragma mark --生成条码
@@ -305,7 +367,7 @@
 }
 
 
-#pragma mark - 相册
+#pragma mark- - 相册
 - (void)openLocalPhotoAlbum
 {
     __weak __typeof(self) weakSelf = self;

@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/zbar/qrcode/qrdec.h

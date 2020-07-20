@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/zbar/qrcode/binarize.h

@@ -41,14 +41,14 @@ Pod::Spec.new do |s|
       lbxZXing.dependency 'LBXScan/Types','~> 2.2'
     end
 
-    s.subspec 'LBXZBar' do |lbxZBar|
-       lbxZBar.source_files = 'LBXScan/LBXZBar/*.{h,m}'
-       lbxZBar.libraries = 'iconv','z'
-       lbxZBar.dependency 'ZBarSDK', '~> 1.3.1'
-       lbxZBar.ios.frameworks = 'AVFoundation', 'CoreGraphics', 'CoreMedia'
-       lbxZBar.prefix_header_contents = '#import "LBXZBarWrapper.h"'
-       lbxZBar.dependency 'LBXScan/Types','~> 2.2'
-    end
+#    s.subspec 'LBXZBar' do |lbxZBar|
+#       lbxZBar.source_files = 'LBXScan/LBXZBar/*.{h,m}'
+#       lbxZBar.libraries = 'iconv','z'
+#       lbxZBar.dependency 'ZBarSDK', '~> 1.3.1'
+#       lbxZBar.ios.frameworks = 'AVFoundation', 'CoreGraphics', 'CoreMedia'
+#       lbxZBar.prefix_header_contents = '#import "LBXZBarWrapper.h"'
+#       lbxZBar.dependency 'LBXScan/Types','~> 2.2'
+#    end
   
     s.subspec 'UI' do |ui|
       ui.source_files = 'LBXScan/UI/*.{h,m}'

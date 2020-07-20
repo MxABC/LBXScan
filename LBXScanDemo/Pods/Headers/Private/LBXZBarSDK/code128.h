@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/zbar/decoder/code128.h

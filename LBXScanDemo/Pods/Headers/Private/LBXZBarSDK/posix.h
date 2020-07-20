@@ -1,0 +1,1 @@
+../../../LBXZBarSDK/zbar/processor/posix.h

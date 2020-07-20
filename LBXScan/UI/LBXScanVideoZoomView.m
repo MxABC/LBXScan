@@ -87,7 +87,7 @@
 
 - (void)sliderValueChange
 {
-//    NSLog(@"%f",self.slider.value);
+    NSLog(@"%f",self.slider.value);
     
     if (_block) {
         _block(self.slider.value);
