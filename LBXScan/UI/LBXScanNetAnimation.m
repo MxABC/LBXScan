@@ -48,17 +48,16 @@
     CGFloat scanNetImageViewW = self.frame.size.width;
     CGFloat scanNetImageH = self.frame.size.height;
  
-    __weak __typeof(self) weakSelf = self;
     self.alpha = 0.5;
     _scanImageView.frame = CGRectMake(0, -scanNetImageH, scanNetImageViewW, scanNetImageH);
     [UIView animateWithDuration:1.4 animations:^{
-        weakSelf.alpha = 1.0;
+        self.alpha = 1.0;
         
-        _scanImageView.frame = CGRectMake(0, scanNetImageViewW-scanNetImageH, scanNetImageViewW, scanNetImageH);
+        self.scanImageView.frame = CGRectMake(0, scanNetImageViewW-scanNetImageH, scanNetImageViewW, scanNetImageH);
         
     } completion:^(BOOL finished)
      {
-         [weakSelf performSelector:@selector(stepAnimation) withObject:nil afterDelay:0.3];
+         [self performSelector:@selector(stepAnimation) withObject:nil afterDelay:0.3];
      }];
 }
 

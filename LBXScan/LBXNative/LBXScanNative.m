@@ -326,15 +326,15 @@
              
              UIImage *img = [UIImage imageWithData:imageData];
              
-             for (LBXScanResult* result in _arrayResult) {
+             for (LBXScanResult* result in self.arrayResult) {
                  
                  result.imgScanned = img;
              }
          }
          
-         if (_blockScanResult)
+        if (self.blockScanResult)
          {
-             _blockScanResult(_arrayResult);
+             self.blockScanResult(self.arrayResult);
          }
          
      }];
@@ -394,6 +394,30 @@
             NSLog(@"type:%@",current.type);
             NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
             
+            NSArray<NSDictionary *> *corners = ((AVMetadataMachineReadableCodeObject *) current).corners;
+            
+            NSLog(@"corners:%@",corners);
+            
+            //y从下往上
+//            (
+//                    {
+//                    X = "0.3534338575269208";
+//                    Y = "0.7310508255651641";
+//                },
+//                    {
+//                    X = "0.4657595844499312";
+//                    Y = "0.7077938333219527";
+//                },
+//                    {
+//                    X = "0.4562285844779192";
+//                    Y = "0.509763749366999";
+//                },
+//                    {
+//                    X = "0.343985141844123";
+//                    Y = "0.5347846218594517";
+//                }
+//            )
+            
             if (scannedResult && ![scannedResult isEqualToString:@""])
             {
                 LBXScanResult *result = [LBXScanResult new];
@@ -444,13 +468,13 @@
                                AVMetadataObjectTypePDF417Code,
                                AVMetadataObjectTypeAztecCode] mutableCopy];
     
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_8_0)
-    {
+    if (@available(iOS 8.0, *)) {
+        
         [types addObjectsFromArray:@[
-                                     AVMetadataObjectTypeInterleaved2of5Code,
-                                     AVMetadataObjectTypeITF14Code,
-                                     AVMetadataObjectTypeDataMatrixCode
-                                     ]];
+                                            AVMetadataObjectTypeInterleaved2of5Code,
+                                            AVMetadataObjectTypeITF14Code,
+                                            AVMetadataObjectTypeDataMatrixCode
+                                            ]];
     }
     
     return types;
@@ -459,33 +483,32 @@
 #pragma mark --识别条码图片
 + (void)recognizeImage:(UIImage*)image success:(void(^)(NSArray<LBXScanResult*> *array))block;
 {
-    if ([[[UIDevice currentDevice]systemVersion]floatValue] < 8.0 )
-    {
+    if (@available(iOS 8.0, *)) {
+        
+        CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
+        NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
+        NSMutableArray<LBXScanResult*> *mutableArray = [[NSMutableArray alloc]initWithCapacity:1];
+        for (int index = 0; index < [features count]; index ++)
+        {
+            CIQRCodeFeature *feature = [features objectAtIndex:index];
+            NSString *scannedResult = feature.messageString;
+            NSLog(@"result:%@",scannedResult);
+            
+            LBXScanResult *item = [[LBXScanResult alloc]init];
+            item.strScanned = scannedResult;
+            item.strBarCodeType = CIDetectorTypeQRCode;
+            item.imgScanned = image;
+            [mutableArray addObject:item];
+        }
+        if (block) {
+            block(mutableArray);
+        }
+    }else{
         if (block) {
             LBXScanResult *result = [[LBXScanResult alloc]init];
             result.strScanned = @"只支持ios8.0之后系统";
             block(@[result]);
         }
-        return;
-    }
-    
-    CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
-    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
-    NSMutableArray<LBXScanResult*> *mutableArray = [[NSMutableArray alloc]initWithCapacity:1];
-    for (int index = 0; index < [features count]; index ++)
-    {
-        CIQRCodeFeature *feature = [features objectAtIndex:index];
-        NSString *scannedResult = feature.messageString;
-        NSLog(@"result:%@",scannedResult);
-        
-        LBXScanResult *item = [[LBXScanResult alloc]init];
-        item.strScanned = scannedResult;
-        item.strBarCodeType = CIDetectorTypeQRCode;
-        item.imgScanned = image;
-        [mutableArray addObject:item];
-    }
-    if (block) {
-        block(mutableArray);
     }
 }
 
