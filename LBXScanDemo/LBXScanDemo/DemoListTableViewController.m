@@ -212,8 +212,9 @@
 
 - (void)openScanVCWithStyle:(LBXScanViewStyle*)style
 {
-    LBXScanBaseViewController *vc = [self createScanVC];    vc.style = style;
+    LBXScanBaseViewController *vc = [self createScanVC];
     
+    vc.style = style;
     
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -347,7 +348,7 @@
     vc.cameraInvokeMsg = @"相机启动中";
     
     //开启只识别框内,ZBar暂不支持
-    vc.isOpenInterestRect = YES;
+    vc.isOpenInterestRect = NO;
     
     return vc;
     

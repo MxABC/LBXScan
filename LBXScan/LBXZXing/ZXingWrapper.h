@@ -32,6 +32,16 @@
 
 
 /**
+初始化ZXing
+
+@param preView 视频预览视图
+@param success 返回识别结果,resultPoints 表示条码在图像scanImg上的坐标
+@return 返回封装对象
+*/
+- (id)initWithPreView:(UIView*)preView success:(void(^)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *scanImg,NSArray* resultPoints))success;
+
+
+/**
  设置识别区域，不设置默认全屏识别
 
  @param scanRect 识别区域

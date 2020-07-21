@@ -42,6 +42,10 @@
  */
 @property (nonatomic,strong) LBXScanView* qRScanView;
 
+//条码识别位置标示
+@property (nonatomic, strong) UIView *codeFlagView;
+@property (nonatomic, strong) NSArray<CALayer*> *layers;
+
 /**
  @brief  扫码存储的当前图片
  */
@@ -53,7 +57,8 @@
  */
 @property(nonatomic,assign)BOOL isOpenFlash;
 
-
+//相机预览
+@property (nonatomic, strong) UIView *cameraPreView;
 
 
 
@@ -61,6 +66,8 @@
 - (void)reStartDevice;
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array;
 
+
+- (void)resetCodeFlagView;
 
 - (void)requestCameraPemissionWithResult:(void(^)( BOOL granted))completion;
 + (void)authorizePhotoPermissionWithCompletion:(void(^)(BOOL granted,BOOL firstTime))completion;

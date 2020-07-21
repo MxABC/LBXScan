@@ -71,6 +71,10 @@
 
 - (void)reStartDevice
 {
+    [self resetCodeFlagView];
+    [self.qRScanView stopScanAnimation];
+    [self.qRScanView startScanAnimation];
+    
     [_zbarObj start];
 }
 
@@ -80,21 +84,15 @@
     UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
     videoView.backgroundColor = [UIColor clearColor];
     [self.view insertSubview:videoView atIndex:0];
+    
+    self.cameraPreView = videoView;
     __weak __typeof(self) weakSelf = self;
     
     if (!_zbarObj) {
         
         self.zbarObj = [[LBXZBarWrapper alloc]initWithPreView:videoView barCodeType:self.zbarType block:^(NSArray<LBXZbarResult *> *result) {
             
-            //测试，只使用扫码结果第一项
-            LBXZbarResult *firstObj = result[0];
-            
-            LBXScanResult *scanResult = [[LBXScanResult alloc]init];
-            scanResult.strScanned = firstObj.strScanned;
-            scanResult.imgScanned = firstObj.imgScanned;
-            scanResult.strBarCodeType = [LBXZBarWrapper convertFormat2String:firstObj.format];
-            
-            [weakSelf scanResultWithArray:@[scanResult]];
+            [weakSelf handZBarResult:result];
         }];
     }
     [_zbarObj start];
@@ -107,6 +105,45 @@
     self.view.backgroundColor = [UIColor clearColor];
 }
 
+- (void)handZBarResult:(NSArray<LBXZbarResult *> *)result
+{
+    //测试，只使用扫码结果第一项
+    LBXZbarResult *firstObj = result[0];
+    
+    LBXScanResult *scanResult = [[LBXScanResult alloc]init];
+    scanResult.strScanned = firstObj.strScanned;
+    scanResult.imgScanned = firstObj.imgScanned;
+    scanResult.strBarCodeType = [LBXZBarWrapper convertFormat2String:firstObj.format];
+    
+    CGRect bounds = firstObj.bounds;
+    CGSize imgSize = firstObj.imgScanned.size;
+    CGSize preViewSize = self.cameraPreView.frame.size;
+//    CGFloat left = bounds.origin.x / imgSize.width * preViewSize.width;
+//    CGFloat top =  bounds.origin.y / imgSize.height * preViewSize.height;
+    
+//    bounds.origin = CGPointMake(left, top);
+
+    CGFloat minx = bounds.origin.x;
+    CGFloat miny= bounds.origin.y;
+    CGFloat maxx = bounds.origin.x + bounds.size.width;
+    CGFloat maxy= bounds.origin.y + bounds.size.height;
+    
+    minx = minx / imgSize.width * preViewSize.width;
+    maxx = maxx / imgSize.width * preViewSize.width;
+    miny = miny / imgSize.height * preViewSize.height;
+    maxy = maxy / imgSize.height * preViewSize.height;
+    
+    
+    CGFloat w = maxx - minx;
+    CGFloat h = maxy - miny;
+    
+    miny = minx;
+    minx = preViewSize.width - minx;
+
+    scanResult.bounds = CGRectMake(minx, miny, w, h);
+        
+    [self scanResultWithArray:@[scanResult]];
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -117,7 +154,6 @@
     [self stopScan];
     
     [self.qRScanView stopScanAnimation];
-
 }
 
 - (void)stopScan
@@ -128,9 +164,7 @@
 //开关闪光灯
 - (void)openOrCloseFlash
 {
-    
     [_zbarObj openOrCloseFlash];
-
     self.isOpenFlash =!self.isOpenFlash;
 }
 

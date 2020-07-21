@@ -110,6 +110,7 @@
                     success:(void(^)(NSArray<LBXScanResult*> *array))success
 {
     
+    self.needCodePosion = NO;
     self.blockvideoMaxScale  = blockvideoMaxScale;
     
     self.arrayBarCodeType = objType;
@@ -155,9 +156,7 @@
     _session = [[AVCaptureSession alloc]init];
     [_session setSessionPreset:AVCaptureSessionPresetHigh];
     
-   // _session.
-    
-   // videoScaleAndCropFactor
+//    [_session setSessionPreset:AVCaptureSessionPreset1280x720];
     
     if ([_session canAddInput:_input])
     {
@@ -174,9 +173,6 @@
         [_session addOutput:_stillImageOutput];
     }
     
- 
- 
-    
     // 条码类型 AVMetadataObjectTypeQRCode
    // _output.metadataObjectTypes =@[AVMetadataObjectTypeQRCode];
     
@@ -190,12 +186,15 @@
     _preview =[AVCaptureVideoPreviewLayer layerWithSession:_session];
     _preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
+//    _preview
+    
     //_preview.frame =CGRectMake(20,110,280,280);
     
     CGRect frame = videoPreView.frame;
     frame.origin = CGPointZero;
     _preview.frame = frame;
     
+
     [videoPreView.layer insertSublayer:self.preview atIndex:0];
     
     
@@ -208,18 +207,7 @@
         
         _blockvideoMaxScale(maxScale);
     }
-    
-    
-//    CGFloat zoom = maxScale / 50;
-//    if (zoom < 1.0f || zoom > maxScale)
-//    {
-//        return;
-//    }
-//    videoConnection.videoScaleAndCropFactor += zoom;
-//    CGAffineTransform transform = videoPreView.transform;
-//    videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
 
-    
     
     //先进行判断是否支持控制对焦,不开启自动对焦功能，很难识别二维码。
     if (_device.isFocusPointOfInterestSupported &&[_device isFocusModeSupported:AVCaptureFocusModeAutoFocus])
@@ -315,8 +303,6 @@
     {
         bNeedScanResult = NO;
         [_session stopRunning];
-        
-       // [self.preview removeFromSuperlayer];
     }
 }
 
@@ -447,6 +433,12 @@
         [_arrayResult removeAllObjects];
     }
     
+    if (_needCodePosion) {
+        [self stopScan];
+    }
+    
+    metadataObjects = [self transformedCodesFromCodes:metadataObjects];
+    
     //识别扫码类型
     for(AVMetadataObject *current in metadataObjects)
     {
@@ -458,61 +450,17 @@
             NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
             
             NSArray<NSDictionary *> *corners = ((AVMetadataMachineReadableCodeObject *) current).corners;
-            
-            NSLog(@"corners:%@",corners);
-            
-            CGFloat totalX  = 0;
-            CGFloat totalY = 0;
-            for (NSDictionary* dic in corners) {
-                
-                NSNumber *numX = dic[@"X"];
-                NSNumber *numY = dic[@"Y"];
-                
-                totalX += numX.floatValue;
-                totalY += numY.floatValue;
-            }
-            
-            NSLog(@"aver X:%f Y:%f",totalX / corners.count,totalY / corners.count);
-            
-       
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 更新界面
-                [self videoNearCode:totalX / corners.count averY:totalY / corners.count];
-            });
-            
-            
-             [self stopScan];
-            
-            //    CGFloat y = 0;
-            //    y = y + zoom > 1 ? zoom : -zoom;
-            //    //移动
-            //    _videoPreView.transform = CGAffineTransformTranslate(_videoPreView.transform, 0, y);
-            
-            //y从下往上
-//            (
-//                    {
-//                    X = "0.3534338575269208";
-//                    Y = "0.7310508255651641";
-//                },
-//                    {
-//                    X = "0.4657595844499312";
-//                    Y = "0.7077938333219527";
-//                },
-//                    {
-//                    X = "0.4562285844779192";
-//                    Y = "0.509763749366999";
-//                },
-//                    {
-//                    X = "0.343985141844123";
-//                    Y = "0.5347846218594517";
-//                }
-//            )
+            CGRect bounds  = ((AVMetadataMachineReadableCodeObject *) current).bounds;
+                       
+            NSLog(@"corners:%@ bounds:%@",corners,NSStringFromCGRect( bounds ));
             
             if (scannedResult && ![scannedResult isEqualToString:@""])
             {
                 LBXScanResult *result = [LBXScanResult new];
                 result.strScanned = scannedResult;
                 result.strBarCodeType = current.type;
+                result.corners = corners;
+                result.bounds = bounds;
                 
                 [_arrayResult addObject:result];
             }
@@ -523,13 +471,11 @@
     if (_arrayResult.count < 1)
     {
         bNeedScanResult = YES;
+        [self startScan];
         return;
     }
     
-    
-    return;
-    
-    if (_isNeedCaputureImage)
+    if (!_needCodePosion && _isNeedCaputureImage)
     {
         [self captureImage];
     }
@@ -543,8 +489,67 @@
     }
 }
 
-- (void)videoNearCode:(CGFloat)averX averY:(CGFloat)averY
+
+
+- (NSArray *)transformedCodesFromCodes:(NSArray *)codes {
+    NSMutableArray *transformedCodes = [NSMutableArray array];
+    [codes enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        AVMetadataObject *transformedCode = [self.preview transformedMetadataObjectForMetadataObject:obj];
+        [transformedCodes addObject:transformedCode];
+    }];
+    return [transformedCodes copy];
+}
+
+- (CGPoint)pointForCorner:(NSDictionary *)corner {
+    CGPoint point;
+    CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)corner, &point);
+    return point;
+}
+- (void)handCorners:(NSArray<NSDictionary *> *)corners bounds:(CGRect)bounds
 {
+    CGFloat totalX = 0;
+    CGFloat totalY = 0;
+    
+    for (NSDictionary *dic in corners) {
+        CGPoint pt = [self pointForCorner:dic];
+        NSLog(@"pt:%@",NSStringFromCGPoint(pt));
+        totalX += pt.x;
+        totalY += pt.y;
+    }
+    
+    CGFloat averX = totalX / corners.count;
+    CGFloat averY = totalY / corners.count;
+    
+   
+    
+    CGFloat minSize = MIN(bounds.size.width , bounds.size.height);
+    
+     NSLog(@"averx:%f,avery:%f minsize:%f",averX,averY,minSize);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+             
+        [self signCodeWithCenterX:averX centerY:averY];
+        
+    });
+}
+
+- (void)signCodeWithCenterX:(CGFloat)centerX centerY:(CGFloat)centerY
+{
+    UIView *signView = [[UIView alloc]initWithFrame:CGRectMake(centerX-10, centerY-10, 20, 20)];
+    
+    [self.videoPreView addSubview:signView];
+    signView.backgroundColor = [UIColor redColor];
+    
+}
+  
+
+/// 条码可以放到到指定位置 （条码在边缘位置，放大及平移后，导致边缘是黑色
+/// @param averX averX descriptio
+/// @param averY averY description
+/// @param bounds bounds description
+- (void)videoNearCode:(CGFloat)averX averY:(CGFloat)averY bounds:(CGRect)bounds
+{
+     CGFloat minSize = MIN(bounds.size.width , bounds.size.height);
     //    CGFloat y = 0;
     //    y = y + zoom > 1 ? zoom : -zoom;
     //    //移动
@@ -556,70 +561,47 @@
     CGFloat centerX = width / 2;
     CGFloat centerY = height / 2;
     
-    CGFloat diffX  =  centerX - averX * width;
-    CGFloat diffY =   centerY - averY * height;
+    CGFloat diffX  =  centerX  - averX;
+    CGFloat diffY =   centerY - averY;
     
     //计算二维码尺寸，然后计算放大比例
-    CGFloat scale  = 1.2;
-    
-//    diffX = diffX /scale;
-    diffY = diffY /scale;
-    
-    NSLog(@"diffX:%f,diffY:%f",diffX,diffY);
+    CGFloat scale  = 100 / minSize * 1.1;
     
     
-//    self.videoPreView.layer.anchorPoint = CGPointMake(width * averX, height * averY);
-
+    NSLog(@"diffX:%f,diffY:%f,scale:%f",diffX,diffY,scale);
     
+    diffX = diffX / MAX(1, scale * 0.8);
+    diffY = diffY / MAX(1, scale * 0.8);
     
-    
-//    [_input.device lockForConfiguration:nil];
-//
-//
-//    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
-//
-//
-//    if (scale < 1 || scale > videoConnection.videoMaxScaleAndCropFactor ) {
-//        return;
-//    }
-//
-//    CGFloat zoom = scale / videoConnection.videoScaleAndCropFactor;
-//    //     NSLog(@"max :%f",videoConnection.videoMaxScaleAndCropFactor);
-//
-//
-//    videoConnection.videoScaleAndCropFactor = scale;
-//
-//    [_input.device unlockForConfiguration];
-//
-//
-//    self.videoPreView.layer.anchorPoint = CGPointMake(0.0f, 0.0f);
-//
-//    CGAffineTransform transform = _videoPreView.transform;
-//
-//    [UIView animateWithDuration:0.3 animations:^{
-//
-//        self.videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
-//    }];
-    
-    
-
-    
-//    [UIView animateWithDuration:0.3 animations:^{
-//
-//
-//        self.videoPreView.transform = CGAffineTransformMakeTranslation(diffX, diffY);
-//    }];
-    
-    
-    [UIView animateWithDuration:0.3 animations:^{
-
-
-           self.videoPreView.transform = CGAffineTransformTranslate(self.videoPreView.transform,diffX , 0);
-       }];
-//
-    
- 
-   
+    if (scale > 1) {
+        
+        [_input.device lockForConfiguration:nil];
+        
+        AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+        
+        
+        if (scale < 1 || scale > videoConnection.videoMaxScaleAndCropFactor ) {
+            return;
+        }
+        
+        CGFloat zoom = scale / videoConnection.videoScaleAndCropFactor;
+        
+        videoConnection.videoScaleAndCropFactor = scale;
+        
+        [_input.device unlockForConfiguration];
+        
+        CGAffineTransform transform = _videoPreView.transform;
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            self.videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
+        }];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+             
+             self.videoPreView.transform = CGAffineTransformTranslate(self.videoPreView.transform,diffX , diffY);
+         }];
+    }
 }
 
 

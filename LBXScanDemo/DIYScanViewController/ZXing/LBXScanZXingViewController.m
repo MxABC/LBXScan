@@ -7,6 +7,8 @@
 //
 
 #import "LBXScanZXingViewController.h"
+#import <ZXResultPoint.h>
+//#import <ZXQRCodeFinderPattern.h>
 @interface LBXScanZXingViewController ()
 @end
 
@@ -25,6 +27,8 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     self.title = @"ZXing";
+    
+    self.isNeedScanImage = YES;
   
 }
 
@@ -73,7 +77,10 @@
 
 - (void)reStartDevice
 {
-
+    [self resetCodeFlagView];
+   
+    [self.qRScanView stopScanAnimation];
+    [self.qRScanView startScanAnimation];
     [_zxingObj start];
     
 }
@@ -81,28 +88,26 @@
 //启动设备
 - (void)startScan
 {
-    UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-    videoView.backgroundColor = [UIColor clearColor];
-    [self.view insertSubview:videoView atIndex:0];
+    if (!self.cameraPreView) {
+        UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
+          videoView.backgroundColor = [UIColor clearColor];
+          [self.view insertSubview:videoView atIndex:0];
+          
+          self.cameraPreView = videoView;
+    }
         
     if (!_zxingObj) {
         
         __weak __typeof(self) weakSelf = self;
-        self.zxingObj = [[ZXingWrapper alloc]initWithPreView:videoView block:^(ZXBarcodeFormat barcodeFormat, NSString *str, UIImage *scanImg) {
-            
-            LBXScanResult *result = [[LBXScanResult alloc]init];
-            result.strScanned = str;
-            result.imgScanned = scanImg;
-            result.strBarCodeType = [weakSelf convertZXBarcodeFormat:barcodeFormat];
-            
-            [weakSelf scanResultWithArray:@[result]];
-            
+
+        self.zxingObj = [[ZXingWrapper alloc]initWithPreView:self.cameraPreView success:^(ZXBarcodeFormat barcodeFormat, NSString *str, UIImage *scanImg, NSArray *resultPoints) {
+            [weakSelf handZXingResult:barcodeFormat barStr:str scanImg:scanImg resultPoints:resultPoints];
         }];
         
         if (self.isOpenInterestRect) {
             
             //设置只识别框内区域
-            CGRect cropRect = [LBXScanView getZXingScanRectWithPreView:videoView style:self.style];
+            CGRect cropRect = [LBXScanView getZXingScanRectWithPreView:self.cameraPreView style:self.style];
             
             [_zxingObj setScanRect:cropRect];
         }
@@ -115,6 +120,61 @@
 
     
     self.view.backgroundColor = [UIColor clearColor];
+}
+
+- (void)handZXingResult:(ZXBarcodeFormat)barcodeFormat barStr:(NSString*)str scanImg:(UIImage*)scanImg resultPoints:(NSArray*)resultPoints
+{
+    LBXScanResult *result = [[LBXScanResult alloc]init];
+    result.strScanned = str;
+    result.imgScanned = scanImg;
+    result.strBarCodeType = [self convertZXBarcodeFormat:barcodeFormat];
+    
+    NSLog(@"ZXing pts:%@",resultPoints);
+    
+    if (self.cameraPreView && resultPoints && scanImg) {
+        
+        CGFloat minx = 100000;
+        CGFloat miny= 100000;
+        CGFloat maxx = 0;
+        CGFloat maxy= 0;
+        
+        for (ZXResultPoint *pt in resultPoints) {
+            
+            if (pt.x < minx) {
+                minx = pt.x;
+            }
+            if (pt.x > maxx) {
+                maxx = pt.x;
+            }
+            
+            if (pt.y < miny) {
+                miny = pt.y;
+            }
+            if (pt.y > maxy) {
+                maxy = pt.y;
+            }
+        }
+        
+//        CGFloat width = maxx - minx;
+//        CGFloat height = maxy - miny;
+        
+        CGSize imgSize = scanImg.size;
+        CGSize preViewSize = self.cameraPreView.frame.size;
+        minx = minx / imgSize.width * preViewSize.width;
+        maxx = maxx / imgSize.width * preViewSize.width;
+        miny = miny / imgSize.height * preViewSize.height;
+        maxy = maxy / imgSize.height * preViewSize.height;
+        
+        result.bounds = CGRectMake(minx, miny,  maxx - minx,maxy - miny);
+        
+        NSLog(@"bounds:%@",NSStringFromCGRect(result.bounds));
+        
+        [self scanResultWithArray:@[result]];
+    }
+    else
+    {
+        [self scanResultWithArray:@[result]];
+    }
 }
 
 

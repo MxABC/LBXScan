@@ -20,6 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 }
 
 
@@ -52,20 +56,107 @@
         return;
     }
     
+    [self.qRScanView stopScanAnimation];
+    
     self.scanImage = scanResult.imgScanned;
-
+    
     
     //TODO: 这里可以根据需要添加震动或播放成功提醒音等提示相关代码
     //...
     
-    [self showNextVCWithScanResult:scanResult];
+    //TODO:表示二维码位置
+    //ZXing在开启区域识别后，当前计算方式不准确
+    if (!self.isOpenInterestRect && self.cameraPreView && !CGRectEqualToRect(CGRectZero, scanResult.bounds) ) {
+        
+        CGFloat centerX = scanResult.bounds.origin.x + scanResult.bounds.size.width / 2;
+        CGFloat centerY = scanResult.bounds.origin.y + scanResult.bounds.size.height / 2;
+        
+        [self signCodeWithCenterX:centerX centerY:centerY];
+        
+        [self didDetectCodes:scanResult.bounds corner:scanResult.corners];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 [self showNextVCWithScanResult:scanResult];
+            });
+        });
+    }
+    else
+    {
+        [self showNextVCWithScanResult:scanResult];
+    }
+    
 }
+
+
+- (CGPoint)pointForCorner:(NSDictionary *)corner {
+    CGPoint point;
+    CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)corner, &point);
+    return point;
+}
+
+
+
+- (void)handCorners:(NSArray<NSDictionary *> *)corners bounds:(CGRect)bounds
+{
+    CGFloat totalX = 0;
+    CGFloat totalY = 0;
+    
+    for (NSDictionary *dic in corners) {
+        CGPoint pt = [self pointForCorner:dic];
+        NSLog(@"pt:%@",NSStringFromCGPoint(pt));
+        totalX += pt.x;
+        totalY += pt.y;
+    }
+    
+    CGFloat averX = totalX / corners.count;
+    CGFloat averY = totalY / corners.count;
+    
+   
+    
+    CGFloat minSize = MIN(bounds.size.width , bounds.size.height);
+    
+     NSLog(@"averx:%f,avery:%f minsize:%f",averX,averY,minSize);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+             
+        [self signCodeWithCenterX:averX centerY:averY];
+        
+    });
+}
+
+- (void)signCodeWithCenterX:(CGFloat)centerX centerY:(CGFloat)centerY
+{
+    UIView *signView = [[UIView alloc]initWithFrame:CGRectMake(centerX-10, centerY-10, 20, 20)];
+    
+    [self.cameraPreView addSubview:signView];
+    signView.backgroundColor = [UIColor redColor];
+    
+    self.codeFlagView = signView;
+}
+  
 
 
 //继承者实现
 - (void)reStartDevice
 {
     
+}
+
+- (void)resetCodeFlagView
+{
+    if (_codeFlagView) {
+        [_codeFlagView removeFromSuperview];
+        self.codeFlagView = nil;
+    }
+    if (self.layers) {
+        
+        for (CALayer *layer in self.layers) {
+            [layer removeFromSuperlayer];
+        }
+        
+        self.layers = nil;
+    }
 }
 
 
@@ -79,7 +170,87 @@
     vc.strCodeType = strResult.strBarCodeType;
     
     [self.navigationController pushViewController:vc animated:YES];
+    
+    [self resetCodeFlagView];
 }
+
+
+#pragma mark- 绘制二维码区域标志
+- (void)didDetectCodes:(CGRect)bounds corner:(NSArray<NSDictionary*>*)corners
+{
+    AVCaptureVideoPreviewLayer * preview = nil;
+    
+    for (CALayer *layer in [self.cameraPreView.layer sublayers]) {
+        
+        if ( [layer isKindOfClass:[AVCaptureVideoPreviewLayer class]]) {
+            
+            preview = (AVCaptureVideoPreviewLayer*)layer;
+        }
+    }
+    
+    NSArray *layers = nil;
+    if (!layers) {
+        layers = @[[self makeBoundsLayer],[self makeCornersLayer]];
+        [preview addSublayer:layers[0]];
+        [preview addSublayer:layers[1]];
+    }
+    
+    CAShapeLayer *boundsLayer = layers[0];
+    boundsLayer.path = [self bezierPathForBounds:bounds].CGPath;
+    //得到一个CGPathRef赋给图层的path属性
+    
+    if (corners) {
+        CAShapeLayer *cornersLayer = layers[1];
+        cornersLayer.path = [self bezierPathForCorners:corners].CGPath;
+        //对于cornersLayer，基于元数据对象创建一个CGPath
+    }
+    
+    self.layers = layers;
+
+}
+
+
+- (UIBezierPath *)bezierPathForBounds:(CGRect)bounds {
+    // 图层边界，创建一个和对象的bounds关联的UIBezierPath
+    return [UIBezierPath bezierPathWithRect:bounds];
+}
+
+- (CAShapeLayer *)makeBoundsLayer {
+    //CAShapeLayer 是具体化的CALayer子类，用于绘制Bezier路径
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.strokeColor = [UIColor colorWithRed:0.96f green:0.75f blue:0.06f alpha:1.0f].CGColor;
+    shapeLayer.fillColor = nil;
+    shapeLayer.lineWidth = 4.0f;
+    
+    return shapeLayer;
+}
+
+- (CAShapeLayer *)makeCornersLayer {
+    
+    CAShapeLayer *cornersLayer = [CAShapeLayer layer];
+    cornersLayer.lineWidth = 2.0f;
+    cornersLayer.strokeColor = [UIColor colorWithRed:0.172 green:0.671 blue:0.428 alpha:1.0].CGColor;
+    cornersLayer.fillColor = [UIColor colorWithRed:0.190 green:0.753 blue:0.489 alpha:0.5].CGColor;
+    
+    return cornersLayer;;
+}
+
+- (UIBezierPath *)bezierPathForCorners:(NSArray *)corners {
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    for (int i = 0; i < corners.count; i ++) {
+        CGPoint point = [self pointForCorner:corners[i]];
+        //遍历每个条目，为每个条目创建一个CGPoint
+        if (i == 0) {
+            [path moveToPoint:point];
+        } else {
+            [path addLineToPoint:point];
+        }
+    }
+    [path closePath];
+    return path;
+}
+
 
 #pragma mark- 相册
 

@@ -23,6 +23,9 @@
 @interface LBXScanNative : NSObject
 
 
+/// 是否需要条码位置信息,默认NO,位置信息在LBXScanResult中返回
+@property (nonatomic, assign) BOOL needCodePosion;
+
 #pragma mark --初始化
 /**
  @brief  初始化采集相机

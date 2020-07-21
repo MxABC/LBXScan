@@ -21,6 +21,7 @@
 
 - (void)captureResult:(LBXZXCapture *)capture result:(ZXResult *)result scanImage:(UIImage*)img;
 
+
 @optional
 - (void)LBXCaptureSize:(LBXZXCapture *)capture
               width:(NSNumber *)width

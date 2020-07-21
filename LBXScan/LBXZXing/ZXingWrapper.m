@@ -12,12 +12,12 @@
 #import "LBXZXCapture.h"
 
 
-typedef void(^blockScan)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *scanImg);
-
 @interface ZXingWrapper() <LBXZXCaptureDelegate>
 @property (nonatomic, strong) LBXZXCapture *capture;
 
-@property (nonatomic,copy)blockScan block;
+@property (nonatomic, copy) void (^success)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *scanImg);
+
+@property (nonatomic, copy) void (^onSuccess)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *scanImg,NSArray* resultPoints);
 
 @property (nonatomic, assign) BOOL bNeedScanResult;
 
@@ -51,7 +51,32 @@ typedef void(^blockScan)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *sc
         
         self.capture.delegate = self;
         
-        self.block = block;
+        self.success = block;
+        
+        CGRect rect = preView.frame;
+        rect.origin = CGPointZero;
+        
+        self.capture.layer.frame = rect;
+        //[preView.layer addSublayer:self.capture.layer];
+        
+        [preView.layer insertSublayer:self.capture.layer atIndex:0];
+        
+    }
+    return self;
+}
+
+- (id)initWithPreView:(UIView*)preView success:(void(^)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *scanImg,NSArray* resultPoints))success
+{
+    if (self = [super init]) {
+        
+        self.capture = [[LBXZXCapture alloc] init];
+        self.capture.camera = self.capture.back;
+        self.capture.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+        self.capture.rotation = 90.0f;
+        
+        self.capture.delegate = self;
+        
+        self.onSuccess = success;
         
         CGRect rect = preView.frame;
         rect.origin = CGPointZero;
@@ -103,12 +128,15 @@ typedef void(^blockScan)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *sc
         
         return;
     }
+
+     [self stop];
     
-    if ( _block )
+    if (_onSuccess) {
+        _onSuccess(result.barcodeFormat,result.text,img,result.resultPoints);
+    }
+    else if ( _success )
     {
-        [self stop];
-        
-        _block(result.barcodeFormat,result.text,img);
+        _success(result.barcodeFormat,result.text,img);
     }    
 }
 

@@ -32,5 +32,11 @@
  */
 @property (nonatomic, copy) NSString* strBarCodeType;
 
+//条码4个角
+@property (nonatomic, copy)  NSArray<NSDictionary *> *corners;
+
+//没有corners精确
+@property (nonatomic, assign) CGRect bounds;
+
 @end
 

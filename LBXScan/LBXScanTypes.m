@@ -12,6 +12,7 @@
         self.strScanned = str;
         self.imgScanned = img;
         self.strBarCodeType = type;
+        self.bounds = CGRectZero;
     }
     
     return self;

@@ -94,86 +94,86 @@
 #pragma mark - Property Getters
 
 - (CALayer *)layer {
-  AVCaptureVideoPreviewLayer *layer = (AVCaptureVideoPreviewLayer *)_layer;
-  if (!_layer) {
-    layer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-    layer.affineTransform = self.transform;
-    layer.delegate = self;
-    layer.videoGravity = AVLayerVideoGravityResizeAspect;
-    layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-
-    _layer = layer;
-  }
-  return layer;
+    AVCaptureVideoPreviewLayer *layer = (AVCaptureVideoPreviewLayer *)_layer;
+    if (!_layer) {
+        layer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
+        layer.affineTransform = self.transform;
+        layer.delegate = self;
+        layer.videoGravity = AVLayerVideoGravityResizeAspect;
+        layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        
+        _layer = layer;
+    }
+    return layer;
 }
 
 - (AVCaptureVideoDataOutput *)output {
-  if (!_output) {
-    _output = [[AVCaptureVideoDataOutput alloc] init];
-    [_output setVideoSettings:@{
-      (NSString *)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA]
-    }];
-    [_output setAlwaysDiscardsLateVideoFrames:YES];
-    [_output setSampleBufferDelegate:self queue:_captureQueue];
-
-    [self.session addOutput:_output];
-  }
-
-  return _output;
+    if (!_output) {
+        _output = [[AVCaptureVideoDataOutput alloc] init];
+        [_output setVideoSettings:@{
+            (NSString *)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA]
+        }];
+        [_output setAlwaysDiscardsLateVideoFrames:YES];
+        [_output setSampleBufferDelegate:self queue:_captureQueue];
+        
+        [self.session addOutput:_output];
+    }
+    
+    return _output;
 }
 
 #pragma mark - Property Setters
 
 - (void)setCamera:(int)camera {
-  if (_camera != camera) {
-    _camera = camera;
-    self.captureDeviceIndex = -1;
-    self.captureDevice = nil;
-    [self replaceInput];
-  }
+    if (_camera != camera) {
+        _camera = camera;
+        self.captureDeviceIndex = -1;
+        self.captureDevice = nil;
+        [self replaceInput];
+    }
 }
 
 - (void)setDelegate:(id<LBXZXCaptureDelegate>)delegate {
-  _delegate = delegate;
-
-//  if (delegate) {
-//    self.hardStop = NO;
-//  }
-//  [self startStop];
+    _delegate = delegate;
+    
+    //  if (delegate) {
+    //    self.hardStop = NO;
+    //  }
+    //  [self startStop];
 }
 
 - (void)setFocusMode:(AVCaptureFocusMode)focusMode {
-  if ([self.input.device isFocusModeSupported:focusMode] && self.input.device.focusMode != focusMode) {
-    _focusMode = focusMode;
-
-    [self.input.device lockForConfiguration:nil];
-    self.input.device.focusMode = focusMode;
-    [self.input.device unlockForConfiguration];
-  }
+    if ([self.input.device isFocusModeSupported:focusMode] && self.input.device.focusMode != focusMode) {
+        _focusMode = focusMode;
+        
+        [self.input.device lockForConfiguration:nil];
+        self.input.device.focusMode = focusMode;
+        [self.input.device unlockForConfiguration];
+    }
 }
 
 - (void)setLastScannedImage:(CGImageRef)lastScannedImage {
-  if (_lastScannedImage) {
-    CGImageRelease(_lastScannedImage);
-  }
-
-  if (lastScannedImage) {
-    CGImageRetain(lastScannedImage);
-  }
-
-  _lastScannedImage = lastScannedImage;
+    if (_lastScannedImage) {
+        CGImageRelease(_lastScannedImage);
+    }
+    
+    if (lastScannedImage) {
+        CGImageRetain(lastScannedImage);
+    }
+    
+    _lastScannedImage = lastScannedImage;
 }
 
 - (void)setMirror:(BOOL)mirror {
-  if (_mirror != mirror) {
-    _mirror = mirror;
-    if (self.layer) {
-      CGAffineTransform transform = self.transform;
-      transform.a = - transform.a;
-      self.transform = transform;
-      [self.layer setAffineTransform:self.transform];
+    if (_mirror != mirror) {
+        _mirror = mirror;
+        if (self.layer) {
+            CGAffineTransform transform = self.transform;
+            transform.a = - transform.a;
+            self.transform = transform;
+            [self.layer setAffineTransform:self.transform];
+        }
     }
-  }
 }
 
 - (void)setTorch:(BOOL)torch {
@@ -210,79 +210,79 @@
 
 
 - (void)setTransform:(CGAffineTransform)transform {
-  _transform = transform;
-  [self.layer setAffineTransform:transform];
+    _transform = transform;
+    [self.layer setAffineTransform:transform];
 }
 
 #pragma mark - Back, Front, Torch
 
 - (int)back {
-  return 1;
+    return 1;
 }
 
 - (int)front {
-  return 0;
+    return 0;
 }
 
 - (BOOL)hasFront {
-  NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-  return [devices count] > 1;
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    return [devices count] > 1;
 }
 
 - (BOOL)hasBack {
-  NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-  return [devices count] > 0;
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    return [devices count] > 0;
 }
 
 - (BOOL)hasTorch {
-  if ([self device]) {
-    return [self device].hasTorch;
-  } else {
-    return NO;
-  }
+    if ([self device]) {
+        return [self device].hasTorch;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark - Binary
 
 - (CALayer *)binary {
-  return self.binaryLayer;
+    return self.binaryLayer;
 }
 
 - (void)setBinary:(BOOL)on {
-  if (on && !self.binaryLayer) {
-    self.binaryLayer = [CALayer layer];
-  } else if (!on && self.binaryLayer) {
-    self.binaryLayer = nil;
-  }
+    if (on && !self.binaryLayer) {
+        self.binaryLayer = [CALayer layer];
+    } else if (!on && self.binaryLayer) {
+        self.binaryLayer = nil;
+    }
 }
 
 #pragma mark - Luminance
 
 - (CALayer *)luminance {
-  return self.luminanceLayer;
+    return self.luminanceLayer;
 }
 
 - (void)setLuminance:(BOOL)on {
-  if (on && !self.luminanceLayer) {
-    self.luminanceLayer = [CALayer layer];
-  } else if (!on && self.luminanceLayer) {
-    self.luminanceLayer = nil;
-  }
+    if (on && !self.luminanceLayer) {
+        self.luminanceLayer = [CALayer layer];
+    } else if (!on && self.luminanceLayer) {
+        self.luminanceLayer = nil;
+    }
 }
 
 #pragma mark - Start, Stop
 
 - (void)hard_stop {
-  self.hardStop = YES;
-
-  if (self.running) {
-    [self stop];
-  }
+    self.hardStop = YES;
+    
+    if (self.running) {
+        [self stop];
+    }
 }
 
 - (void)order_skip {
-  self.orderInSkip = 1;
-  self.orderOutSkip = 1;
+    self.orderInSkip = 1;
+    self.orderOutSkip = 1;
 }
 
 - (void)start {
@@ -312,15 +312,15 @@
 
 - (void)stop
 {
-  if (!self.running) {
-    return;
-  }
-
-  if (self.session.running) {
-   // [self.layer removeFromSuperlayer];
-    [self.session stopRunning];
-  }
-  self.running = NO;
+    if (!self.running) {
+        return;
+    }
+    
+    if (self.session.running) {
+        // [self.layer removeFromSuperlayer];
+        [self.session stopRunning];
+    }
+    self.running = NO;
 }
 
 
@@ -328,33 +328,33 @@
 #pragma mark - CAAction
 
 - (id<CAAction>)actionForLayer:(CALayer *)_layer forKey:(NSString *)event {
-  [CATransaction setValue:[NSNumber numberWithFloat:0.0f] forKey:kCATransactionAnimationDuration];
-
-  if ([event isEqualToString:kCAOnOrderIn] || [event isEqualToString:kCAOnOrderOut]) {
-    return self;
-  }
-
-  return nil;
+    [CATransaction setValue:[NSNumber numberWithFloat:0.0f] forKey:kCATransactionAnimationDuration];
+    
+    if ([event isEqualToString:kCAOnOrderIn] || [event isEqualToString:kCAOnOrderOut]) {
+        return self;
+    }
+    
+    return nil;
 }
 
 - (void)runActionForKey:(NSString *)key object:(id)anObject arguments:(NSDictionary *)dict {
-  if ([key isEqualToString:kCAOnOrderIn]) {
-    if (self.orderInSkip) {
-      self.orderInSkip--;
-      return;
+    if ([key isEqualToString:kCAOnOrderIn]) {
+        if (self.orderInSkip) {
+            self.orderInSkip--;
+            return;
+        }
+        
+        self.onScreen = YES;
+        //    [self startStop];
+    } else if ([key isEqualToString:kCAOnOrderOut]) {
+        if (self.orderOutSkip) {
+            self.orderOutSkip--;
+            return;
+        }
+        
+        self.onScreen = NO;
+        //    [self startStop];
     }
-
-    self.onScreen = YES;
-//    [self startStop];
-  } else if ([key isEqualToString:kCAOnOrderOut]) {
-    if (self.orderOutSkip) {
-      self.orderOutSkip--;
-      return;
-    }
-
-    self.onScreen = NO;
-//    [self startStop];
-  }
 }
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -364,99 +364,102 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
     
     
-  @autoreleasepool {
-    if (!self.cameraIsReady) {
-      self.cameraIsReady = YES;
-      if ([self.delegate respondsToSelector:@selector(captureCameraIsReady:)]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-          [self.delegate LBXCaptureCameraIsReady:self];
-        });
-      }
-    }
-
-    if (!self.captureToFilename && !self.luminanceLayer && !self.binaryLayer && !self.delegate) {
-      return;
-    }
-
-    CVImageBufferRef videoFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
-
-    CGImageRef videoFrameImage = [ZXCGImageLuminanceSource createImageFromBuffer:videoFrame];
-    CGImageRef rotatedImage = [self createRotatedImage:videoFrameImage degrees:self.rotation];
-    CGImageRelease(videoFrameImage);
-
-    // If scanRect is set, crop the current image to include only the desired rect
-    if (!CGRectIsEmpty(self.scanRect)) {
-      CGImageRef croppedImage = CGImageCreateWithImageInRect(rotatedImage, self.scanRect);
-      CFRelease(rotatedImage);
-      rotatedImage = croppedImage;
-    }
-
-    self.lastScannedImage = rotatedImage;
-
-    if (self.captureToFilename) {
-      NSURL *url = [NSURL fileURLWithPath:self.captureToFilename];
-      CGImageDestinationRef dest = CGImageDestinationCreateWithURL((__bridge CFURLRef)url, (__bridge CFStringRef)@"public.png", 1, nil);
-      CGImageDestinationAddImage(dest, rotatedImage, nil);
-      CGImageDestinationFinalize(dest);
-      CFRelease(dest);
-      self.captureToFilename = nil;
-    }
-
-    ZXCGImageLuminanceSource *source = [[ZXCGImageLuminanceSource alloc] initWithCGImage:rotatedImage];
-    CGImageRelease(rotatedImage);
-
-    if (self.luminanceLayer) {
-      CGImageRef image = source.image;
-      CGImageRetain(image);
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0), dispatch_get_main_queue(), ^{
-        self.luminanceLayer.contents = (__bridge id)image;
-        CGImageRelease(image);
-      });
-    }
-
-      
-    if (self.binaryLayer || self.delegate)
-    {
-      ZXHybridBinarizer *binarizer = [[ZXHybridBinarizer alloc] initWithSource:self.invert ? [source invert] : source];
-
-      if (self.binaryLayer)
-      {
-        CGImageRef image = [binarizer createImage];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0), dispatch_get_main_queue(), ^{
-          self.binaryLayer.contents = (__bridge id)image;
-          CGImageRelease(image);
-        });
-         
-      }
-
-      if (self.delegate)
-      {
-          static NSInteger sampleBufferNums = 0;
-          
-          sampleBufferNums++;
-          
-          if (sampleBufferNums != 2) {
-              return;
-          }
-          
-          NSLog(@"sampleBufferNums");
-          sampleBufferNums = 0;
-          
-        ZXBinaryBitmap *bitmap = [[ZXBinaryBitmap alloc] initWithBinarizer:binarizer];
-
-        NSError *error;
-        ZXResult *result = [self.reader decode:bitmap hints:self.hints error:&error];
-        if (result) {
-//            CGImageRef iOffscreen = CGBitmapContextCreateImage(context);
-            UIImage* image = [UIImage imageWithCGImage: _lastScannedImage];
-            
-          dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate captureResult:self result:result scanImage:image];
-          });
+    @autoreleasepool {
+        if (!self.cameraIsReady) {
+            self.cameraIsReady = YES;
+            if ([self.delegate respondsToSelector:@selector(captureCameraIsReady:)]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate LBXCaptureCameraIsReady:self];
+                });
+            }
         }
-      }
+        
+        if (!self.captureToFilename && !self.luminanceLayer && !self.binaryLayer && !self.delegate) {
+            return;
+        }
+        
+        CVImageBufferRef videoFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
+        
+        CGImageRef videoFrameImage = [ZXCGImageLuminanceSource createImageFromBuffer:videoFrame];
+        CGImageRef rotatedImage = [self createRotatedImage:videoFrameImage degrees:self.rotation];
+        CGImageRelease(videoFrameImage);
+        
+        // If scanRect is set, crop the current image to include only the desired rect
+        if (!CGRectIsEmpty(self.scanRect)) {
+            CGImageRef croppedImage = CGImageCreateWithImageInRect(rotatedImage, self.scanRect);
+            CFRelease(rotatedImage);
+            rotatedImage = croppedImage;
+        }
+        
+        self.lastScannedImage = rotatedImage;
+        
+        if (self.captureToFilename) {
+            NSURL *url = [NSURL fileURLWithPath:self.captureToFilename];
+            CGImageDestinationRef dest = CGImageDestinationCreateWithURL((__bridge CFURLRef)url, (__bridge CFStringRef)@"public.png", 1, nil);
+            CGImageDestinationAddImage(dest, rotatedImage, nil);
+            CGImageDestinationFinalize(dest);
+            CFRelease(dest);
+            self.captureToFilename = nil;
+        }
+        
+        ZXCGImageLuminanceSource *source = [[ZXCGImageLuminanceSource alloc] initWithCGImage:rotatedImage];
+        CGImageRelease(rotatedImage);
+        
+        if (self.luminanceLayer) {
+            CGImageRef image = source.image;
+            CGImageRetain(image);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0), dispatch_get_main_queue(), ^{
+                self.luminanceLayer.contents = (__bridge id)image;
+                CGImageRelease(image);
+            });
+        }
+        
+        
+        if (self.binaryLayer || self.delegate)
+        {
+            ZXHybridBinarizer *binarizer = [[ZXHybridBinarizer alloc] initWithSource:self.invert ? [source invert] : source];
+            
+            if (self.binaryLayer)
+            {
+                CGImageRef image = [binarizer createImage];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0), dispatch_get_main_queue(), ^{
+                    self.binaryLayer.contents = (__bridge id)image;
+                    CGImageRelease(image);
+                });
+                
+            }
+            
+            if (self.delegate)
+            {
+                static NSInteger sampleBufferNums = 0;
+                
+                sampleBufferNums++;
+                
+                if (sampleBufferNums != 2) {
+                    return;
+                }
+                
+                NSLog(@"sampleBufferNums");
+                sampleBufferNums = 0;
+                
+                ZXBinaryBitmap *bitmap = [[ZXBinaryBitmap alloc] initWithBinarizer:binarizer];
+                
+                NSError *error;
+                ZXResult *result = [self.reader decode:bitmap hints:self.hints error:&error];
+                if (result) {
+                    //            CGImageRef iOffscreen = CGBitmapContextCreateImage(context);
+                    
+                    
+                    //            NSLog(@"%@",result.resultPoints);
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIImage* image = [UIImage imageWithCGImage: self.lastScannedImage];
+                        [self.delegate captureResult:self result:result scanImage:image];
+                    });
+                }
+            }
+        }
     }
-  }
 }
 
 //+ (ZXResult *)regocnizeImage:(UIImage*)image
@@ -486,136 +489,136 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 // Adapted from http://blog.coriolis.ch/2009/09/04/arbitrary-rotation-of-a-cgimage/ and https://github.com/JanX2/CreateRotateWriteCGImage
 - (CGImageRef)createRotatedImage:(CGImageRef)original degrees:(float)degrees CF_RETURNS_RETAINED {
-  if (degrees == 0.0f) {
-    CGImageRetain(original);
-    return original;
-  } else {
-    double radians = degrees * M_PI / 180;
-
+    if (degrees == 0.0f) {
+        CGImageRetain(original);
+        return original;
+    } else {
+        double radians = degrees * M_PI / 180;
+        
 #if TARGET_OS_EMBEDDED || TARGET_IPHONE_SIMULATOR
-    radians = -1 * radians;
+        radians = -1 * radians;
 #endif
-
-    size_t _width = CGImageGetWidth(original);
-    size_t _height = CGImageGetHeight(original);
-
-    CGRect imgRect = CGRectMake(0, 0, _width, _height);
-    CGAffineTransform __transform = CGAffineTransformMakeRotation(radians);
-    CGRect rotatedRect = CGRectApplyAffineTransform(imgRect, __transform);
-
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(NULL,
-                                                 rotatedRect.size.width,
-                                                 rotatedRect.size.height,
-                                                 CGImageGetBitsPerComponent(original),
-                                                 0,
-                                                 colorSpace,
-                                                 kCGBitmapAlphaInfoMask & kCGImageAlphaPremultipliedFirst);
-    CGContextSetAllowsAntialiasing(context, FALSE);
-    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
-    CGColorSpaceRelease(colorSpace);
-
-    CGContextTranslateCTM(context,
-                          +(rotatedRect.size.width/2),
-                          +(rotatedRect.size.height/2));
-    CGContextRotateCTM(context, radians);
-
-    CGContextDrawImage(context, CGRectMake(-imgRect.size.width/2,
-                                           -imgRect.size.height/2,
-                                           imgRect.size.width,
-                                           imgRect.size.height),
-                       original);
-
-    CGImageRef rotatedImage = CGBitmapContextCreateImage(context);
-    CFRelease(context);
-
-    return rotatedImage;
-  }
+        
+        size_t _width = CGImageGetWidth(original);
+        size_t _height = CGImageGetHeight(original);
+        
+        CGRect imgRect = CGRectMake(0, 0, _width, _height);
+        CGAffineTransform __transform = CGAffineTransformMakeRotation(radians);
+        CGRect rotatedRect = CGRectApplyAffineTransform(imgRect, __transform);
+        
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGContextRef context = CGBitmapContextCreate(NULL,
+                                                     rotatedRect.size.width,
+                                                     rotatedRect.size.height,
+                                                     CGImageGetBitsPerComponent(original),
+                                                     0,
+                                                     colorSpace,
+                                                     kCGBitmapAlphaInfoMask & kCGImageAlphaPremultipliedFirst);
+        CGContextSetAllowsAntialiasing(context, FALSE);
+        CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+        CGColorSpaceRelease(colorSpace);
+        
+        CGContextTranslateCTM(context,
+                              +(rotatedRect.size.width/2),
+                              +(rotatedRect.size.height/2));
+        CGContextRotateCTM(context, radians);
+        
+        CGContextDrawImage(context, CGRectMake(-imgRect.size.width/2,
+                                               -imgRect.size.height/2,
+                                               imgRect.size.width,
+                                               imgRect.size.height),
+                           original);
+        
+        CGImageRef rotatedImage = CGBitmapContextCreateImage(context);
+        CFRelease(context);
+        
+        return rotatedImage;
+    }
 }
 
 - (AVCaptureDevice *)device {
-  if (self.captureDevice) {
-    return self.captureDevice;
-  }
-
-  AVCaptureDevice *zxd = nil;
-
-  NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-
-  if ([devices count] > 0) {
-    if (self.captureDeviceIndex == -1) {
-      AVCaptureDevicePosition position = AVCaptureDevicePositionBack;
-      if (self.camera == self.front) {
-        position = AVCaptureDevicePositionFront;
-      }
-
-      for (unsigned int i = 0; i < [devices count]; ++i) {
-        AVCaptureDevice *dev = [devices objectAtIndex:i];
-        if (dev.position == position) {
-          self.captureDeviceIndex = i;
-          zxd = dev;
-          break;
+    if (self.captureDevice) {
+        return self.captureDevice;
+    }
+    
+    AVCaptureDevice *zxd = nil;
+    
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    
+    if ([devices count] > 0) {
+        if (self.captureDeviceIndex == -1) {
+            AVCaptureDevicePosition position = AVCaptureDevicePositionBack;
+            if (self.camera == self.front) {
+                position = AVCaptureDevicePositionFront;
+            }
+            
+            for (unsigned int i = 0; i < [devices count]; ++i) {
+                AVCaptureDevice *dev = [devices objectAtIndex:i];
+                if (dev.position == position) {
+                    self.captureDeviceIndex = i;
+                    zxd = dev;
+                    break;
+                }
+            }
         }
-      }
+        
+        if (!zxd && self.captureDeviceIndex != -1) {
+            zxd = [devices objectAtIndex:self.captureDeviceIndex];
+        }
     }
-
-    if (!zxd && self.captureDeviceIndex != -1) {
-      zxd = [devices objectAtIndex:self.captureDeviceIndex];
+    
+    if (!zxd) {
+        zxd = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     }
-  }
-
-  if (!zxd) {
-    zxd = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-  }
-
-  self.captureDevice = zxd;
-
-  return zxd;
+    
+    self.captureDevice = zxd;
+    
+    return zxd;
 }
 
 - (void)replaceInput {
-  [self.session beginConfiguration];
-
-  if (self.session && self.input) {
-    [self.session removeInput:self.input];
-    self.input = nil;
-  }
-
-  AVCaptureDevice *zxd = [self device];
-
-  if (zxd) {
-    self.input = [AVCaptureDeviceInput deviceInputWithDevice:zxd error:nil];
-    self.focusMode = self.focusMode;
-  }
-
-  if (self.input) {
-    self.session.sessionPreset = self.sessionPreset;
-    [self.session addInput:self.input];
-  }
-
-  [self.session commitConfiguration];
+    [self.session beginConfiguration];
+    
+    if (self.session && self.input) {
+        [self.session removeInput:self.input];
+        self.input = nil;
+    }
+    
+    AVCaptureDevice *zxd = [self device];
+    
+    if (zxd) {
+        self.input = [AVCaptureDeviceInput deviceInputWithDevice:zxd error:nil];
+        self.focusMode = self.focusMode;
+    }
+    
+    if (self.input) {
+        self.session.sessionPreset = self.sessionPreset;
+        [self.session addInput:self.input];
+    }
+    
+    [self.session commitConfiguration];
 }
 
 - (AVCaptureSession *)session {
-  if (!_session) {
-    _session = [[AVCaptureSession alloc] init];
-    [self replaceInput];
-  }
-
-  return _session;
+    if (!_session) {
+        _session = [[AVCaptureSession alloc] init];
+        [self replaceInput];
+    }
+    
+    return _session;
 }
 
 - (void)startStop {
-  if ((!self.running && (self.delegate || self.onScreen)) ||
-      (!self.output &&
-       (self.delegate ||
-        (self.onScreen && (self.luminanceLayer || self.binaryLayer))))) {
-         [self start];
-       }
-
-  if (self.running && !self.delegate && !self.onScreen) {
-    [self stop];
-  }
+    if ((!self.running && (self.delegate || self.onScreen)) ||
+        (!self.output &&
+         (self.delegate ||
+          (self.onScreen && (self.luminanceLayer || self.binaryLayer))))) {
+        [self start];
+    }
+    
+    if (self.running && !self.delegate && !self.onScreen) {
+        [self stop];
+    }
 }
 
 @end

@@ -8,7 +8,6 @@
 
 #import "QQScanZBarViewController.h"
 #import "CreateBarCodeViewController.h"
-#import "ScanResultViewController.h"
 #import "LBXPermission.h"
 #import "LBXPermissionSetting.h"
 
@@ -115,73 +114,7 @@
     
 }
 
-- (void)showError:(NSString*)str
-{
-    [LBXAlertAction showAlertWithTitle:@"提示" msg:str buttonsStatement:@[@"知道了"] chooseBlock:nil];
-}
 
-- (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
-{
-    if (array.count < 1)
-    {
-        [self popAlertMsgWithScanResult:nil];
-     
-        return;
-    }
-    
-    //经测试，可以同时识别2个二维码，不能同时识别二维码和条形码
-    for (LBXScanResult *result in array) {
-        
-        NSLog(@"scanResult:%@",result.strScanned);
-    }
-    
-    LBXScanResult *scanResult = array[0];
-    
-    NSString*strResult = scanResult.strScanned;
-    
-    self.scanImage = scanResult.imgScanned;
-    
-    if (!strResult) {
-        
-        [self popAlertMsgWithScanResult:nil];
-        
-        return;
-    }
-    
-    //震动提醒
-   // [LBXScanWrapper systemVibrate];
-    //声音提醒
-    //[LBXScanWrapper systemSound];
-    
-    [self showNextVCWithScanResult:scanResult];
-   
-}
-
-- (void)popAlertMsgWithScanResult:(NSString*)strResult
-{
-    if (!strResult) {
-        
-        strResult = @"识别失败";
-    }
-    
-    __weak __typeof(self) weakSelf = self;
-    [LBXAlertAction showAlertWithTitle:@"扫码内容" msg:strResult buttonsStatement:@[@"知道了"] chooseBlock:^(NSInteger buttonIdx) {
-        
-        [weakSelf reStartDevice];
-    }];
-}
-
-- (void)showNextVCWithScanResult:(LBXScanResult*)strResult
-{
-    ScanResultViewController *vc = [ScanResultViewController new];
-    vc.imgScan = strResult.imgScanned;
-    
-    vc.strScan = strResult.strScanned;
-    
-    vc.strCodeType = strResult.strBarCodeType;
-    
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
 
 #pragma mark -底部功能项

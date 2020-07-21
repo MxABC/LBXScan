@@ -11,7 +11,7 @@
 
 
 @interface LBXScanNativeViewController ()
-@property (nonatomic, strong) UIView *videoView;
+//@property (nonatomic, strong) UIView *videoView;
 @end
 
 @implementation LBXScanNativeViewController
@@ -38,18 +38,23 @@
     
     [self drawScanView];
     
+    
+   
+        
     [self requestCameraPemissionWithResult:^(BOOL granted) {
-
+        
         if (granted) {
-
+            
             //不延时，可能会导致界面黑屏并卡住一会
             [self performSelector:@selector(startScan) withObject:nil afterDelay:0.3];
-
+            
         }else{
-
+            
             [self.qRScanView stopDeviceReadying];
         }
     }];
+    
+ 
    
 }
 
@@ -77,19 +82,26 @@
 
 - (void)reStartDevice
 {
+   [self resetCodeFlagView];
+    
+    [self.qRScanView stopScanAnimation];
+    [self.qRScanView startScanAnimation];
+    
+    
     [_scanObj startScan];
 }
 
 //启动设备
 - (void)startScan
 {
-    UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-    videoView.backgroundColor = [UIColor clearColor];
-    [self.view insertSubview:videoView atIndex:0];
-    __weak __typeof(self) weakSelf = self;
-    
-    self.videoView = videoView;
-    
+    if (!self.cameraPreView) {
+        
+        UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
+        videoView.backgroundColor = [UIColor clearColor];
+        [self.view insertSubview:videoView atIndex:0];
+        
+        self.cameraPreView = videoView;
+    }
     
     if (!_scanObj )
     {
@@ -101,15 +113,18 @@
             cropRect = [LBXScanView getScanRectWithPreView:self.view style:self.style];
         }
         
-        //                AVMetadataObjectTypeITF14Code 扫码效果不行,另外只能输入一个码制，虽然接口是可以输入多个码制
-        self.scanObj = [[LBXScanNative alloc]initWithPreView:videoView ObjectType:self.listScanTypes cropRect:cropRect videoMaxScale:^(CGFloat maxScale) {
-            
+        __weak __typeof(self) weakSelf = self;
+
+        self.scanObj = [[LBXScanNative alloc]initWithPreView:self.cameraPreView ObjectType:self.listScanTypes cropRect:cropRect videoMaxScale:^(CGFloat maxScale) {
             [weakSelf setVideoMaxScale:maxScale];
+            
         }  success:^(NSArray<LBXScanResult *> *array) {
             
-            [weakSelf scanResultWithArray:array];
+            [weakSelf handScanNative:array];
         }];
         [_scanObj setNeedCaptureImage:self.isNeedScanImage];
+        //是否需要返回条码坐标
+        _scanObj.needCodePosion = YES;
     }
     [_scanObj startScan];
     
@@ -118,6 +133,11 @@
     [self.qRScanView startScanAnimation];
 
     self.view.backgroundColor = [UIColor clearColor];
+}
+
+- (void)handScanNative:(NSArray<LBXScanResult *> *)array
+{
+    [self scanResultWithArray:array];
 }
 
 - (void)setVideoMaxScale:(CGFloat)maxScale
@@ -186,14 +206,7 @@
     }
 }
 
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-//    if (_videoView) {
-//        _videoView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
-//    }
-}
+
 
 
 @end
