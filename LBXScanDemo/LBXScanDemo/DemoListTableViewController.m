@@ -444,6 +444,9 @@
                     result.strBarCodeType = [StyleDIY convertZXBarcodeFormat:barcodeFormat];
                     
                     [weakSelf scanResultWithArray:@[result]];
+                }else
+                {
+                    [self showError:@"识别失败"];
                 }
             }];
         }
@@ -465,6 +468,9 @@
                     scanResult.strBarCodeType = [LBXZBarWrapper convertFormat2String:firstObj.format];
                     
                     [weakSelf scanResultWithArray:@[scanResult]];
+                }else
+                {
+                    [self showError:@"识别失败"];
                 }
                 
             }];
@@ -478,7 +484,7 @@
 
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
 {
-    if (array.count < 1)
+    if (!array || array.count < 1)
     {
         [self showError:@"识别失败了"];
         

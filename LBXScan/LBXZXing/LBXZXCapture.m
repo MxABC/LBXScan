@@ -40,7 +40,6 @@
 @property (nonatomic, strong) AVCaptureVideoDataOutput *output;
 @property (nonatomic, assign) BOOL running;
 @property (nonatomic, strong) AVCaptureSession *session;
-
 @end
 
 @implementation LBXZXCapture
@@ -363,6 +362,14 @@
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
     
+    static NSInteger sampleBufferNums = 0;
+    
+    sampleBufferNums++;
+    
+    if (sampleBufferNums != 2) {
+        return;
+    }
+    sampleBufferNums = 0;
     
     @autoreleasepool {
         if (!self.cameraIsReady) {
@@ -426,21 +433,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                     self.binaryLayer.contents = (__bridge id)image;
                     CGImageRelease(image);
                 });
-                
             }
             
             if (self.delegate)
             {
-                static NSInteger sampleBufferNums = 0;
-                
-                sampleBufferNums++;
-                
-                if (sampleBufferNums != 2) {
-                    return;
-                }
-                
-                NSLog(@"sampleBufferNums");
-                sampleBufferNums = 0;
                 
                 ZXBinaryBitmap *bitmap = [[ZXBinaryBitmap alloc] initWithBinarizer:binarizer];
                 
