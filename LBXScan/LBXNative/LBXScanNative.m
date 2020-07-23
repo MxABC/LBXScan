@@ -433,10 +433,6 @@
         [_arrayResult removeAllObjects];
     }
     
-    if (_needCodePosion) {
-        [self stopScan];
-    }
-    
     metadataObjects = [self transformedCodesFromCodes:metadataObjects];
     
     //识别扫码类型
@@ -461,7 +457,7 @@
                 result.strBarCodeType = current.type;
                 result.corners = corners;
                 result.bounds = bounds;
-                
+                                
                 [_arrayResult addObject:result];
             }
             //测试可以同时识别多个二维码
@@ -471,7 +467,6 @@
     if (_arrayResult.count < 1)
     {
         bNeedScanResult = YES;
-        [self startScan];
         return;
     }
     
@@ -488,7 +483,6 @@
         }
     }
 }
-
 
 
 - (NSArray *)transformedCodesFromCodes:(NSArray *)codes {

@@ -38,8 +38,6 @@
     
     [self drawScanView];
     
-    
-   
         
     [self requestCameraPemissionWithResult:^(BOOL granted) {
         
@@ -82,12 +80,6 @@
 
 - (void)reStartDevice
 {
-   [self resetCodeFlagView];
-    
-    [self.qRScanView stopScanAnimation];
-    [self.qRScanView startScanAnimation];
-    
-    
     [_scanObj startScan];
 }
 

@@ -30,6 +30,7 @@
 #pragma mark- 识别结果
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
 {
+    
     if (!array ||  array.count < 1)
     {
         NSLog(@"失败失败了。。。。");
@@ -60,7 +61,6 @@
     
     self.scanImage = scanResult.imgScanned;
     
-    
     //TODO: 这里可以根据需要添加震动或播放成功提醒音等提示相关代码
     //...
     
@@ -71,8 +71,10 @@
         CGFloat centerX = scanResult.bounds.origin.x + scanResult.bounds.size.width / 2;
         CGFloat centerY = scanResult.bounds.origin.y + scanResult.bounds.size.height / 2;
         
+        //条码中心位置绘制红色正方形
         [self signCodeWithCenterX:centerX centerY:centerY];
         
+        //条码位置边缘绘制及内部填充
         [self didDetectCodes:scanResult.bounds corner:scanResult.corners];
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -86,6 +88,16 @@
         [self showNextVCWithScanResult:scanResult];
     }
     
+}
+
+-(UIImage *)getImageFromLayer:(CALayer *)layer size:(CGSize)size
+{
+    UIGraphicsBeginImageContextWithOptions(size, YES, [[UIScreen mainScreen]scale]);
+    [layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 
@@ -159,6 +171,16 @@
     }
 }
 
+- (UIImage *)imageByCroppingWithSrcImage:(UIImage*)srcImg cropRect:(CGRect)cropRect
+{
+   
+    CGImageRef imageRef = srcImg.CGImage;
+    CGImageRef imagePartRef = CGImageCreateWithImageInRect(imageRef, cropRect);
+    UIImage *cropImage = [UIImage imageWithCGImage:imagePartRef];
+    CGImageRelease(imagePartRef);
+    return cropImage;
+}
+
 
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
@@ -171,6 +193,7 @@
     
     [self.navigationController pushViewController:vc animated:YES];
     
+    //隐藏标记条码位置的信息
     [self resetCodeFlagView];
 }
 
@@ -263,15 +286,15 @@
 
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
     __block UIImage* image = [info objectForKey:UIImagePickerControllerEditedImage];
     
     if (!image){
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
     
-    [self recognizeImageWithImage:image];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [self recognizeImageWithImage:image];
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

@@ -395,7 +395,7 @@
     picker.delegate = self;
     
     //部分机型可能导致崩溃
-    picker.allowsEditing = YES;
+    picker.allowsEditing = NO;
     
     [self presentViewController:picker animated:YES completion:nil];
 }
@@ -404,8 +404,14 @@
 
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+        [self handPhotoDidFinishPickingMediaWithInfo:info];
+    }];
+}
+
+- (void)handPhotoDidFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     __block UIImage* image = [info objectForKey:UIImagePickerControllerEditedImage];
     
     if (!image){
@@ -469,6 +475,7 @@
             break;
     }
 }
+
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
 {
     if (array.count < 1)

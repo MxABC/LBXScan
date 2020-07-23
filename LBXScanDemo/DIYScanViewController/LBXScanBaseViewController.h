@@ -46,6 +46,7 @@
 @property (nonatomic, strong) UIView *codeFlagView;
 @property (nonatomic, strong) NSArray<CALayer*> *layers;
 
+
 /**
  @brief  扫码存储的当前图片
  */
@@ -60,14 +61,15 @@
 //相机预览
 @property (nonatomic, strong) UIView *cameraPreView;
 
-
-
 //继承者实现
 - (void)reStartDevice;
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array;
 
 
 - (void)resetCodeFlagView;
+
+///截取UIImage指定区域图片
+- (UIImage *)imageByCroppingWithSrcImage:(UIImage*)srcImg cropRect:(CGRect)cropRect;
 
 - (void)requestCameraPemissionWithResult:(void(^)( BOOL granted))completion;
 + (void)authorizePhotoPermissionWithCompletion:(void(^)(BOOL granted,BOOL firstTime))completion;

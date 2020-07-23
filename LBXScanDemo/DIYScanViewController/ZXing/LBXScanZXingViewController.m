@@ -77,12 +77,7 @@
 
 - (void)reStartDevice
 {
-    [self resetCodeFlagView];
-   
-    [self.qRScanView stopScanAnimation];
-    [self.qRScanView startScanAnimation];
     [_zxingObj start];
-    
 }
 
 //启动设备

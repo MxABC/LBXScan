@@ -71,10 +71,6 @@
 
 - (void)reStartDevice
 {
-    [self resetCodeFlagView];
-    [self.qRScanView stopScanAnimation];
-    [self.qRScanView startScanAnimation];
-    
     [_zbarObj start];
 }
 
