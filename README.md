@@ -42,6 +42,12 @@ QQ交流群: 522806629
 - 微信扫码框效果
 
 ### 历史版本
+#### 2.4
+- ZBarSDK 删除UIWebView，相机采集分辨率设置高分辨率[LBXZBarSDK](https://github.com/MxABC/LBXZBarSDK)
+- 当前库删除了ZBarSDK了依赖，需要ZBAR的，可单独一行pod
+- 原生和ZXing扫码后获取条码位置坐标返回，Demo中标记条码位置坐标
+- Demo中新增原生、ZXing、ZBar 三个库对应的扫码控制器，可根据需要定制修改
+
 #### 2.3 
 - 修改ZXing内存修改bug,完善ZXing扫码完成后，内存释放
 - Demo相机和相册权限获取代码优化
@@ -59,36 +65,41 @@ QQ交流群: 522806629
 
 
 ***
-- 安装所有库包括UI 
+- 安装所有库包括UI(不包含ZBar) 
 
 ```ruby
- pod 'LBXScan', '~> 2.3'
+ pod 'LBXScan', '~> 2.4'
 ```
 建议按下面这样分组写，安装好后按文件夹分组，否则所有文件在一个文件夹里，很乱
 
 ```ruby
-pod 'LBXScan/LBXNative','~> 2.3'
-pod 'LBXScan/LBXZXing','~> 2.3'
-pod 'LBXScan/LBXZBar','~> 2.3'
-pod 'LBXScan/UI','~> 2.3'
+pod 'LBXScan/LBXNative','~> 2.4'
+pod 'LBXScan/LBXZXing','~> 2.4'
+pod 'LBXScan/UI','~> 2.4'
+```
+
+需要ZBar支持的
+
+```ruby
+pod 'LBXZBarSDK','~> 1.3'
 ```
 
 - 只安装系统原生API封装库  
 
 ```ruby
-pod 'LBXScan/LBXNative','~> 2.3'
+pod 'LBXScan/LBXNative','~> 2.4'
 ```
 
 - 只安装ZXing封装库 
 
 ```ruby
-pod 'LBXScan/LBXZXing','~> 2.3'
+pod 'LBXScan/LBXZXing','~> 2.4'
 ```
 
 - 只安装ZBar封装库 
 
 ```ruby
-pod 'LBXScan/LBXZBar','~> 2.3'
+pod 'LBXZBarSDK','~> 1.3'
 ```
 
 - 只安装UI
@@ -157,7 +168,32 @@ return style;
 }
 ```
 
-### 使用扫码控制器LBXScanViewController
+### 扫码控制器示例代码(在Demo代码中,可根据需要自行修改)
+- 基类控制器 
+`LBXScanBaseViewController`
+
+- Native(原生扫码)扫码控制器
+
+```
+LBXScanNativeViewController
+QQScanNativeViewController
+```
+
+- ZXing扫码控制器
+
+```
+LBXScanZXingViewController
+QQScanZXingViewController
+```
+
+- ZBar扫码控制器
+
+```
+LBXScanZBarViewController
+QQScanZBarViewController
+```
+
+### 使用扫码控制器LBXScanViewController(API_DEPRECATED，不支持ZBar)
 
 如果你需要使用提供的扫码控制器LBXScanViewController(包含在UI模块中)，需要在你的工程中添加预编译头文件xx.pch文件或对应调用的地方添加对应的宏(LBXScanViewController代码包含了所有的库和UI，所以需要你根据你自己下载的库的情况，对应添加宏)
 

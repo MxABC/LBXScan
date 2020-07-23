@@ -10,7 +10,7 @@ pod 'LBXScan/LBXNative', path:"../"
 pod 'LBXScan/LBXZXing', path:"../"
 pod 'LBXScan/UI', path:"../"
 #pod 'LBXZBarSDK', git:"https://github.com/MxABC/LBXZBarSDK.git"
-pod 'LBXZBarSDK'
+pod 'LBXZBarSDK','~> 1.3'
 
 end
 
