@@ -6,29 +6,26 @@ PODS:
   - LBXScan/Types (2.3)
   - LBXScan/UI (2.3):
     - LBXScan/Types (~> 2.2)
-  - LBXZBarSDK (1.3.3)
+  - LBXZBarSDK (1.3.4)
 
 DEPENDENCIES:
   - LBXScan/LBXNative (from `../`)
   - LBXScan/LBXZXing (from `../`)
   - LBXScan/UI (from `../`)
-  - LBXZBarSDK (from `https://github.com/MxABC/LBXZBarSDK.git`)
+  - LBXZBarSDK
+
+SPEC REPOS:
+  trunk:
+    - LBXZBarSDK
 
 EXTERNAL SOURCES:
   LBXScan:
     :path: "../"
-  LBXZBarSDK:
-    :git: https://github.com/MxABC/LBXZBarSDK.git
-
-CHECKOUT OPTIONS:
-  LBXZBarSDK:
-    :commit: e5c4a07f64a961c1a016be55e4e2d5840b471099
-    :git: https://github.com/MxABC/LBXZBarSDK.git
 
 SPEC CHECKSUMS:
   LBXScan: eb3f88f8389b1eedf36a590b00c6290ec1d95a07
-  LBXZBarSDK: 21c887389a28d058f3a5ae121c2261d21b01cfd3
+  LBXZBarSDK: e32ffa0db6e9da403c88316ed86ec19e2da4c532
 
-PODFILE CHECKSUM: 8c0fde3ef29bdd3a352616cb583b3f263b8ea927
+PODFILE CHECKSUM: 3b72bbb2b73ed0159a6e1b06737c9197b684f69e
 
 COCOAPODS: 1.9.3

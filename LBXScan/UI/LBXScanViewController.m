@@ -59,7 +59,7 @@
         }else{
 
 #ifdef LBXScan_Define_UI
-            [_qRScanView stopDeviceReadying];
+            [self.qRScanView stopDeviceReadying];
 #endif
 
         }

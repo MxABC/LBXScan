@@ -31,6 +31,8 @@
  */
 @property (nonatomic, assign) zbar_symbol_type_t format;
 
+@property (nonatomic, assign) CGRect bounds;
+
 @end
 
 

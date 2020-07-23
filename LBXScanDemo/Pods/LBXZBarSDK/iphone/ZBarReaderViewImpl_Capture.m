@@ -89,8 +89,8 @@
     captureReader.captureDelegate = (id<ZBarCaptureDelegate>)self;
     [session addOutput: captureReader.captureOutput];
 
-    if([session canSetSessionPreset: AVCaptureSessionPreset640x480])
-        session.sessionPreset = AVCaptureSessionPreset640x480;
+    if([session canSetSessionPreset: AVCaptureSessionPresetHigh])
+        session.sessionPreset = AVCaptureSessionPresetHigh;
 
     [captureReader addObserver: self
                    forKeyPath: @"size"

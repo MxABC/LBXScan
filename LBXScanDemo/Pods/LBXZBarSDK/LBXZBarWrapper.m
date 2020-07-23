@@ -84,6 +84,7 @@
         result.strScanned = strCode;
         result.imgScanned = image;
         result.format = format;
+        result.bounds = symbol.bounds;
         
         [array addObject:result];
     }
