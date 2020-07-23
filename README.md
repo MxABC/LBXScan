@@ -16,7 +16,6 @@ QQ交流群: 522806629
 - [iOS扫码封装](#iOS扫码封装)
 - [DIY](#设置参数自定义效果)
 - [模仿其他app](#模仿其他app(通过设置参数即可完成))
-- [安装](#Installation with CocoaPods)
 - [DIY参数介绍](#DIY参数介绍)
 - [界面效果](#界面效果)
 
@@ -46,6 +45,7 @@ QQ交流群: 522806629
 - ZBarSDK 删除UIWebView，相机采集分辨率设置高分辨率[LBXZBarSDK](https://github.com/MxABC/LBXZBarSDK)
 - 当前库删除了ZBarSDK了依赖，需要ZBAR的，可单独一行pod
 - 原生和ZXing扫码后获取条码位置坐标返回，Demo中标记条码位置坐标
+- 原生扫码，支持相机预览放大(见Demo)
 - Demo中新增原生、ZXing、ZBar 三个库对应的扫码控制器，可根据需要定制修改
 
 #### 2.3 
