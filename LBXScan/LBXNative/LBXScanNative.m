@@ -393,29 +393,19 @@
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput2:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
-   
-    
     //识别扫码类型
     for(AVMetadataObject *current in metadataObjects)
     {
         if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]] )
         {
-            
             NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
             NSLog(@"type:%@",current.type);
             NSLog(@"result:%@",scannedResult);
-            
-            
-            
-         
-            
             //测试可以同时识别多个二维码
         }
     }
-    
-   
-    
 }
+
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
     if (!bNeedScanResult) {
@@ -631,17 +621,36 @@
 #pragma mark --识别条码图片
 + (void)recognizeImage:(UIImage*)image success:(void(^)(NSArray<LBXScanResult*> *array))block;
 {
+    if (!image) {
+        block(nil);
+        return;
+    }
+    
     if (@available(iOS 8.0, *)) {
         
-        CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
-        NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
+        CIImage * cimg = [CIImage imageWithCGImage:image.CGImage];
+        
+        if (!cimg) {
+            block(nil);
+            return;
+        }
+        
+        NSArray *features = nil;
+        @try {
+            CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
+            features = [detector featuresInImage:cimg];
+        } @catch (NSException *exception) {
+            block(nil);
+            return;
+        } @finally {
+            
+        }
+        
         NSMutableArray<LBXScanResult*> *mutableArray = [[NSMutableArray alloc]initWithCapacity:1];
         for (int index = 0; index < [features count]; index ++)
         {
             CIQRCodeFeature *feature = [features objectAtIndex:index];
             NSString *scannedResult = feature.messageString;
-            NSLog(@"result:%@",scannedResult);
-            
             LBXScanResult *item = [[LBXScanResult alloc]init];
             item.strScanned = scannedResult;
             item.strBarCodeType = CIDetectorTypeQRCode;
