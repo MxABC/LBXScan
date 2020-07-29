@@ -5,7 +5,7 @@
 [![Language](http://img.shields.io/badge/language-OC-yellow.svg?style=flat
              )](https://en.wikipedia.org/wiki/Objective-C)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org)
-![CocoaPods Version](https://img.shields.io/badge/pod-v2.3-brightgreen.svg)
+![CocoaPods Version](https://img.shields.io/badge/pod-v2.4-brightgreen.svg)
 
 [swift版本 点这里](https://github.com/MxABC/swiftScan)
 
@@ -217,5 +217,11 @@ QQScanZBarViewController
 
 
 # 界面效果
-![image](https://github.com/MxABC/Resource/blob/master/scan12.gif)
+![image](https://upload-images.jianshu.io/upload_images/4952852-e558da2ffb6c9fbe.gif?imageMogr2/auto-orient/strip)
+
+# 打赏作者
+
+如果LBXScan在开发中有帮助到你、如果你需要技术支持，都可以拼命打赏我！
+
+![支付.jpg](https://upload-images.jianshu.io/upload_images/4952852-f108de0181a55ee0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
