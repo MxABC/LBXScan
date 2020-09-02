@@ -120,7 +120,7 @@
     [self.capture stop];
 }
 
-- (void)setOrientation:(AVCaptureVideoOrientation)orientation
+- (void)setOrientation:(NSInteger)orientation
 {
     _orientation = orientation;
     
