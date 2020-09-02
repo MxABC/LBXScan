@@ -29,57 +29,70 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     self.title = @"native";
-
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     [self drawScanView];
     
-        
     [self requestCameraPemissionWithResult:^(BOOL granted) {
         
         if (granted) {
             
-            //不延时，可能会导致界面黑屏并卡住一会
-            [self performSelector:@selector(startScan) withObject:nil afterDelay:0.3];
-            
-        }else{
-            
-            [self.qRScanView stopDeviceReadying];
+            [self startScan];
         }
     }];
-    
- 
-   
+
 }
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    CGRect rect = self.view.frame;
+    rect.origin = CGPointMake(0, 0);
+    
+    self.qRScanView.frame = rect;
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+     [self reStartDevice];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self stopScan];
+
+    [self.qRScanView stopScanAnimation];
+
+}
+
+
 
 //绘制扫描区域
 - (void)drawScanView
 {
-    
     if (!self.qRScanView)
     {
-        CGRect rect = self.view.frame;
-        rect.origin = CGPointMake(0, 0);
         
-        self.qRScanView = [[LBXScanView alloc]initWithFrame:rect style:self.style];
+        self.qRScanView = [[LBXScanView alloc]initWithFrame:self.view.bounds style:self.style];
         
-        [self.view addSubview:self.qRScanView];
+        [self.view insertSubview:self.qRScanView atIndex:1];
     }
     
     if (!self.cameraInvokeMsg) {
         
-//        _cameraInvokeMsg = NSLocalizedString(@"wating...", nil);
+        self.cameraInvokeMsg = NSLocalizedString(@"wating...", nil);
     }
-    
-    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
 }
 
 - (void)reStartDevice
 {
+    
+    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
     [_scanObj startScan];
 }
 
@@ -88,13 +101,34 @@
 {
     if (!self.cameraPreView) {
         
-        UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
+        CGRect frame = self.view.bounds;
+        
+        frame.size.width = 0;
+        frame.size.height = 0;
+        
+        CGFloat width = [UIScreen mainScreen].bounds.size.width;
+        CGFloat height = [UIScreen mainScreen].bounds.size.height;
+        
+        if (  !(fabs(frame.size.width - width) <= 64 || fabs(frame.size.height - height) <= 64 ) ) {
+            
+            frame.size.width = width;
+            frame.size.height = height - 20;
+            
+            if (self.navigationController && !self.navigationController.navigationBarHidden ) {
+                
+                frame.size.height -= 44;
+            }
+        }
+        
+        UIView *videoView = [[UIView alloc]initWithFrame:frame];
         videoView.backgroundColor = [UIColor clearColor];
         [self.view insertSubview:videoView atIndex:0];
         
         self.cameraPreView = videoView;
     }
     
+    __weak __typeof(self) weakSelf = self;
+
     if (!_scanObj )
     {
         CGRect cropRect = CGRectZero;
@@ -105,7 +139,6 @@
             cropRect = [LBXScanView getScanRectWithPreView:self.view style:self.style];
         }
         
-        __weak __typeof(self) weakSelf = self;
 
         self.scanObj = [[LBXScanNative alloc]initWithPreView:self.cameraPreView ObjectType:self.listScanTypes cropRect:cropRect videoMaxScale:^(CGFloat maxScale) {
             [weakSelf setVideoMaxScale:maxScale];
@@ -117,12 +150,17 @@
         [_scanObj setNeedCaptureImage:self.isNeedScanImage];
         //是否需要返回条码坐标
         _scanObj.needCodePosion = YES;
+        _scanObj.continuous = self.continuous;
     }
+    
+    
+    _scanObj.onStarted = ^{
+        
+        [weakSelf.qRScanView stopDeviceReadying];
+        [weakSelf.qRScanView startScanAnimation];
+    };
+    
     [_scanObj startScan];
-    
-    
-    [self.qRScanView stopDeviceReadying];
-    [self.qRScanView startScanAnimation];
 
     self.view.backgroundColor = [UIColor clearColor];
 }
@@ -135,19 +173,6 @@
 - (void)setVideoMaxScale:(CGFloat)maxScale
 {
     
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
- 
-    [self stopScan];
-    
-
-    [self.qRScanView stopScanAnimation];
-
 }
 
 - (void)stopScan

@@ -18,7 +18,11 @@
  */
 @interface ZXingWrapper : NSObject
 
+///连续扫码，默认NO
+@property (nonatomic, assign) BOOL continuous;
 
+//相机启动完成
+@property (nonatomic, copy) void (^onStarted)(void);
 
 /**
  初始化ZXing

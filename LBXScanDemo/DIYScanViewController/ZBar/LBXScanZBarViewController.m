@@ -64,7 +64,7 @@
     
     if (!self.cameraInvokeMsg) {
         
-//        _cameraInvokeMsg = NSLocalizedString(@"wating...", nil);
+        self.cameraInvokeMsg = NSLocalizedString(@"wating...", nil);
     }
     [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
 }
@@ -91,6 +91,7 @@
             [weakSelf handZBarResult:result];
         }];
     }
+    _zbarObj.continuous = self.continuous;
     [_zbarObj start];
     
     

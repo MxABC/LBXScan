@@ -574,8 +574,16 @@
 
 + (BOOL)photoPermission
 {
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
-    {
+    if (@available(iOS 8.0, *)) {
+        
+        PHAuthorizationStatus authorStatus = [PHPhotoLibrary authorizationStatus];
+        if ( authorStatus == PHAuthorizationStatusDenied ) {
+            
+            return NO;
+        }
+        
+    }else{
+        
         ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
         
         if ( author == ALAuthorizationStatusDenied ) {
@@ -585,15 +593,8 @@
         return YES;
     }
     
-    PHAuthorizationStatus authorStatus = [PHPhotoLibrary authorizationStatus];
-    if ( authorStatus == PHAuthorizationStatusDenied ) {
-        
-        return NO;
-    }
-    return YES;
+    return NO;
 }
-
-
 
 
 @end

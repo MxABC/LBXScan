@@ -70,7 +70,10 @@
 
 - (void) readerView: (ZBarReaderView*) readerView  didReadSymbols: (ZBarSymbolSet*) symbols  fromImage: (UIImage*) image
 {
-    [self stop];
+    if (!_continuous) {
+        [self stop];
+    }
+    
     
     ZBarSymbol *symbol = nil;
     

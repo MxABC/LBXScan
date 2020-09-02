@@ -28,22 +28,24 @@
     
     self.title = @"ZXing";
     
-    self.isNeedScanImage = YES;
-  
+    self.isNeedScanImage = NO;
+    
+    [self drawScanView];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self drawScanView];
-    
+    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
+
+
     [self requestCameraPemissionWithResult:^(BOOL granted) {
 
         if (granted) {
-
-            //不延时，可能会导致界面黑屏并卡住一会
-            [self performSelector:@selector(startScan) withObject:nil afterDelay:0.3];
+            
+            [self startScan];
 
         }else{
             [self.qRScanView stopDeviceReadying];
@@ -55,46 +57,69 @@
 //绘制扫描区域
 - (void)drawScanView
 {
-    
     if (!self.qRScanView)
     {
-        CGRect rect = self.view.frame;
-        rect.origin = CGPointMake(0, 0);
+        self.qRScanView = [[LBXScanView alloc]initWithFrame:self.view.bounds style:self.style];
         
-        self.qRScanView = [[LBXScanView alloc]initWithFrame:rect style:self.style];
-        
-        [self.view addSubview:self.qRScanView];
+        [self.view insertSubview:self.qRScanView atIndex:1];
     }
     
     if (!self.cameraInvokeMsg) {
         
-//        _cameraInvokeMsg = NSLocalizedString(@"wating...", nil);
+        self.cameraInvokeMsg = NSLocalizedString(@"wating...", nil);
     }
-    
-    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
 
 }
 
 - (void)reStartDevice
 {
+    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
+    
     [_zxingObj start];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    self.cameraPreView.frame = self.view.bounds;
+    self.qRScanView.frame = self.view.bounds;
 }
 
 //启动设备
 - (void)startScan
 {
     if (!self.cameraPreView) {
-        UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-          videoView.backgroundColor = [UIColor clearColor];
-          [self.view insertSubview:videoView atIndex:0];
-          
-          self.cameraPreView = videoView;
+        
+        CGRect frame = self.view.bounds;
+        
+        frame.size.width = 0;
+        frame.size.height = 0;
+        
+        CGFloat width = [UIScreen mainScreen].bounds.size.width;
+        CGFloat height = [UIScreen mainScreen].bounds.size.height;
+        
+        if (  !(fabs(frame.size.width - width) <= 64 || fabs(frame.size.height - height) <= 64 ) ) {
+            
+            frame.size.width = width;
+            frame.size.height = height - 20;
+            
+            if (self.navigationController && !self.navigationController.navigationBarHidden ) {
+                
+                frame.size.height -= 44;
+            }
+        }
+        
+        UIView *videoView = [[UIView alloc]initWithFrame:frame];
+        videoView.backgroundColor = [UIColor clearColor];
+        [self.view insertSubview:videoView atIndex:0];
+        
+        self.cameraPreView = videoView;
     }
         
+    __weak __typeof(self) weakSelf = self;
     if (!_zxingObj) {
         
-        __weak __typeof(self) weakSelf = self;
-
         self.zxingObj = [[ZXingWrapper alloc]initWithPreView:self.cameraPreView success:^(ZXBarcodeFormat barcodeFormat, NSString *str, UIImage *scanImg, NSArray *resultPoints) {
             [weakSelf handZXingResult:barcodeFormat barStr:str scanImg:scanImg resultPoints:resultPoints];
         }];
@@ -107,13 +132,15 @@
             [_zxingObj setScanRect:cropRect];
         }
     }
+    _zxingObj.continuous = self.continuous;
     [_zxingObj start];
-
-
-    [self.qRScanView stopDeviceReadying];
-    [self.qRScanView startScanAnimation];
-
     
+    _zxingObj.onStarted = ^{
+        
+        [weakSelf.qRScanView stopDeviceReadying];
+        [weakSelf.qRScanView startScanAnimation];
+    };
+
     self.view.backgroundColor = [UIColor clearColor];
 }
 

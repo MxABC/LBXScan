@@ -36,7 +36,7 @@
         
         _arrayItems = @[
                         @[@"native",@"ZXing",@"ZBar"],
-                        [Global sharedManager].nativeTypes];
+                        [Global sharedManager].nativeTypes,@[@"是否连续扫码"]];
     }
     return _arrayItems;
 }
@@ -57,7 +57,7 @@
 #pragma mark --DataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return self.arrayItems.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -72,6 +72,9 @@
             break;
         case 1:
             return @"选择识别码制(ZXing库默认同时识别多个码制)";
+            break;
+        case 2:
+            return @"是否需要连续扫码";
             break;
         default:
             break;
@@ -121,6 +124,9 @@
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
             break;
+        case 2:
+            cell.accessoryType = [Global sharedManager].continuous ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+            break;
         default:
             break;
     }
@@ -151,6 +157,11 @@
                      [Global sharedManager].scanCodeType = indexPath.row;
                 }
             }
+        }
+            break;
+        case 2:
+        {
+            [Global sharedManager].continuous =  ![Global sharedManager].continuous;
         }
             break;
         default:

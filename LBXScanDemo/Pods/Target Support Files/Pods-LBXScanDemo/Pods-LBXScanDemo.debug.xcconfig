@@ -1,9 +1,9 @@
 EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*][arch=*] = ZBarReaderViewImpl_Simulator.m
 EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*][arch=*] = ZBarReaderViewImpl_Capture.m ZBarCaptureReader.m
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 NDEBUG=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/LBXScan" "${PODS_ROOT}/Headers/Public/LBXZBarSDK"
-LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/LBXScan" "${PODS_CONFIGURATION_BUILD_DIR}/LBXZBarSDK"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"LBXScan" -l"LBXZBarSDK" -l"iconv" -framework "AVFoundation" -framework "CoreGraphics" -framework "CoreMedia" -framework "CoreVideo" -framework "Foundation" -framework "ImageIO" -framework "QuartzCore"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/LBXScan" "${PODS_ROOT}/Headers/Public/LBXZBarSDK" "${PODS_ROOT}/Headers/Public/Toast"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/LBXScan" "${PODS_CONFIGURATION_BUILD_DIR}/LBXZBarSDK" "${PODS_CONFIGURATION_BUILD_DIR}/Toast"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"LBXScan" -l"LBXZBarSDK" -l"Toast" -l"iconv" -framework "AVFoundation" -framework "CoreGraphics" -framework "CoreMedia" -framework "CoreVideo" -framework "Foundation" -framework "ImageIO" -framework "QuartzCore"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

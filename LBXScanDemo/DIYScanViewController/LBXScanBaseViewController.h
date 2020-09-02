@@ -21,6 +21,12 @@
  */
 @property (nonatomic, assign) BOOL isNeedScanImage;
 
+
+/**
+@brief 是否需要连续扫码
+*/
+@property (nonatomic, assign) BOOL continuous;
+
 /**
  @brief  启动区域识别功能
  */

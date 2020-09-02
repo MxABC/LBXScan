@@ -16,6 +16,8 @@
 ////当前选择的识别码制
 @property (nonatomic, assign) SCANCODETYPE scanCodeType;
 
+@property (nonatomic, assign) BOOL continuous;
+
 + (instancetype)sharedManager;
 
 

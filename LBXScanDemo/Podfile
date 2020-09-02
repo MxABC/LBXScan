@@ -1,5 +1,5 @@
 
-platform :ios, '7.0'
+platform :ios, '8.0'
 
 target 'LBXScanDemo' do
 
@@ -11,6 +11,7 @@ pod 'LBXScan/LBXZXing', path:"../"
 pod 'LBXScan/UI', path:"../"
 #pod 'LBXZBarSDK', git:"https://github.com/MxABC/LBXZBarSDK.git"
 pod 'LBXZBarSDK','~> 1.3'
+pod 'Toast', '~> 4.0.0'
 
 end
 

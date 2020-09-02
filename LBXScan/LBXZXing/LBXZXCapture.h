@@ -42,6 +42,9 @@
 @property (nonatomic, assign) BOOL torch;
 @property (nonatomic, assign) CGAffineTransform transform;
 
+//相机启动完成
+@property (nonatomic, copy) void (^onStarted)(void);
+
 - (int)back;
 - (int)front;
 - (BOOL)hasBack;

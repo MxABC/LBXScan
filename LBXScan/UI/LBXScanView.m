@@ -116,6 +116,27 @@ NS_ASSUME_NONNULL_END
 {
     [super layoutSubviews];
     
+    if (_labelReadying && _activityView) {
+        
+        int XRetangleLeft = _viewStyle.xScanRetangleOffset;
+           
+           CGSize sizeRetangle = CGSizeMake(self.frame.size.width - XRetangleLeft*2, self.frame.size.width - XRetangleLeft*2);
+        
+        CGFloat YMinRetangle = self.frame.size.height / 2.0 - sizeRetangle.height/2.0 - _viewStyle.centerUpOffset;
+        
+        CGRect frame = _labelReadying.frame;
+        CGPoint centerPt = CGPointMake(self.frame.size.width/2 + 20, YMinRetangle + sizeRetangle.height/2);
+        _labelReadying.bounds = CGRectMake(0, 0, frame.size.width,30);
+        _labelReadying.center = centerPt;
+        
+        
+        _activityView.bounds = CGRectMake(0, 0, 30, 30);
+        if (_labelReadying.text)
+            _activityView.center = CGPointMake(centerPt.x - frame.size.width/2 - 24 , _labelReadying.center.y);
+        else
+            _activityView.center = CGPointMake(self.frame.size.width/2 , _labelReadying.center.y);
+    }
+    
     
 }
 

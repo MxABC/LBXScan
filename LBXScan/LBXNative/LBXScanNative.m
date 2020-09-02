@@ -8,6 +8,7 @@
 @interface LBXScanNative()<AVCaptureMetadataOutputObjectsDelegate>
 {
     BOOL bNeedScanResult;
+   
 }
 
 @property (assign,nonatomic)AVCaptureDevice * device;
@@ -19,6 +20,9 @@
 @property(nonatomic,strong)  AVCaptureStillImageOutput *stillImageOutput;//拍照
 
 @property(nonatomic,assign)BOOL isNeedCaputureImage;
+
+//启动中
+@property (nonatomic, assign)  BOOL starting;
 
 //扫码结果
 @property (nonatomic, strong) NSMutableArray<LBXScanResult*> *arrayResult;
@@ -111,6 +115,8 @@
 {
     
     self.needCodePosion = NO;
+    self.continuous = NO;
+    self.starting = NO;
     self.blockvideoMaxScale  = blockvideoMaxScale;
     
     self.arrayBarCodeType = objType;
@@ -276,16 +282,26 @@
 
 - (void)startScan
 {
-    if ( _input && !_session.isRunning )
+    if ( !_starting && _input && !_session.isRunning )
     {
-        [_session startRunning];
-        bNeedScanResult = YES;
+        _starting = YES;
         
-        [_videoPreView.layer insertSublayer:self.preview atIndex:0];
-        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [self.session startRunning];
+            self->bNeedScanResult = YES;
+            self.starting = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.videoPreView.layer insertSublayer:self.preview atIndex:0];
+                if (self.onStarted) {
+                    self.onStarted();
+                }
+            });
+            
+        });
        // [_input.device addObserver:self forKeyPath:@"torchMode" options:0 context:nil];
     }
-    bNeedScanResult = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -302,13 +318,24 @@
     if ( _input && _session.isRunning )
     {
         bNeedScanResult = NO;
-        [_session stopRunning];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+           
+            [self.session stopRunning];
+            self.starting  = NO;
+        });
     }
+}
+
+- (BOOL)hasTorch
+{
+    return [_input.device hasTorch];
 }
 
 - (void)setTorch:(BOOL)torch {   
     if ([self.input.device hasTorch]) {
-        [self.input.device lockForConfiguration:nil];
+        NSError *error = nil;
+        if([self.input.device lockForConfiguration:&error])
         self.input.device.torchMode = torch ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
         [self.input.device unlockForConfiguration];
     }
@@ -316,24 +343,27 @@
 
 - (void)changeTorch
 {
-    AVCaptureTorchMode torch = self.input.device.torchMode;
-   
-    switch (_input.device.torchMode) {
-        case AVCaptureTorchModeAuto:
-            break;
-        case AVCaptureTorchModeOff:
-            torch = AVCaptureTorchModeOn;
-            break;
-        case AVCaptureTorchModeOn:
-            torch = AVCaptureTorchModeOff;
-            break;
-        default:
-            break;
+    if ([self.input.device hasTorch]) {
+        
+        AVCaptureTorchMode torch = self.input.device.torchMode;
+        
+        switch (_input.device.torchMode) {
+            case AVCaptureTorchModeAuto:
+                break;
+            case AVCaptureTorchModeOff:
+                torch = AVCaptureTorchModeOn;
+                break;
+            case AVCaptureTorchModeOn:
+                torch = AVCaptureTorchModeOff;
+                break;
+            default:
+                break;
+        }
+        
+        [_input.device lockForConfiguration:nil];
+        _input.device.torchMode = torch;
+        [_input.device unlockForConfiguration];
     }
-    
-    [_input.device lockForConfiguration:nil];
-    _input.device.torchMode = torch;
-    [_input.device unlockForConfiguration];
 }
 
 
@@ -367,26 +397,27 @@
     [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:stillImageConnection
                                                          completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error)
      {
-         [self stopScan];
-         
-         if (imageDataSampleBuffer)
-         {
-             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-             
-             UIImage *img = [UIImage imageWithData:imageData];
-             
-             for (LBXScanResult* result in self.arrayResult) {
-                 
-                 result.imgScanned = img;
-             }
-         }
-         
+        if (!self.continuous) {
+            [self stopScan];
+        }
+        
+        if (imageDataSampleBuffer)
+        {
+            NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            
+            UIImage *img = [UIImage imageWithData:imageData];
+            
+            for (LBXScanResult* result in self.arrayResult) {
+                
+                result.imgScanned = img;
+            }
+        }
+        
         if (self.blockScanResult)
-         {
-             self.blockScanResult(self.arrayResult);
-         }
-         
-     }];
+        {
+            self.blockScanResult(self.arrayResult);
+        }
+    }];
 }
 
 
@@ -460,17 +491,23 @@
         return;
     }
     
-    if (!_needCodePosion && _isNeedCaputureImage)
+    if (!_continuous && !_needCodePosion && _isNeedCaputureImage)
     {
         [self captureImage];
     }
     else
     {
-        [self stopScan];
+        if (!_continuous) {
+            [self stopScan];
+        }
         
         if (_blockScanResult) {
             _blockScanResult(_arrayResult);
         }
+    }
+    
+    if (_continuous) {
+        bNeedScanResult = YES;
     }
 }
 

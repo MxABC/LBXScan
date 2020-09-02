@@ -35,6 +35,7 @@
 		77576ECE1FEF741F00578A6B /* LBXPermissionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EBF1FEF741E00578A6B /* LBXPermissionCamera.m */; };
 		77576ECF1FEF741F00578A6B /* LBXPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EC01FEF741E00578A6B /* LBXPermission.m */; };
 		8D06C00822446BDC002DE116 /* LBXPermissionPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D06C00722446BDC002DE116 /* LBXPermissionPhotos.m */; };
+		8D8FD99224FE3A0500912624 /* LBXToast..m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8FD99024FE3A0500912624 /* LBXToast..m */; };
 		8D9B64F724C543040098EA52 /* LBXScanNativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B64F524C543040098EA52 /* LBXScanNativeViewController.m */; };
 		8D9B64FA24C55F6E0098EA52 /* LBXScanZXingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B64F824C55F6E0098EA52 /* LBXScanZXingViewController.m */; };
 		8D9B64FD24C561600098EA52 /* LBXScanZBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9B64FC24C561600098EA52 /* LBXScanZBarViewController.m */; };
@@ -98,6 +99,8 @@
 		77576EC21FEF741E00578A6B /* LBXPermissionSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionSetting.h; sourceTree = "<group>"; };
 		8D06C00622446BDC002DE116 /* LBXPermissionPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionPhotos.h; sourceTree = "<group>"; };
 		8D06C00722446BDC002DE116 /* LBXPermissionPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionPhotos.m; sourceTree = "<group>"; };
+		8D8FD99024FE3A0500912624 /* LBXToast..m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXToast..m; sourceTree = "<group>"; };
+		8D8FD99124FE3A0500912624 /* LBXToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXToast.h; sourceTree = "<group>"; };
 		8D9B64F524C543040098EA52 /* LBXScanNativeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanNativeViewController.m; sourceTree = "<group>"; };
 		8D9B64F624C543040098EA52 /* LBXScanNativeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanNativeViewController.h; sourceTree = "<group>"; };
 		8D9B64F824C55F6E0098EA52 /* LBXScanZXingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXScanZXingViewController.m; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 				8D9B650124C574760098EA52 /* Native */,
 				8D9B64FE24C568FD0098EA52 /* LBXScanBaseViewController.h */,
 				8D9B64FF24C568FD0098EA52 /* LBXScanBaseViewController.m */,
+				8D8FD99024FE3A0500912624 /* LBXToast..m */,
+				8D8FD99124FE3A0500912624 /* LBXToast.h */,
 				730D98311E8F8AAD001BBB6F /* StyleDIY.h */,
 				730D98321E8F8AAD001BBB6F /* StyleDIY.m */,
 			);
@@ -435,6 +440,7 @@
 				73584FF21E1CE4B900ED6A60 /* UIAlertController+supportedInterfaceOrientations.m in Sources */,
 				8D06C00822446BDC002DE116 /* LBXPermissionPhotos.m in Sources */,
 				77576ECA1FEF741F00578A6B /* LBXPermissionSetting.m in Sources */,
+				8D8FD99224FE3A0500912624 /* LBXToast..m in Sources */,
 				8D9B650024C568FD0098EA52 /* LBXScanBaseViewController.m in Sources */,
 				73584FF51E1CE4B900ED6A60 /* LBXAlertAction.m in Sources */,
 				77576ECF1FEF741F00578A6B /* LBXPermission.m in Sources */,
@@ -566,17 +572,18 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LBXScanDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = LBXScanDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk2019234;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk201923;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -592,7 +599,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LBXScanDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = LBXScanDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -601,6 +608,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk2019234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -36,8 +36,14 @@
         self.capture.rotation = 90.0f;
         
         self.capture.delegate = self;
+        self.continuous = NO;
     }
     return self;
+}
+
+- (void)setOnStarted:(void (^)(void))onStarted
+{
+    self.capture.onStarted = onStarted;
 }
 
 - (id)initWithPreView:(UIView*)preView block:(void(^)(ZXBarcodeFormat barcodeFormat,NSString *str,UIImage *scanImg))block
@@ -128,8 +134,12 @@
         
         return;
     }
-
-     [self stop];
+    
+    if (!_continuous) {
+        
+         [self stop];
+    }
+    
     
     if (_onSuccess) {
         _onSuccess(result.barcodeFormat,result.text,img,result.resultPoints);

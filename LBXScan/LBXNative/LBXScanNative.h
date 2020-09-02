@@ -26,6 +26,12 @@
 /// 是否需要条码位置信息,默认NO,位置信息在LBXScanResult中返回
 @property (nonatomic, assign) BOOL needCodePosion;
 
+///连续扫码，默认NO
+@property (nonatomic, assign) BOOL continuous;
+
+//相机启动完成
+@property (nonatomic, copy) void (^onStarted)(void);
+
 #pragma mark --初始化
 /**
  @brief  初始化采集相机
@@ -98,6 +104,11 @@
  */
 - (void)stopScan;
 
+
+/*!
+*  是否有闪光灯，在启动完成后可调用
+*/
+- (BOOL)hasTorch;
 /**
  *  开启关闭闪光灯
  *

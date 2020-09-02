@@ -10,6 +10,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
 #import "ScanResultViewController.h"
+#import "LBXToast.h"
 
 @interface LBXScanBaseViewController ()
 
@@ -37,7 +38,10 @@
         NSLog(@"失败失败了。。。。");
         NSLog(@"失败失败了。。。。");
             
-        [self reStartDevice];
+        if (!_continuous) {
+            [self reStartDevice];
+        }
+        
         return;
     }
     
@@ -50,6 +54,17 @@
     LBXScanResult *scanResult = array[0];
     
     NSString*strResult = scanResult.strScanned;
+    
+    
+    if (_continuous) {
+    
+        if (strResult) {
+            [LBXToast showToastWithMessage:strResult];
+        }
+        
+        return;
+    }
+    
     
     if (!strResult) {
         
@@ -77,10 +92,10 @@
         //条码位置边缘绘制及内部填充
         [self didDetectCodes:scanResult.bounds corner:scanResult.corners];
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
                  [self showNextVCWithScanResult:scanResult];
-            });
+//            });
         });
     }
     else
@@ -184,17 +199,25 @@
 
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
-    ScanResultViewController *vc = [ScanResultViewController new];
-    vc.imgScan = strResult.imgScanned;
     
-    vc.strScan = strResult.strScanned;
-    
-    vc.strCodeType = strResult.strBarCodeType;
-    
-    [self.navigationController pushViewController:vc animated:YES];
-    
-    //隐藏标记条码位置的信息
-    [self resetCodeFlagView];
+    if (_continuous) {
+        
+    }else
+    {
+        
+        ScanResultViewController *vc = [ScanResultViewController new];
+           vc.imgScan = strResult.imgScanned;
+           
+           vc.strScan = strResult.strScanned;
+           
+           vc.strCodeType = strResult.strBarCodeType;
+           
+           [self.navigationController pushViewController:vc animated:YES];
+           
+           //隐藏标记条码位置的信息
+           [self resetCodeFlagView];
+    }
+   
 }
 
 

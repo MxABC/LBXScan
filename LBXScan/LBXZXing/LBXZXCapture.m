@@ -304,7 +304,18 @@
             abort();
         }
         
-        [self.session startRunning];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [self.session startRunning];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.onStarted) {
+                    self.onStarted();
+                }
+            });
+            
+        });
+       
     }
     self.running = YES;
 }
@@ -317,7 +328,10 @@
     
     if (self.session.running) {
         // [self.layer removeFromSuperlayer];
-        [self.session stopRunning];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self.session stopRunning];
+        });
+        
     }
     self.running = NO;
 }

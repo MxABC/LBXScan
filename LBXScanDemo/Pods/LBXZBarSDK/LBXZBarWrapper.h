@@ -51,6 +51,9 @@
 @interface LBXZBarWrapper : NSObject
 
 
+///连续扫码，默认NO
+@property (nonatomic, assign) BOOL continuous;
+
 
 
 /**

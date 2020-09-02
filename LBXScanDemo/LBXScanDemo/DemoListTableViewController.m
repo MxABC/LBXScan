@@ -231,6 +231,8 @@
             //镜头拉远拉近功能
             vc.isVideoZoom = YES;
             vc.cameraInvokeMsg = @"相机启动中";
+            vc.continuous = [Global sharedManager].continuous;
+
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -239,6 +241,8 @@
             QQScanZXingViewController *vc = [QQScanZXingViewController new];
             vc.style = [StyleDIY qqStyle];
             vc.cameraInvokeMsg = @"相机启动中";
+            vc.continuous = [Global sharedManager].continuous;
+
             [self.navigationController pushViewController:vc animated:YES];
         }
             
@@ -249,6 +253,8 @@
             vc.style = [StyleDIY qqStyle];
             
             vc.cameraInvokeMsg = @"相机启动中";
+            vc.continuous = [Global sharedManager].continuous;
+
             [self.navigationController pushViewController:vc animated:YES];
             
         }
@@ -320,7 +326,6 @@
 {
     LBXScanBaseViewController *vc = nil;
     
-    
     switch ([Global sharedManager].libraryType) {
         case SLT_Native:
         {
@@ -349,6 +354,9 @@
     
     //开启只识别框内,ZBar暂不支持
     vc.isOpenInterestRect = NO;
+    
+    vc.continuous = [Global sharedManager].continuous;
+
     
     return vc;
     
