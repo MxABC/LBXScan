@@ -109,17 +109,21 @@
     
     switch ([Global sharedManager].libraryType) {
         case SLT_Native:
-            self.title = @"当前使用库:native";
+            self.title = @"当前库:native";
             break;
         case SLT_ZXing:
-            self.title = @"当前使用库:ZXing";
+            self.title = @"当前库:ZXing";
             break;
         case SLT_ZBar:
-            self.title = @"当前使用库:ZBar";
+            self.title = @"当前库:ZBar";
             break;
         default:
             break;
     }
+    
+        
+    self.title = [NSString stringWithFormat:@"%@-%@",self.title,[Global sharedManager].continuous ? @"连续扫码" : @"不连续扫码" ];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -215,7 +219,7 @@
     LBXScanBaseViewController *vc = [self createScanVC];
     
     vc.style = style;
-    
+    vc.orientation = [StyleDIY videoOrientation];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -227,7 +231,7 @@
         {
             QQScanNativeViewController *vc = [QQScanNativeViewController new];
             vc.style = [StyleDIY qqStyle];
-            
+            vc.orientation = [StyleDIY videoOrientation];
             //镜头拉远拉近功能
             vc.isVideoZoom = YES;
             vc.cameraInvokeMsg = @"相机启动中";
@@ -242,7 +246,7 @@
             vc.style = [StyleDIY qqStyle];
             vc.cameraInvokeMsg = @"相机启动中";
             vc.continuous = [Global sharedManager].continuous;
-
+            vc.orientation = [StyleDIY videoOrientation];
             [self.navigationController pushViewController:vc animated:YES];
         }
             
@@ -254,7 +258,7 @@
             
             vc.cameraInvokeMsg = @"相机启动中";
             vc.continuous = [Global sharedManager].continuous;
-
+            vc.orientation = [StyleDIY videoOrientation];
             [self.navigationController pushViewController:vc animated:YES];
             
         }

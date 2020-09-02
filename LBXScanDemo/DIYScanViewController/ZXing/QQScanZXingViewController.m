@@ -30,6 +30,39 @@
     
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    
+    if (_topTitle) {
+        
+        _topTitle.bounds = CGRectMake(0, 0, 145, 60);
+        _topTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2, 50);
+    }
+    
+    if (_bottomItemsView) {
+        
+        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.frame)-164,
+                                  CGRectGetWidth(self.view.frame), 100);
+        
+        self.bottomItemsView.frame = frame;
+        CGSize size = CGSizeMake(65, 87);
+
+        _btnFlash.bounds = CGRectMake(0, 0, size.width, size.height);
+        _btnFlash.center = CGPointMake(CGRectGetWidth(_bottomItemsView.frame)/2, CGRectGetHeight(_bottomItemsView.frame)/2);
+        
+        _btnPhoto.bounds = _btnFlash.bounds;
+        _btnPhoto.center = CGPointMake(CGRectGetWidth(_bottomItemsView.frame)/4, CGRectGetHeight(_bottomItemsView.frame)/2);
+        
+        _btnMyQR.bounds = _btnFlash.bounds;
+        _btnMyQR.center = CGPointMake(CGRectGetWidth(_bottomItemsView.frame) * 3/4, CGRectGetHeight(_bottomItemsView.frame)/2);
+        
+    }
+        
+}
+
+
 
 - (void)viewDidAppear:(BOOL)animated
 {

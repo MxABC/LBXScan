@@ -13,6 +13,72 @@
 @implementation StyleDIY
 
 
++ (BOOL)isLandScape
+{
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+
+    BOOL landScape = NO;
+    
+    
+    switch (orientation) {
+        case UIDeviceOrientationPortrait: {
+            landScape = NO;
+        }
+            break;
+        case UIDeviceOrientationLandscapeLeft: {
+            landScape = YES;
+        }
+            break;
+        case UIDeviceOrientationLandscapeRight: {
+            
+            landScape = YES;
+        }
+            break;
+        case UIDeviceOrientationPortraitUpsideDown: {
+            
+            landScape = NO;
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return landScape;
+    
+}
+
++ (AVCaptureVideoOrientation)videoOrientation
+{
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    
+    switch (orientation) {
+        case UIDeviceOrientationPortrait: {
+            return AVCaptureVideoOrientationPortrait;
+        }
+            break;
+        case UIDeviceOrientationLandscapeRight : {
+            return AVCaptureVideoOrientationLandscapeLeft;
+        }
+            break;
+        case UIDeviceOrientationLandscapeLeft: {
+            return AVCaptureVideoOrientationLandscapeRight;
+            
+        }
+            break;
+        case UIDeviceOrientationPortraitUpsideDown: {
+            return AVCaptureVideoOrientationPortraitUpsideDown;
+            
+        }
+            break;
+        default:
+            return AVCaptureVideoOrientationPortrait;
+            break;
+    }
+    
+    return AVCaptureVideoOrientationPortrait;
+}
+
 #pragma mark -模仿qq界面
 + (LBXScanViewStyle*)qqStyle
 {
@@ -43,10 +109,13 @@
     style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
     
     style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
-
+    
+    
+    [self modifyLandScape:style];
     
     return style;
 }
+
 
 #pragma mark --模仿支付宝
 + (LBXScanViewStyle*)ZhiFuBaoStyle
@@ -60,7 +129,7 @@
     {
         //3.5inch 显示的扫码缩小
         style.centerUpOffset = 40;
-        style.xScanRetangleOffset = 20;
+        style.xScanRetangleOffset = 40;
     }
     
     style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Inner;
@@ -78,7 +147,34 @@
     UIImage *imgFullNet = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_full_net"];
     style.animationImage = imgFullNet;
     
+    
+    [self modifyLandScape:style];
+    
     return style;
+}
+
++ (void)modifyLandScape:(LBXScanViewStyle*)style
+{
+    if ([self isLandScape]) {
+          
+          style.centerUpOffset = 20;
+          
+          CGFloat w = [UIScreen mainScreen].bounds.size.width;
+          CGFloat h = [UIScreen mainScreen].bounds.size.height;
+          
+          CGFloat max = MAX(w, h);
+          
+          CGFloat min = MIN(w, h);
+          
+          CGFloat scanRetangeH = min / 3;
+          
+          style.xScanRetangleOffset = max / 2 - scanRetangeH / 2;
+      }
+      else
+      {
+          style.centerUpOffset = 40;
+          style.xScanRetangleOffset = 60;
+      }
 }
 
 #pragma mark -无边框，内嵌4个角
@@ -101,6 +197,7 @@
     
     style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 
+    [self modifyLandScape:style];
     
     return style;
 }
@@ -126,7 +223,8 @@
     
     style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 
-    
+    [self modifyLandScape:style];
+
     return style;
 }
 
@@ -152,6 +250,8 @@
     
     style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 
+    [self modifyLandScape:style];
+
     
     return style;
 }
@@ -174,6 +274,8 @@
     style.animationImage = imgPartNet;
     
     style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
+    [self modifyLandScape:style];
 
     
     return style;
@@ -207,6 +309,9 @@
     //非矩形框区域颜色
     style.notRecoginitonArea = [UIColor colorWithRed:247./255. green:202./255 blue:15./255 alpha:0.2];
     
+    [self modifyLandScape:style];
+
+    
     return style;
 }
 
@@ -233,6 +338,8 @@
     style.animationImage = imgLine;
     
     style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
+    [self modifyLandScape:style];
 
     
     return style;
@@ -272,6 +379,8 @@
     style.xScanRetangleOffset = 30;
     
     style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
+    [self modifyLandScape:style];
 
     
     return style;

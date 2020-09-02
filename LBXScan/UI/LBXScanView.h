@@ -19,6 +19,8 @@
  */
 @interface LBXScanView : UIView
 
+//扫码区域各种参数
+@property (nonatomic, strong) LBXScanViewStyle* viewStyle;
 /**
  @brief  初始化
  @param frame 位置大小

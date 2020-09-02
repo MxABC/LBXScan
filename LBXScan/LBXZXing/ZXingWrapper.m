@@ -34,9 +34,9 @@
         self.capture.camera = self.capture.back;
         self.capture.focusMode = AVCaptureFocusModeContinuousAutoFocus;
         self.capture.rotation = 90.0f;
-        
         self.capture.delegate = self;
         self.continuous = NO;
+        self.orientation = AVCaptureVideoOrientationPortrait;
     }
     return self;
 }
@@ -54,8 +54,9 @@
         self.capture.camera = self.capture.back;
         self.capture.focusMode = AVCaptureFocusModeContinuousAutoFocus;
         self.capture.rotation = 90.0f;
-        
         self.capture.delegate = self;
+        self.continuous = NO;
+        self.orientation = AVCaptureVideoOrientationPortrait;
         
         self.success = block;
         
@@ -79,8 +80,9 @@
         self.capture.camera = self.capture.back;
         self.capture.focusMode = AVCaptureFocusModeContinuousAutoFocus;
         self.capture.rotation = 90.0f;
-        
         self.capture.delegate = self;
+        self.continuous = NO;
+        self.orientation = AVCaptureVideoOrientationPortrait;
         
         self.onSuccess = success;
         
@@ -104,14 +106,34 @@
 - (void)start
 {
     self.bNeedScanResult = YES;
-    [self.capture start];
     
+    AVCaptureVideoPreviewLayer * preview = (AVCaptureVideoPreviewLayer*)self.capture.layer;
+    preview.connection.videoOrientation = self.orientation;
+    
+    [self.capture start];
 }
+
 
 - (void)stop
 {
     self.bNeedScanResult = NO;
     [self.capture stop];
+}
+
+- (void)setOrientation:(AVCaptureVideoOrientation)orientation
+{
+    _orientation = orientation;
+    
+    AVCaptureVideoPreviewLayer * preview = (AVCaptureVideoPreviewLayer*)self.capture.layer;
+       preview.connection.videoOrientation = self.orientation;
+}
+
+- (void)setVideoLayerframe:(CGRect)videoLayerframe
+{
+    _videoLayerframe = videoLayerframe;
+    
+    AVCaptureVideoPreviewLayer * preview = (AVCaptureVideoPreviewLayer*)self.capture.layer;
+    preview.frame = videoLayerframe;
 }
 
 - (void)openTorch:(BOOL)on_off

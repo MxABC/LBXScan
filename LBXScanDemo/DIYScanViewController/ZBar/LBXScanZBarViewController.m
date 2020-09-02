@@ -25,29 +25,33 @@
     }
     
     self.view.backgroundColor = [UIColor blackColor];
-    self.title = @"ZBar";
     
-}
+    self.title = [NSString stringWithFormat:@"ZBar,不支持横屏 - %@",self.continuous ? @"连续扫码" : @"不连续扫码"];
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     [self drawScanView];
     
     [self requestCameraPemissionWithResult:^(BOOL granted) {
-
+        
         if (granted) {
-
-            //不延时，可能会导致界面黑屏并卡住一会
-            [self performSelector:@selector(startScan) withObject:nil afterDelay:0.3];
-
+            
+            [self startScan];
+            
         }else{
             [self.qRScanView stopDeviceReadying];
         }
     }];
-   
+    
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (!self.firstLoad) {
+        [self reStartDevice];
+    }
+}
+
 
 //绘制扫描区域
 - (void)drawScanView
@@ -59,40 +63,69 @@
         
         self.qRScanView = [[LBXScanView alloc]initWithFrame:rect style:self.style];
         
-        [self.view addSubview:self.qRScanView];
+        [self.view insertSubview:self.qRScanView atIndex:1];
     }
     
     if (!self.cameraInvokeMsg) {
         
         self.cameraInvokeMsg = NSLocalizedString(@"wating...", nil);
     }
-    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
 }
 
 - (void)reStartDevice
 {
+    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
+
     [_zbarObj start];
+    
+    [self.qRScanView stopDeviceReadying];
+    [self.qRScanView startScanAnimation];
 }
 
 //启动设备
 - (void)startScan
 {
-    UIView *videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-    videoView.backgroundColor = [UIColor clearColor];
-    [self.view insertSubview:videoView atIndex:0];
+    if (!self.cameraPreView) {
+        
+        CGRect frame = self.view.bounds;
+        
+        CGFloat width = [UIScreen mainScreen].bounds.size.width;
+        CGFloat height = [UIScreen mainScreen].bounds.size.height;
+        
+        if (  !(fabs(frame.size.width - width) <= 64 || fabs(frame.size.height - height) <= 64 ) ) {
+            
+            frame.size.width = width;
+            frame.size.height = height - 20;
+            
+            if (self.navigationController && !self.navigationController.navigationBarHidden ) {
+                
+                frame.size.height -= 44;
+            }
+        }
+        
+        UIView *videoView = [[UIView alloc]initWithFrame:frame];
+        videoView.backgroundColor = [UIColor clearColor];
+        [self.view insertSubview:videoView atIndex:0];
+        
+        self.cameraPreView = videoView;
+    }
     
-    self.cameraPreView = videoView;
     __weak __typeof(self) weakSelf = self;
     
     if (!_zbarObj) {
         
-        self.zbarObj = [[LBXZBarWrapper alloc]initWithPreView:videoView barCodeType:self.zbarType block:^(NSArray<LBXZbarResult *> *result) {
+        self.zbarObj = [[LBXZBarWrapper alloc]initWithPreView:self.cameraPreView barCodeType:self.zbarType block:^(NSArray<LBXZbarResult *> *result) {
             
             [weakSelf handZBarResult:result];
         }];
     }
     _zbarObj.continuous = self.continuous;
+    
+#if TARGET_OS_SIMULATOR
+    
+#else
     [_zbarObj start];
+#endif
     
     
     [self.qRScanView stopDeviceReadying];

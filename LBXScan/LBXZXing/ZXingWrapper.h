@@ -24,6 +24,8 @@
 //相机启动完成
 @property (nonatomic, copy) void (^onStarted)(void);
 
+@property (nonatomic, assign) AVCaptureVideoOrientation  orientation;
+@property (nonatomic, assign) CGRect videoLayerframe;
 /**
  初始化ZXing
 

@@ -74,7 +74,6 @@
         [self stop];
     }
     
-    
     ZBarSymbol *symbol = nil;
     
     NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:1];

@@ -29,6 +29,10 @@
 ///连续扫码，默认NO
 @property (nonatomic, assign) BOOL continuous;
 
+//default  AVCaptureVideoOrientationPortrait
+@property (nonatomic, assign) AVCaptureVideoOrientation  orientation;
+@property (nonatomic, assign) CGRect videoLayerframe;
+
 //相机启动完成
 @property (nonatomic, copy) void (^onStarted)(void);
 

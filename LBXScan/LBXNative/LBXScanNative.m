@@ -117,6 +117,7 @@
     self.needCodePosion = NO;
     self.continuous = NO;
     self.starting = NO;
+    self.orientation = AVCaptureVideoOrientationPortrait;
     self.blockvideoMaxScale  = blockvideoMaxScale;
     
     self.arrayBarCodeType = objType;
@@ -272,12 +273,27 @@
     if (_output) {
         _output.rectOfInterest = [self.preview metadataOutputRectOfInterestForRect:scanRect];
     }
-    
 }
 
 - (void)changeScanType:(NSArray*)objType
 {    
     _output.metadataObjectTypes = objType;
+}
+
+- (void)setOrientation:(AVCaptureVideoOrientation)orientation
+{
+    _orientation = orientation;
+    
+    if ( _input  )
+    {
+        self.preview.connection.videoOrientation = self.orientation;
+    }
+
+}
+
+- (void)setVideoLayerframe:(CGRect)videoLayerframe
+{
+    self.preview.frame = videoLayerframe;
 }
 
 - (void)startScan
@@ -288,19 +304,20 @@
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
+            self.preview.connection.videoOrientation = self.orientation;
+
             [self.session startRunning];
             self->bNeedScanResult = YES;
             self.starting = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 
+
                 [self.videoPreView.layer insertSublayer:self.preview atIndex:0];
                 if (self.onStarted) {
                     self.onStarted();
                 }
             });
-            
         });
-       // [_input.device addObserver:self forKeyPath:@"torchMode" options:0 context:nil];
     }
 }
 

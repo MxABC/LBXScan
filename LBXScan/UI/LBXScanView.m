@@ -14,8 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LBXScanView()
 
-//扫码区域各种参数
-@property (nonatomic, strong,nullable) LBXScanViewStyle* viewStyle;
+
 
 
 //扫码区域
@@ -159,6 +158,9 @@ NS_ASSUME_NONNULL_END
  */
 - (void)startScanAnimation
 {
+    
+    [self refreshScanRetangleRect];
+    
     switch (_viewStyle.anmiationStyle)
     {
         case LBXScanViewAnimationStyle_LineMove:
@@ -210,17 +212,47 @@ NS_ASSUME_NONNULL_END
 {
     if (_scanLineAnimation) {
         [_scanLineAnimation stopAnimating];
+        self.scanLineAnimation = nil;
     }
     
     if (_scanNetAnimation) {
         [_scanNetAnimation stopAnimating];
+        self.scanNetAnimation = nil;
     }
     
     if (_scanLineStill) {
         [_scanLineStill removeFromSuperview];
+        self.scanLineStill = nil;
     }
 }
 
+
+- (void)refreshScanRetangleRect
+{
+    int XRetangleLeft = _viewStyle.xScanRetangleOffset;
+       
+       CGSize sizeRetangle = CGSizeMake(self.frame.size.width - XRetangleLeft*2, self.frame.size.width - XRetangleLeft*2);
+       
+       //if (!_viewStyle.isScanRetangelSquare)
+       if (_viewStyle.whRatio != 1)
+       {
+           CGFloat w = sizeRetangle.width;
+           CGFloat h = w / _viewStyle.whRatio;
+           
+           NSInteger hInt = (NSInteger)h;
+           h  = hInt;
+           
+           sizeRetangle = CGSizeMake(w, h);
+       }
+       
+       //扫码区域Y轴最小坐标
+       CGFloat YMinRetangle = self.frame.size.height / 2.0 - sizeRetangle.height/2.0 - _viewStyle.centerUpOffset;
+//       CGFloat YMaxRetangle = YMinRetangle + sizeRetangle.height;
+//       CGFloat XRetangleRight = self.frame.size.width - XRetangleLeft;
+    
+    _scanRetangleRect = CGRectMake(XRetangleLeft, YMinRetangle, sizeRetangle.width, sizeRetangle.height);
+
+}
 
 - (void)drawScanRect
 {

@@ -96,9 +96,9 @@
     AVCaptureVideoPreviewLayer *layer = (AVCaptureVideoPreviewLayer *)_layer;
     if (!_layer) {
         layer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-        layer.affineTransform = self.transform;
-        layer.delegate = self;
-        layer.videoGravity = AVLayerVideoGravityResizeAspect;
+//        layer.affineTransform = self.transform;
+//        layer.delegate = self;
+//        layer.videoGravity = AVLayerVideoGravityResizeAspect;
         layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         
         _layer = layer;
@@ -309,6 +309,7 @@
             [self.session startRunning];
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 if (self.onStarted) {
                     self.onStarted();
                 }

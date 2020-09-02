@@ -26,21 +26,13 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    self.title = @"ZXing";
-    
+    self.title = [NSString stringWithFormat:@"ZXing 支持横竖屏切换 - %@",self.continuous ? @"连续扫码" : @"不连续扫码"];
+
     self.isNeedScanImage = NO;
     
     [self drawScanView];
     
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
-    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
-
-
     [self requestCameraPemissionWithResult:^(BOOL granted) {
 
         if (granted) {
@@ -51,7 +43,39 @@
             [self.qRScanView stopDeviceReadying];
         }
     }];
-   
+    
+}
+
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    CGRect rect = self.view.frame;
+    rect.origin = CGPointMake(0, 0);
+    
+    self.qRScanView.frame = rect;
+    
+    self.cameraPreView.frame = self.view.bounds;
+    
+    if (_zxingObj) {
+        [_zxingObj setVideoLayerframe:self.cameraPreView.frame];
+    }
+    
+    [self.qRScanView stopScanAnimation];
+    
+    [self.qRScanView startScanAnimation];
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (!self.firstLoad) {
+        [self reStartDevice];
+    }
 }
 
 //绘制扫描区域
@@ -73,18 +97,17 @@
 
 - (void)reStartDevice
 {
+    [self refreshLandScape];
     [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
     
-    [_zxingObj start];
+    if (_zxingObj) {
+        _zxingObj.continuous = self.continuous;
+        _zxingObj.orientation = [self videoOrientation];
+        [_zxingObj start];
+    }
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    
-    self.cameraPreView.frame = self.view.bounds;
-    self.qRScanView.frame = self.view.bounds;
-}
+
 
 //启动设备
 - (void)startScan
@@ -92,23 +115,6 @@
     if (!self.cameraPreView) {
         
         CGRect frame = self.view.bounds;
-        
-        frame.size.width = 0;
-        frame.size.height = 0;
-        
-        CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        CGFloat height = [UIScreen mainScreen].bounds.size.height;
-        
-        if (  !(fabs(frame.size.width - width) <= 64 || fabs(frame.size.height - height) <= 64 ) ) {
-            
-            frame.size.width = width;
-            frame.size.height = height - 20;
-            
-            if (self.navigationController && !self.navigationController.navigationBarHidden ) {
-                
-                frame.size.height -= 44;
-            }
-        }
         
         UIView *videoView = [[UIView alloc]initWithFrame:frame];
         videoView.backgroundColor = [UIColor clearColor];
@@ -133,7 +139,16 @@
         }
     }
     _zxingObj.continuous = self.continuous;
+    _zxingObj.orientation = [self videoOrientation];
+    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
+
+#if TARGET_OS_SIMULATOR
+    
+#else
+
     [_zxingObj start];
+#endif
+    
     
     _zxingObj.onStarted = ^{
         
@@ -224,6 +239,54 @@
     [_zxingObj openOrCloseTorch];
 
     self.isOpenFlash =!self.isOpenFlash;
+}
+
+
+#pragma mark- 旋转
+- (void)refreshLandScape
+{
+    if ([self isLandScape]) {
+        
+        self.style.centerUpOffset = 20;
+        
+        CGFloat w = [UIScreen mainScreen].bounds.size.width;
+        CGFloat h = [UIScreen mainScreen].bounds.size.height;
+        
+        CGFloat max = MAX(w, h);
+        
+        CGFloat min = MIN(w, h);
+        
+        CGFloat scanRetangeH = min / 3;
+        
+        self.style.xScanRetangleOffset = max / 2 - scanRetangeH / 2;
+    }
+    else
+    {
+        self.style.centerUpOffset = 40;
+        self.style.xScanRetangleOffset = 60;
+    }
+    
+    self.qRScanView.viewStyle = self.style;
+    [self.qRScanView setNeedsDisplay];
+}
+
+
+- (void)statusBarOrientationChanged:(NSNotification*)notification
+{
+    [self refreshLandScape];
+    
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
+    if (_zxingObj) {
+        _zxingObj.orientation = [self videoOrientation];
+    }
+    
+    [self.qRScanView stopScanAnimation];
+    
+    [self.qRScanView startScanAnimation];
 }
 
 #pragma mark --打开相册并识别图片

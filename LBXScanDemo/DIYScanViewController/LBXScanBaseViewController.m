@@ -25,7 +25,40 @@
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.view.backgroundColor = [UIColor blackColor];
+
+#if TARGET_IPHONE_SIMULATOR
+  
+    self.view.backgroundColor = [UIColor whiteColor];
+#else
+   
+#endif
+    
+    
+    self.firstLoad = YES;
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationChanged:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
+    self.firstLoad  = NO;
+}
+
+- (void)statusBarOrientationChanged:(NSNotification*)notification
+{
+    
+}
+
 
 
 #pragma mark- 识别结果
@@ -458,5 +491,71 @@
   
 }
 
+
+- (BOOL)isLandScape
+{
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+
+    BOOL landScape = NO;
+    
+    
+    switch (orientation) {
+        case UIDeviceOrientationPortrait: {
+            landScape = NO;
+        }
+            break;
+        case UIDeviceOrientationLandscapeLeft: {
+            landScape = YES;
+        }
+            break;
+        case UIDeviceOrientationLandscapeRight: {
+            
+            landScape = YES;
+        }
+            break;
+        case UIDeviceOrientationPortraitUpsideDown: {
+            
+            landScape = NO;
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return landScape;
+    
+}
+
+- (AVCaptureVideoOrientation)videoOrientation
+{
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    
+    switch (orientation) {
+        case UIDeviceOrientationPortrait: {
+            return AVCaptureVideoOrientationPortrait;
+        }
+            break;
+        case UIDeviceOrientationLandscapeRight : {
+            return AVCaptureVideoOrientationLandscapeLeft;
+        }
+            break;
+        case UIDeviceOrientationLandscapeLeft: {
+            return AVCaptureVideoOrientationLandscapeRight;
+            
+        }
+            break;
+        case UIDeviceOrientationPortraitUpsideDown: {
+            return AVCaptureVideoOrientationPortraitUpsideDown;
+            
+        }
+            break;
+        default:
+            return AVCaptureVideoOrientationPortrait;
+            break;
+    }
+    
+    return AVCaptureVideoOrientationPortrait;
+}
 
 @end

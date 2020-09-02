@@ -38,15 +38,26 @@
  */
 @property (nonatomic, copy) NSString *cameraInvokeMsg;
 
+
+//相机预览
+@property (nonatomic, strong) UIView *cameraPreView;
+
 /**
  *  界面效果参数
  */
 @property (nonatomic, strong) LBXScanViewStyle *style;
 
+//default  AVCaptureVideoOrientationPortrait
+@property (nonatomic, assign) AVCaptureVideoOrientation  orientation;
+
 /**
  @brief  扫码区域视图,二维码一般都是框
  */
 @property (nonatomic,strong) LBXScanView* qRScanView;
+
+
+/// 首次加载
+@property (nonatomic, assign) BOOL firstLoad;
 
 //条码识别位置标示
 @property (nonatomic, strong) UIView *codeFlagView;
@@ -64,8 +75,7 @@
  */
 @property(nonatomic,assign)BOOL isOpenFlash;
 
-//相机预览
-@property (nonatomic, strong) UIView *cameraPreView;
+
 
 //继承者实现
 - (void)reStartDevice;
@@ -79,6 +89,12 @@
 
 - (void)requestCameraPemissionWithResult:(void(^)( BOOL granted))completion;
 + (void)authorizePhotoPermissionWithCompletion:(void(^)(BOOL granted,BOOL firstTime))completion;
+
+
+
+- (BOOL)isLandScape;
+
+- (AVCaptureVideoOrientation)videoOrientation;
 @end
 
 

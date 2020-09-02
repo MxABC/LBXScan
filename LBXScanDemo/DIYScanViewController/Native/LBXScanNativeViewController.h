@@ -36,9 +36,6 @@
 @property (nonatomic, strong) NSArray<NSString*> *listScanTypes;
 
 
-
-
-
 //打开相册
 - (void)openLocalPhoto:(BOOL)allowsEditing;
 

@@ -28,7 +28,9 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    self.title = @"native";
+    self.title = [NSString stringWithFormat:@"native 支持横竖屏切换 - %@",self.continuous ? @"连续扫码" : @"不连续扫码"];
+    
+    
     
     [self drawScanView];
     
@@ -51,13 +53,26 @@
     
     self.qRScanView.frame = rect;
     
+    self.cameraPreView.frame = self.view.bounds;
+    
+    if (_scanObj) {
+        [_scanObj setVideoLayerframe:self.cameraPreView.frame];
+    }
+    
+    [self.qRScanView stopScanAnimation];
+    
+    [self.qRScanView startScanAnimation];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-     [self reStartDevice];
+    if (!self.firstLoad) {
+        [self reStartDevice];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -67,17 +82,13 @@
     [self stopScan];
 
     [self.qRScanView stopScanAnimation];
-
 }
-
-
 
 //绘制扫描区域
 - (void)drawScanView
 {
     if (!self.qRScanView)
     {
-        
         self.qRScanView = [[LBXScanView alloc]initWithFrame:self.view.bounds style:self.style];
         
         [self.view insertSubview:self.qRScanView atIndex:1];
@@ -91,8 +102,11 @@
 
 - (void)reStartDevice
 {
+    [self refreshLandScape];
     
     [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
+    
+    _scanObj.orientation = [self videoOrientation];
     [_scanObj startScan];
 }
 
@@ -102,23 +116,6 @@
     if (!self.cameraPreView) {
         
         CGRect frame = self.view.bounds;
-        
-        frame.size.width = 0;
-        frame.size.height = 0;
-        
-        CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        CGFloat height = [UIScreen mainScreen].bounds.size.height;
-        
-        if (  !(fabs(frame.size.width - width) <= 64 || fabs(frame.size.height - height) <= 64 ) ) {
-            
-            frame.size.width = width;
-            frame.size.height = height - 20;
-            
-            if (self.navigationController && !self.navigationController.navigationBarHidden ) {
-                
-                frame.size.height -= 44;
-            }
-        }
         
         UIView *videoView = [[UIView alloc]initWithFrame:frame];
         videoView.backgroundColor = [UIColor clearColor];
@@ -160,8 +157,21 @@
         [weakSelf.qRScanView startScanAnimation];
     };
     
-    [_scanObj startScan];
+    //可动态修改
+    _scanObj.orientation = [self videoOrientation];
+    
+    
+    [self.qRScanView startDeviceReadyingWithText:self.cameraInvokeMsg];
 
+    
+#if TARGET_OS_SIMULATOR
+    
+#else
+     [_scanObj startScan];
+#endif
+    
+   
+    
     self.view.backgroundColor = [UIColor clearColor];
 }
 
@@ -189,6 +199,53 @@
     self.isOpenFlash =!self.isOpenFlash;
 }
 
+
+#pragma mark- 旋转
+- (void)refreshLandScape
+{
+    if ([self isLandScape]) {
+        
+        self.style.centerUpOffset = 20;
+        
+        CGFloat w = [UIScreen mainScreen].bounds.size.width;
+        CGFloat h = [UIScreen mainScreen].bounds.size.height;
+        
+        CGFloat max = MAX(w, h);
+        
+        CGFloat min = MIN(w, h);
+        
+        CGFloat scanRetangeH = min / 3;
+        
+        self.style.xScanRetangleOffset = max / 2 - scanRetangeH / 2;
+    }
+    else
+    {
+        self.style.centerUpOffset = 40;
+        self.style.xScanRetangleOffset = 60;
+    }
+    
+    self.qRScanView.viewStyle = self.style;
+    [self.qRScanView setNeedsDisplay];
+}
+
+
+- (void)statusBarOrientationChanged:(NSNotification*)notification
+{
+    [self refreshLandScape];
+    
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
+    if (_scanObj) {
+        _scanObj.orientation = [self videoOrientation];
+    }
+    
+    [self.qRScanView stopScanAnimation];
+    
+    [self.qRScanView startScanAnimation];
+}
 
 #pragma mark --打开相册并识别图片
 

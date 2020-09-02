@@ -42,6 +42,9 @@
 #pragma mark -非正方形，可以用在扫码条形码界面
 + (LBXScanViewStyle*)notSquare;
 
+
++ (AVCaptureVideoOrientation)videoOrientation;
+
 #pragma mark -ZXing码格式类型转native
 + (NSString*)convertZXBarcodeFormat:(ZXBarcodeFormat)barCodeFormat;
 
