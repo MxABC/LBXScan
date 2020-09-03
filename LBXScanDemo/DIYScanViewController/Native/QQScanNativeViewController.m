@@ -63,6 +63,34 @@
         _btnMyQR.bounds = _btnFlash.bounds;
         _btnMyQR.center = CGPointMake(CGRectGetWidth(_bottomItemsView.frame) * 3/4, CGRectGetHeight(_bottomItemsView.frame)/2);
     }
+    
+    
+    if (_zoomView) {
+        
+        CGRect frame = self.view.frame;
+        
+        int XRetangleLeft = self.style.xScanRetangleOffset;
+        
+        CGSize sizeRetangle = CGSizeMake(frame.size.width - XRetangleLeft*2, frame.size.width - XRetangleLeft*2);
+        
+        if (self.style.whRatio != 1)
+        {
+            CGFloat w = sizeRetangle.width;
+            CGFloat h = w / self.style.whRatio;
+            
+            NSInteger hInt = (NSInteger)h;
+            h  = hInt;
+            
+            sizeRetangle = CGSizeMake(w, h);
+        }
+        
+        //扫码区域Y轴最小坐标
+        CGFloat YMinRetangle = frame.size.height / 2.0 - sizeRetangle.height/2.0 - self.style.centerUpOffset;
+        CGFloat YMaxRetangle = YMinRetangle + sizeRetangle.height;
+        
+        CGFloat zoomw = sizeRetangle.width + 40;
+        _zoomView.frame = CGRectMake((CGRectGetWidth(self.view.frame)-zoomw)/2, YMaxRetangle + 40, zoomw, 18);
+    }
 }
 
 
@@ -112,11 +140,11 @@
 {
     if (_isVideoZoom) {
         self.maxVideoScale = maxScale;
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self zoomView];
-            });
-    
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self zoomView];
+        });
+        
     }
 }
 
@@ -125,7 +153,7 @@
 {
     if (!_zoomView)
     {
-      
+        
         CGRect frame = self.view.frame;
         
         int XRetangleLeft = self.style.xScanRetangleOffset;
@@ -155,26 +183,24 @@
         
         __weak __typeof(self) weakSelf = self;
         _zoomView.block= ^(float value)
-        {            
+        {
             [weakSelf.scanObj setVideoScale:value];
         };
         
         [self.view insertSubview:_zoomView atIndex:3];
-                
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
         [self.view addGestureRecognizer:tap];
     }
     
     return _zoomView;
-   
+    
 }
 
 - (void)tap
 {
     _zoomView.hidden = !_zoomView.hidden;
 }
-
-
 
 - (void)drawBottomItems
 {
@@ -186,58 +212,17 @@
     CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.frame)-164,
                               CGRectGetWidth(self.view.frame), 200);
     
-//    CGRect frame = CGRectMake(0, CGRectGetHeight(self.view.frame)-164,
-//                                            CGRectGetWidth(self.view.frame), 100);
-    
-    if ([self isLandScape]) {
         
-//        frame.origin.y += 64;
-    }
-    
-    
-    
-    
-    
     self.bottomItemsView = [[UIView alloc]initWithFrame:frame];
     
     _bottomItemsView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     
 #if TARGET_IPHONE_SIMULATOR
-    
     _bottomItemsView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
-
-    
 #endif
         
     [self.view insertSubview:_bottomItemsView atIndex:3];
     
-    
-    
-    UIView* hudView = [[UIView alloc]init];
-       
-       
-       UIView*  backView = [[UIView alloc]init];
-       [hudView addSubview:backView];
-    
-    
-//    self.view.translatesAutoresizingMaskIntoConstraints  =NO;
-//
-//    NSLayoutConstraint *htconstraintLeft =  [NSLayoutConstraint constraintWithItem:_bottomItemsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
-//    NSLayoutConstraint *htconstraintRight =  [NSLayoutConstraint constraintWithItem:_bottomItemsView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:0];
-//    NSLayoutConstraint *htconstraintBottom =  [NSLayoutConstraint constraintWithItem:_bottomItemsView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
-//
-//    NSLayoutConstraint *htconstraintH = [NSLayoutConstraint constraintWithItem:_bottomItemsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1 constant:100];
-//
-//
-//    [self.view addConstraint:htconstraintLeft];
-//    [self.view addConstraint:htconstraintRight];
-//    [self.view addConstraint:htconstraintBottom];
-//    [self.view addConstraint:htconstraintH];
-    
-    
-    
-    
-
     
     CGSize size = CGSizeMake(65, 87);
     self.btnFlash = [[UIButton alloc]init];
@@ -265,8 +250,6 @@
     [_bottomItemsView addSubview:_btnMyQR];   
     
 }
-
-
 
 #pragma mark -底部功能项
 //打开相册
@@ -306,8 +289,6 @@
     CreateBarCodeViewController *vc = [CreateBarCodeViewController new];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
-
 
 
 @end
