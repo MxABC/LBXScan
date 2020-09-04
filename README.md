@@ -25,6 +25,7 @@ QQ交流群: 522806629
 - 扫码界面效果封装
 - 二维码、条形码
 - 相册获取图片后识别
+- 系统API及ZXing支持界面动态横竖屏旋转
 
 ### 设置参数自定义效果
 
@@ -218,6 +219,10 @@ QQScanZBarViewController
 
 # 界面效果
 ![image](https://upload-images.jianshu.io/upload_images/4952852-e558da2ffb6c9fbe.gif?imageMogr2/auto-orient/strip)
+
+支持动态横竖屏
+
+![scanrotate.gif](https://upload-images.jianshu.io/upload_images/4952852-e859fcfd3f41bfc0.gif?imageMogr2/auto-orient/strip)
 
 # 打赏作者
 
