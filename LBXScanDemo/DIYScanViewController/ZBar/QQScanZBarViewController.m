@@ -85,13 +85,9 @@
     
     if (_bottomItemsView) {
         
-        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.frame)-164,
-                                  CGRectGetWidth(self.view.frame), 100);
-        
-        if ([self isLandScape]) {
-            
-            frame.origin.y += 64;
-        }
+       CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.bounds)-100,CGRectGetWidth(self.view.bounds), 100);
+
+      
         
         self.bottomItemsView.frame = frame;
         CGSize size = CGSizeMake(65, 87);
@@ -116,8 +112,10 @@
         return;
     }
     
-    self.bottomItemsView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame)-164,
-                                                                      CGRectGetWidth(self.view.frame), 100)];
+    
+    CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.bounds)-100,CGRectGetWidth(self.view.bounds), 100);
+
+    self.bottomItemsView = [[UIView alloc]initWithFrame:frame];
     _bottomItemsView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     
     [self.view addSubview:_bottomItemsView];

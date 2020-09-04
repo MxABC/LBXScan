@@ -36,9 +36,9 @@
     self.isNeedScanImage = YES;
 }
 
-- (void)viewWillLayoutSubviews
+- (void)viewDidLayoutSubviews
 {
-    [super viewWillLayoutSubviews];
+    [super viewDidLayoutSubviews];
     
     if (_topTitle) {
         
@@ -48,9 +48,9 @@
     
     if (_bottomItemsView) {
         
-        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.frame)-164,
-                                  CGRectGetWidth(self.view.frame), 100);
-                
+        CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.bounds)-100,
+                                  CGRectGetWidth(self.view.bounds), 100);
+      
         self.bottomItemsView.frame = frame;
         CGSize size = CGSizeMake(65, 87);
         
@@ -209,8 +209,8 @@
         return;
     }
     
-    CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.frame)-164,
-                              CGRectGetWidth(self.view.frame), 200);
+    CGRect frame = CGRectMake(0, CGRectGetMaxY(self.view.bounds)-100,
+                              CGRectGetWidth(self.view.bounds), 100);
     
         
     self.bottomItemsView = [[UIView alloc]initWithFrame:frame];
