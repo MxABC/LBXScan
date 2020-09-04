@@ -43,6 +43,11 @@ QQ交流群: 522806629
 - 微信扫码框效果
 
 ### 历史版本
+#### 2.5
+- 支持横竖屏(ZBar不支持)
+- 支持连续扫码
+
+
 #### 2.4
 - ZBarSDK 删除UIWebView，相机采集分辨率设置高分辨率[LBXZBarSDK](https://github.com/MxABC/LBXZBarSDK)
 - 当前库删除了ZBarSDK了依赖，需要ZBAR的，可单独一行pod
@@ -70,14 +75,14 @@ QQ交流群: 522806629
 - 安装所有库包括UI(不包含ZBar) 
 
 ```ruby
- pod 'LBXScan', '~> 2.4'
+ pod 'LBXScan', '~> 2.5'
 ```
 建议按下面这样分组写，安装好后按文件夹分组，否则所有文件在一个文件夹里，很乱
 
 ```ruby
-pod 'LBXScan/LBXNative','~> 2.4'
-pod 'LBXScan/LBXZXing','~> 2.4'
-pod 'LBXScan/UI','~> 2.4'
+pod 'LBXScan/LBXNative','~> 2.5'
+pod 'LBXScan/LBXZXing','~> 2.5'
+pod 'LBXScan/UI','~> 2.5'
 ```
 
 需要ZBar支持的
@@ -89,13 +94,13 @@ pod 'LBXZBarSDK','~> 1.3'
 - 只安装系统原生API封装库  
 
 ```ruby
-pod 'LBXScan/LBXNative','~> 2.4'
+pod 'LBXScan/LBXNative','~> 2.5'
 ```
 
 - 只安装ZXing封装库 
 
 ```ruby
-pod 'LBXScan/LBXZXing','~> 2.4'
+pod 'LBXScan/LBXZXing','~> 2.5'
 ```
 
 - 只安装ZBar封装库 
@@ -107,7 +112,7 @@ pod 'LBXZBarSDK','~> 1.3'
 - 只安装UI
 
 ```ruby
-pod 'LBXScan/UI','~> 2.3'
+pod 'LBXScan/UI','~> 2.5'
 ```
 - 安装任意组合
 
