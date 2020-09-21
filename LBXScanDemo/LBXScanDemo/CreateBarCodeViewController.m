@@ -37,7 +37,7 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    NSLog(@"提交3");
     [self showSetttingButton];
 }
 
