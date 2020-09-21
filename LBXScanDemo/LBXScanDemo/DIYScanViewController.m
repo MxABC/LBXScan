@@ -66,7 +66,7 @@
         
         strResult = @"识别失败";
     }
-    
+    NSLog(@"提交2");
     __weak __typeof(self) weakSelf = self;
     [LBXAlertAction showAlertWithTitle:@"扫码内容" msg:strResult buttonsStatement:@[@"知道了"] chooseBlock:^(NSInteger buttonIdx) {
         
