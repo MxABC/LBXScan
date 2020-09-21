@@ -44,7 +44,7 @@
     
     style.notRecoginitonArea = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 
-    
+    NSLog(@"提交1");
     return style;
 }
 
