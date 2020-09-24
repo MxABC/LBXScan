@@ -74,6 +74,7 @@
     [view addSubview:_qrImgView];
     self.qrView = view;
     
+    NSLog(@"设置条形码和二维码同时可扫描");
     
     //条形码
     self.tView = [[UIView alloc]initWithFrame:CGRectMake( (CGRectGetWidth(self.view.frame)-CGRectGetWidth(self.view.frame)*5/6)/2,
