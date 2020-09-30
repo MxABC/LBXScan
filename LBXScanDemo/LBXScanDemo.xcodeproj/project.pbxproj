@@ -32,17 +32,10 @@
 		738C86A81EA7688300689E04 /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 738C86A71EA7688300689E04 /* libz.1.1.3.tbd */; };
 		739FD57C1E8F540C007D75D3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 739FD57B1E8F540C007D75D3 /* SettingViewController.m */; };
 		73A69FFB1EED39DA00378E1E /* QQLBXScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A69FFA1EED39DA00378E1E /* QQLBXScanViewController.m */; };
-		77576EC51FEF741F00578A6B /* LBXPermissionMicrophone.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EAF1FEF741E00578A6B /* LBXPermissionMicrophone.m */; };
-		77576EC61FEF741F00578A6B /* LBXPermissionNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EB01FEF741E00578A6B /* LBXPermissionNetwork.m */; };
-		77576EC71FEF741F00578A6B /* LBXPermissionCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EB11FEF741E00578A6B /* LBXPermissionCalendar.m */; };
-		77576EC81FEF741F00578A6B /* LBXPermissionReminders.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EB61FEF741E00578A6B /* LBXPermissionReminders.m */; };
-		77576EC91FEF741F00578A6B /* LBXPermissionHealth.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EB71FEF741E00578A6B /* LBXPermissionHealth.m */; };
 		77576ECA1FEF741F00578A6B /* LBXPermissionSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EB81FEF741E00578A6B /* LBXPermissionSetting.m */; };
-		77576ECB1FEF741F00578A6B /* LBXPermissionPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EB91FEF741E00578A6B /* LBXPermissionPhotos.m */; };
-		77576ECC1FEF741F00578A6B /* LBXPermissionLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EBD1FEF741E00578A6B /* LBXPermissionLocation.m */; };
-		77576ECD1FEF741F00578A6B /* LBXPermissionContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EBE1FEF741E00578A6B /* LBXPermissionContacts.m */; };
 		77576ECE1FEF741F00578A6B /* LBXPermissionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EBF1FEF741E00578A6B /* LBXPermissionCamera.m */; };
 		77576ECF1FEF741F00578A6B /* LBXPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = 77576EC01FEF741E00578A6B /* LBXPermission.m */; };
+		8D06C00822446BDC002DE116 /* LBXPermissionPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D06C00722446BDC002DE116 /* LBXPermissionPhotos.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,28 +87,14 @@
 		739FD57D1E8F58D2007D75D3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		73A69FF91EED39DA00378E1E /* QQLBXScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQLBXScanViewController.h; sourceTree = "<group>"; };
 		73A69FFA1EED39DA00378E1E /* QQLBXScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQLBXScanViewController.m; sourceTree = "<group>"; };
-		77576EAF1FEF741E00578A6B /* LBXPermissionMicrophone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionMicrophone.m; sourceTree = "<group>"; };
-		77576EB01FEF741E00578A6B /* LBXPermissionNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionNetwork.m; sourceTree = "<group>"; };
-		77576EB11FEF741E00578A6B /* LBXPermissionCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionCalendar.m; sourceTree = "<group>"; };
-		77576EB21FEF741E00578A6B /* LBXPermissionLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionLocation.h; sourceTree = "<group>"; };
 		77576EB31FEF741E00578A6B /* LBXPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermission.h; sourceTree = "<group>"; };
 		77576EB41FEF741E00578A6B /* LBXPermissionCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionCamera.h; sourceTree = "<group>"; };
-		77576EB51FEF741E00578A6B /* LBXPermissionContacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionContacts.h; sourceTree = "<group>"; };
-		77576EB61FEF741E00578A6B /* LBXPermissionReminders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionReminders.m; sourceTree = "<group>"; };
-		77576EB71FEF741E00578A6B /* LBXPermissionHealth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionHealth.m; sourceTree = "<group>"; };
 		77576EB81FEF741E00578A6B /* LBXPermissionSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionSetting.m; sourceTree = "<group>"; };
-		77576EB91FEF741E00578A6B /* LBXPermissionPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionPhotos.m; sourceTree = "<group>"; };
-		77576EBA1FEF741E00578A6B /* LBXPermissionCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionCalendar.h; sourceTree = "<group>"; };
-		77576EBB1FEF741E00578A6B /* LBXPermissionNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionNetwork.h; sourceTree = "<group>"; };
-		77576EBC1FEF741E00578A6B /* LBXPermissionMicrophone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionMicrophone.h; sourceTree = "<group>"; };
-		77576EBD1FEF741E00578A6B /* LBXPermissionLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionLocation.m; sourceTree = "<group>"; };
-		77576EBE1FEF741E00578A6B /* LBXPermissionContacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionContacts.m; sourceTree = "<group>"; };
 		77576EBF1FEF741E00578A6B /* LBXPermissionCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionCamera.m; sourceTree = "<group>"; };
 		77576EC01FEF741E00578A6B /* LBXPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermission.m; sourceTree = "<group>"; };
-		77576EC11FEF741E00578A6B /* LBXPermissionPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionPhotos.h; sourceTree = "<group>"; };
 		77576EC21FEF741E00578A6B /* LBXPermissionSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionSetting.h; sourceTree = "<group>"; };
-		77576EC31FEF741E00578A6B /* LBXPermissionHealth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionHealth.h; sourceTree = "<group>"; };
-		77576EC41FEF741E00578A6B /* LBXPermissionReminders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionReminders.h; sourceTree = "<group>"; };
+		8D06C00622446BDC002DE116 /* LBXPermissionPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXPermissionPhotos.h; sourceTree = "<group>"; };
+		8D06C00722446BDC002DE116 /* LBXPermissionPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXPermissionPhotos.m; sourceTree = "<group>"; };
 		BC33DB177441D59AF65AC025 /* Pods-LBXScanDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBXScanDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,24 +228,10 @@
 			children = (
 				77576EB31FEF741E00578A6B /* LBXPermission.h */,
 				77576EC01FEF741E00578A6B /* LBXPermission.m */,
+				8D06C00622446BDC002DE116 /* LBXPermissionPhotos.h */,
+				8D06C00722446BDC002DE116 /* LBXPermissionPhotos.m */,
 				77576EB41FEF741E00578A6B /* LBXPermissionCamera.h */,
 				77576EBF1FEF741E00578A6B /* LBXPermissionCamera.m */,
-				77576EC11FEF741E00578A6B /* LBXPermissionPhotos.h */,
-				77576EB91FEF741E00578A6B /* LBXPermissionPhotos.m */,
-				77576EBA1FEF741E00578A6B /* LBXPermissionCalendar.h */,
-				77576EB11FEF741E00578A6B /* LBXPermissionCalendar.m */,
-				77576EB51FEF741E00578A6B /* LBXPermissionContacts.h */,
-				77576EBE1FEF741E00578A6B /* LBXPermissionContacts.m */,
-				77576EC31FEF741E00578A6B /* LBXPermissionHealth.h */,
-				77576EB71FEF741E00578A6B /* LBXPermissionHealth.m */,
-				77576EB21FEF741E00578A6B /* LBXPermissionLocation.h */,
-				77576EBD1FEF741E00578A6B /* LBXPermissionLocation.m */,
-				77576EBC1FEF741E00578A6B /* LBXPermissionMicrophone.h */,
-				77576EAF1FEF741E00578A6B /* LBXPermissionMicrophone.m */,
-				77576EBB1FEF741E00578A6B /* LBXPermissionNetwork.h */,
-				77576EB01FEF741E00578A6B /* LBXPermissionNetwork.m */,
-				77576EC41FEF741E00578A6B /* LBXPermissionReminders.h */,
-				77576EB61FEF741E00578A6B /* LBXPermissionReminders.m */,
 				77576EC21FEF741E00578A6B /* LBXPermissionSetting.h */,
 				77576EB81FEF741E00578A6B /* LBXPermissionSetting.m */,
 			);
@@ -293,7 +258,6 @@
 				73584FA91E1CD62300ED6A60 /* Sources */,
 				73584FAA1E1CD62300ED6A60 /* Frameworks */,
 				73584FAB1E1CD62300ED6A60 /* Resources */,
-				EA0B58774EEEEB154BE63E6B /* [CP] Embed Pods Frameworks */,
 				BB466349CC557DB90EC39CC6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -326,8 +290,10 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 73584FA41E1CD62300ED6A60;
 			productRefGroup = 73584FAE1E1CD62300ED6A60 /* Products */;
@@ -369,7 +335,11 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zbar-back.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zbar-help.html",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zbar-helpicons.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zbar-samples.png",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -394,21 +364,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EA0B58774EEEEB154BE63E6B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LBXScanDemo/Pods-LBXScanDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -418,24 +373,17 @@
 			files = (
 				735850111E1CFA5800ED6A60 /* ScanResultViewController.m in Sources */,
 				735461991E1E44B900F9F7FC /* UIImageView+CornerRadius.m in Sources */,
-				77576EC61FEF741F00578A6B /* LBXPermissionNetwork.m in Sources */,
 				734E165E1E237B2F00120818 /* README.md in Sources */,
 				73584FB51E1CD62300ED6A60 /* AppDelegate.m in Sources */,
-				77576ECD1FEF741F00578A6B /* LBXPermissionContacts.m in Sources */,
-				77576ECB1FEF741F00578A6B /* LBXPermissionPhotos.m in Sources */,
-				77576ECC1FEF741F00578A6B /* LBXPermissionLocation.m in Sources */,
 				733CF2F81EE570F300AD1DC7 /* DIYScanViewController.m in Sources */,
-				77576EC51FEF741F00578A6B /* LBXPermissionMicrophone.m in Sources */,
 				73584FFB1E1CEE5000ED6A60 /* Global.m in Sources */,
 				7354618D1E1E402600F9F7FC /* CreateBarCodeViewController.m in Sources */,
 				77576ECE1FEF741F00578A6B /* LBXPermissionCamera.m in Sources */,
 				73584FF41E1CE4B900ED6A60 /* UIWindow+LBXHierarchy.m in Sources */,
 				73A69FFB1EED39DA00378E1E /* QQLBXScanViewController.m in Sources */,
-				77576EC71FEF741F00578A6B /* LBXPermissionCalendar.m in Sources */,
 				73584FF21E1CE4B900ED6A60 /* UIAlertController+supportedInterfaceOrientations.m in Sources */,
-				77576EC91FEF741F00578A6B /* LBXPermissionHealth.m in Sources */,
+				8D06C00822446BDC002DE116 /* LBXPermissionPhotos.m in Sources */,
 				77576ECA1FEF741F00578A6B /* LBXPermissionSetting.m in Sources */,
-				77576EC81FEF741F00578A6B /* LBXPermissionReminders.m in Sources */,
 				73584FF51E1CE4B900ED6A60 /* LBXAlertAction.m in Sources */,
 				77576ECF1FEF741F00578A6B /* LBXPermission.m in Sources */,
 				73584FF11E1CE4B900ED6A60 /* UIActionSheet+LBXAlertAction.m in Sources */,
@@ -571,7 +519,7 @@
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.test2018;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -596,7 +544,7 @@
 					"$(inherited)",
 					"\"../LBXScan/LBXZBar/ZBarSDK\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.test2018;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lbx.hk2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

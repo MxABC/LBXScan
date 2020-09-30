@@ -177,11 +177,12 @@
 }
 
 - (void)setTorch:(BOOL)torch {
-  _torch = torch;
-
-  [self.input.device lockForConfiguration:nil];
-  self.input.device.torchMode = self.torch ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
-  [self.input.device unlockForConfiguration];
+    _torch = torch;
+    if ([self.input.device hasTorch]) {
+        [self.input.device lockForConfiguration:nil];
+        self.input.device.torchMode = self.torch ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
+        [self.input.device unlockForConfiguration];
+    }
 }
 
 - (void)changeTorch

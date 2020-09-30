@@ -7,13 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Photos/Photos.h>
+
 
 @interface LBXPermissionPhotos : NSObject
 
 + (BOOL)authorized;
 
-+ (PHAuthorizationStatus)authorizationStatus;
+/**
+ photo permission status
+ 
+ @return
+ 0 :NotDetermined
+ 1 :Restricted
+ 2 :Denied
+ 3 :Authorized
+ */
++ (NSInteger)authorizationStatus;
 
 + (void)authorizeWithCompletion:(void(^)(BOOL granted,BOOL firstTime))completion;
 
