@@ -39,5 +39,14 @@
     return self;
 }
 
++ (NSString*)imagePathWithName:(NSString*)name
+{
+    NSString *bundlePath = [[NSBundle bundleForClass:self.class] pathForResource:@"CodeScan" ofType:@"bundle"];
+    
+    NSString* path = [NSString stringWithFormat:@"%@/%@",bundlePath, name];
+
+    return path;
+}
+
 @end
 

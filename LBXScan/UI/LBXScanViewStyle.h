@@ -109,6 +109,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *notRecoginitonArea;
 
 
+/// 生成路径
+/// @param name CodeScan.bundle内的文件名称
++ (NSString*)imagePathWithName:(NSString*)name;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
