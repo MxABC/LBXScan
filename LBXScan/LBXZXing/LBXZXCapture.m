@@ -201,6 +201,7 @@
             break;
     }
     
+    if (![self.input.device isTorchModeSupported:torch]) torch = AVCaptureTorchModeAuto;
     
     [self.input.device lockForConfiguration:nil];
     self.input.device.torchMode = torch;
