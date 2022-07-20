@@ -126,6 +126,19 @@
     
     AVCaptureVideoPreviewLayer * preview = (AVCaptureVideoPreviewLayer*)self.capture.layer;
        preview.connection.videoOrientation = self.orientation;
+    
+    switch (self.orientation) {
+        case AVCaptureVideoOrientationPortrait:
+        case AVCaptureVideoOrientationPortraitUpsideDown:
+            self.capture.rotation = 90.0f;
+            break;
+        case AVCaptureVideoOrientationLandscapeLeft:
+        case AVCaptureVideoOrientationLandscapeRight:
+            self.capture.rotation = 0.0f;
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)setVideoLayerframe:(CGRect)videoLayerframe
