@@ -69,5 +69,4 @@
 
 //+ (ZXResult *)regocnizeImage:(UIImage*)image;
 
-
 @end
